@@ -1,0 +1,4 @@
+/*
+ * ragebot.h
+ */
+#pragma once

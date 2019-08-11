@@ -1,0 +1,4 @@
+/*
+ * legitbot.h
+ */
+#pragma once

@@ -100,6 +100,14 @@ void* get_module_header(const std::string& module)
     }
 }
 
+uintptr_t get_abs_addr(uintptr_t addr, uintptr_t ptr, uintptr_t start_offset, uintptr_t size)
+{
+    uintptr_t sig_addr = ptr + start_offset;
+    uintptr_t file_offset = sig_addr - addr;
+    uintptr_t offset = *reinterpret_cast<uint32_t*>(sig_addr);
+    return addr + (offset + file_offset) + size;
+}
+
 /*
  *
  *  Apply the hook
@@ -108,8 +116,7 @@ void open_gl_hook()
 {
     uintptr_t swap_window_func  = (uintptr_t)dlsym(RTLD_DEFAULT, "SDL_GL_SwapWindow");
     uintptr_t sdl_lib           = (uintptr_t)get_module_header("libSDL2-2.0.0.dylib");
-    swap_window                 = (uintptr_t*)g_memory->get_absolue_address(sdl_lib, swap_window_func, 0xF, 0x4);
+    swap_window                 = (uintptr_t*)get_abs_addr(sdl_lib, swap_window_func, 0xF, 0x4);
     orig_swap_window            = *swap_window;
-    
-    *swap_window                 = (uintptr_t)&swap_window_hook;
+    *swap_window                = (uintptr_t)&swap_window_hook;
 }

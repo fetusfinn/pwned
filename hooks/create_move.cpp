@@ -32,5 +32,17 @@ bool create_move_hook(void* thisptr, float sample, user_cmd_t* cmd)
     }
     
     
+    if(global::send_packet)
+    {
+        if(*global::send_packet)
+        {
+            global::choked++;
+        }
+        else
+        {
+            global::choked = 0;
+        }
+    }
+    
     return ret;
 }

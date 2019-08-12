@@ -7,9 +7,10 @@
 namespace global
 {
     bool*       send_packet;
-    player_t*   local;
-    // weapon_t* wepaon;
     user_cmd_t* cmd;
+    player_t*   local;
+    weapon_t*   wepaon;
+    int         choked;
 }
 
 settings_t  set;
@@ -29,6 +30,7 @@ game_event_manager2_t*  g_game_events;
 model_render_t*     g_model_render;
 model_info_t*       g_model_info;
 material_system_t*  g_mat_system;
+client_state_t*     g_client_state;
 
 random_int_fn       random_int_func;
 random_seed_fn      random_seed_func;

@@ -18,13 +18,10 @@ std::vector<hitmarker_t> g_damages = {};
 
 void visuals_t::draw_hitmarkers()
 {
-    if (!set.visuals.other.hitmarkers.at(0) && !set.visuals.other.hitmarkers.at(2))
+    if(!set.visuals.other.hitmarkers.at(0) && !set.visuals.other.hitmarkers.at(2))
         return;
     
-    if (!g_engine->is_in_game())
-        return;
-    
-    if (!global::local || !global::local->is_alive())
+    if(!global::local || !global::local->is_alive())
         return;
     
     int duration = 1500;
@@ -32,7 +29,7 @@ void visuals_t::draw_hitmarkers()
     
     long diff = last_time_stamp + duration - now;
     
-    if (diff <= 0)
+    if(diff <= 0)
         return;
     
     color_t color = color_t::white;
@@ -45,13 +42,14 @@ void visuals_t::draw_hitmarkers()
     // const int size = 10;
     // const int gap  = 4;
     
-    if(set.visuals.other.hitmarkers.at(2))
+    if(set.visuals.other.hitmarkers.at(0))
     {
         for (auto& it : sides)
             g_render->draw_line(set.screen.w/2+(4*it[0]), set.screen.h/2+(4*it[1]), set.screen.w/2+(10*it[0]), set.screen.h/2+(10*it[1]),color);
     }
     
-    if (!set.visuals.other.hitmarkers.at(2))
+    // should we draw damages?
+    if(!set.visuals.other.hitmarkers.at(2))
         return;
     
     float text_height = g_render->get_text_size(renderer_t::verdana12, "[pwned]]").y;

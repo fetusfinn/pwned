@@ -166,6 +166,11 @@
 		B6E823AF22FF85130016E123 /* chams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = chams.h; path = features/chams.h; sourceTree = "<group>"; };
 		B6E823B022FF85130016E123 /* chams.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = chams.cpp; path = features/chams.cpp; sourceTree = "<group>"; };
 		B6E832A122D5DB0200B40D5A /* cheat.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = cheat.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6F06FF32300D02A003350C4 /* render_view.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = render_view.h; path = sdk/render_view.h; sourceTree = "<group>"; };
+		B6F06FF42300D076003350C4 /* client_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = client_state.h; path = sdk/client_state.h; sourceTree = "<group>"; };
+		B6F06FF52300D0ED003350C4 /* sdl_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sdl_manager.h; path = sdk/sdl_manager.h; sourceTree = "<group>"; };
+		B6F06FF62300D10E003350C4 /* game_rules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = game_rules.h; path = sdk/game_rules.h; sourceTree = "<group>"; };
+		B6F06FF72300D1E1003350C4 /* glow_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = glow_manager.h; path = sdk/glow_manager.h; sourceTree = "<group>"; };
 		B6F948F522FE9781007C05F7 /* model_render.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = model_render.h; path = sdk/model_render.h; sourceTree = "<group>"; };
 		B6F948F622FE9951007C05F7 /* model_info.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = model_info.h; path = sdk/model_info.h; sourceTree = "<group>"; };
 		B6F948F722FE9966007C05F7 /* material_system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = material_system.h; path = sdk/material_system.h; sourceTree = "<group>"; };
@@ -308,6 +313,11 @@
 				B6F948F522FE9781007C05F7 /* model_render.h */,
 				B6F948F622FE9951007C05F7 /* model_info.h */,
 				B6F948F722FE9966007C05F7 /* material_system.h */,
+				B6F06FF42300D076003350C4 /* client_state.h */,
+				B6F06FF32300D02A003350C4 /* render_view.h */,
+				B6F06FF52300D0ED003350C4 /* sdl_manager.h */,
+				B6F06FF62300D10E003350C4 /* game_rules.h */,
+				B6F06FF72300D1E1003350C4 /* glow_manager.h */,
 				B61C81D622FADCBA005BEF4C /* user_cmd.h */,
 				B6F948F922FE9A75007C05F7 /* material.h */,
 				B68855B322F69CD7004092BC /* anim_state.h */,

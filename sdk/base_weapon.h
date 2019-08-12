@@ -7,7 +7,11 @@ class base_weapon_t : public base_entity_t
 {
 public:
     
-    
+    weapon_info_t* get_weapon_info()
+    {
+        // todo
+        return nullptr;
+    }
     
 };
 

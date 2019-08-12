@@ -140,10 +140,7 @@ uintptr_t memory_manager_t::get_base_address(string imageName)
     return module.address;
 }
 
-uintptr_t memory_manager_t::get_absolue_address(uintptr_t addr, uintptr_t ptr, uintptr_t start_offset, uintptr_t size)
+uintptr_t memory_manager_t::get_absolue_address(uintptr_t ptr, uintptr_t start_offset, uintptr_t size)
 {
-    uintptr_t sig_addr = ptr + start_offset;
-    uintptr_t file_offset = sig_addr - addr;
-    uintptr_t offset = *(uint32_t*)(sig_addr);
-    return addr + (offset + file_offset) + size;
+    return ptr + *reinterpret_cast<uint32_t*>(ptr + start_offset) + size;
 }

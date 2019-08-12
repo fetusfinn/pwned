@@ -21,3 +21,6 @@ void cheat_start();
 #define SIG_SENDPACKET (u_char*)"\x41\xB5\x00\x84\xC0\x74\x11"
 #define MSK_SENDPACKET "xx?xxxx"
 
+#define SIG_GAMERULES // PatternScanner->GetPointer("client_panorama.dylib", "49 89 FE 48 8D 05 ? ? ? ? 48 8B 38 48 8B 07", 0x6) + 0x4
+
+#define SIG_SDL_MANAGER // PatternScanner->GetProcedure("launcher.dylib", "53 48 8B 1D ? ? ? ? 48 85 DB 75 1C") - 0x6

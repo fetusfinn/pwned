@@ -32,4 +32,6 @@ void offsets_t::init()
     g_offsets.planted_c4.m_bomb_defused = g_netvar.get_offset(table_name, "m_bBombDefused");
     g_offsets.planted_c4.m_bomb_defuser = g_netvar.get_offset(table_name, "m_hBombDefuser");
     g_offsets.planted_c4.m_defuse_count_down = g_netvar.get_offset(table_name, "m_flDefuseCountDown");
+    
+    table_name = "DT_CSGameRulesProxy";
 }

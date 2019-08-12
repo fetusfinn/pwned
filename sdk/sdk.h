@@ -41,6 +41,12 @@
 #include "model_render.h"
 #include "model_info.h"
 #include "material_system.h"
+#include "client_state.h"
+// todo
+#include "render_view.h"
+#include "sdl_manager.h"
+#include "game_rules.h"
+#include "glow_manager.h"
 // todo : interfaces
 #include "user_cmd.h"
 #include "material.h"

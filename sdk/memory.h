@@ -34,7 +34,7 @@ public:
     uintptr_t get_pointer(string name, unsigned char* sig, const char* mask, uint32_t start);
     uintptr_t get_procedure(string name, unsigned char* sig, const char* mask, uintptr_t offset = 0x0);
     uintptr_t get_base_address(string name);
-    uintptr_t get_absolue_address(uintptr_t addr, uintptr_t ptr, uintptr_t start_offset, uintptr_t size);
+    uintptr_t get_absolue_address(uintptr_t ptr, uintptr_t start_offset, uintptr_t size);
     
     void load_modules();
 };

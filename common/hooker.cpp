@@ -56,14 +56,21 @@ static void init_hooks()
     uintptr_t global_vars_ptr   = g_memory->get_pointer("client_panorama.dylib", SIG_GLOBALVARS, MSK_GLOBALVARS, 0x3) + 0x4;
     uintptr_t client_mode_ptr   = g_memory->get_pointer("client_panorama.dylib", SIG_CLIENTMODE, MSK_CLIENTMODE, 0xA) + 0x4;
     
+    // uintptr_t hud_process_input_ptr = (uintptr_t)getvtable(g_client)[10];
+    uintptr_t get_local_client_ptr  = (uintptr_t)getvtable(g_engine)[12];
+    
     void* handle            = dlopen("./csgo/bin/osx64/client_panorama.dylib", RTLD_NOLOAD | RTLD_NOW);
     random_int_func         = reinterpret_cast<random_int_fn>       (dlsym(handle, "RandomInt"));
     random_seed_func        = reinterpret_cast<random_seed_fn>      (dlsym(handle, "RandomSeed"));
     random_float_func       = reinterpret_cast<random_float_fn>     (dlsym(handle, "RandomFloat"));
     dlclose(handle);
     
+    get_local_client_fn get_local_client_func = (get_local_client_fn)g_memory->get_absolue_address(get_local_client_ptr + 0x9, 0x1, 0x5);
+    
     g_globals       = *(global_vars_t**)(global_vars_ptr);
     g_client_mode   =  (client_mode_t*)(client_mode_ptr);
+    g_client_state  =  get_local_client_func(-1);
+    // g_client_mode   =  (client_mode_t*)(g_memory->get_absolue_address(hud_process_input_ptr + 0x8, 0x1, 0x5));
     
     panel_vmt   = new vmt_t(g_panel);
     surface_vmt = new vmt_t(g_surface);

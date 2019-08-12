@@ -6,8 +6,10 @@
 namespace global
 {
     extern bool*        send_packet;
-    extern player_t*    local;
     extern user_cmd_t*  cmd;
+    extern player_t*    local;
+    extern weapon_t*    weapon;
+    extern int          choked; // number of choked ticks
 }
 
 /*
@@ -35,6 +37,7 @@ extern game_event_manager2_t*   g_game_events;
 extern model_render_t*      g_model_render;
 extern model_info_t*        g_model_info;
 extern material_system_t*   g_mat_system;
+extern client_state_t*      g_client_state;
 
 /*
  *  functions

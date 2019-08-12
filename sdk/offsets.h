@@ -72,6 +72,13 @@ struct offsets_t
     {
         
     }base_cs_grenade;
+    
+    
+    struct
+    {
+        // todo
+        // DT_CSGameRulesProxy
+    }game_rules;
 };
 
 extern offsets_t g_offsets;

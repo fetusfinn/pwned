@@ -6,6 +6,7 @@
 bool world_to_screen(vec3_t& in, vec3_t& out);
 player_box_t get_player_box(base_entity_t* entity);
 
+float util_curtime_fixed();
 
 
 template<class T>

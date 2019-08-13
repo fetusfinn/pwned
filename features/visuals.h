@@ -9,12 +9,6 @@ private:
     
     vector<float> m_player_alpha;
     
-private:
-    
-    void draw_esp_box(player_box_t box, color_t color);
-    void draw_heath_bar(player_box_t box, int value, color_t color);
-    void draw_bottom_bar(player_box_t box, int value, int max, color_t color);
-    
 public:
     
     visuals_t()
@@ -27,6 +21,8 @@ public:
     
     void draw_hitmarkers();
     
+    void remove_flash();
+    void remove_smoke();
 };
 
 extern visuals_t* g_visuals;

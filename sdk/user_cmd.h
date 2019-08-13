@@ -14,7 +14,7 @@ struct user_cmd_t
     float       m_side_move;
     float       m_up_move;
     int         m_buttons;
-    u_char      m_impulse;
+    byte        m_impulse;
     int         m_weapon_select;
     int         m_weapon_subtype;
     int         m_random_seed;

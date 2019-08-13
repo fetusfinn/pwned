@@ -4,6 +4,7 @@
  */
 #include "common.h"
 
+// in_keyevent
 int key_event_hook(void* thisptr, int event_code, int key_code, const char* cur_binding)
 {
     print_hook();

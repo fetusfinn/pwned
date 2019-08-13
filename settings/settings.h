@@ -46,7 +46,11 @@ struct settings_t
         struct
         {
             std::vector<bool> hitmarkers; // crosshair, sound, damage
-            bool bomb_timer = false;;
+            bool    bomb_timer  = false;
+            
+            // removals
+            float 	flash_alpha = 0.f;
+            bool    remove_smoke= false;
         }other;
     }visuals;
     
@@ -62,4 +66,14 @@ struct settings_t
             color_t players = color_t::white;
         }chams;
     }colors;
+    
+    struct
+    {
+        int  fov = 0;
+        
+        bool thirdperson = false;
+        
+        bool remove_view_punch  = false;
+        bool remove_aim_punch   = false;
+    }misc;
 };

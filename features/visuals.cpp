@@ -12,7 +12,7 @@ visuals_t* g_visuals = new visuals_t;
  *
  *
  */
-void visuals_t::draw_esp_box(player_box_t box, color_t color)
+static void draw_esp_box(player_box_t box, color_t color)
 {
     g_render->draw_box(box.x - 1, box.y - 1, box.w + 2, box.h + 2, color_t::black);
     g_render->draw_box(box.x + 1, box.y + 1, box.w - 2, box.h - 2, color_t::black);
@@ -23,7 +23,7 @@ void visuals_t::draw_esp_box(player_box_t box, color_t color)
  *  draw_health_bar
  *
  */
-void visuals_t::draw_heath_bar(player_box_t box, int value, color_t color)
+static void draw_heath_bar(player_box_t box, int value, color_t color)
 {
     value = util_clamp(value, 0, 100);
     
@@ -38,7 +38,7 @@ void visuals_t::draw_heath_bar(player_box_t box, int value, color_t color)
  *
  *
  */
-void visuals_t::draw_bottom_bar(player_box_t box, int value, int max, color_t color)
+static void draw_bottom_bar(player_box_t box, int value, int max, color_t color)
 {
     value = util_clamp(value, 0, max);
     
@@ -49,13 +49,15 @@ void visuals_t::draw_bottom_bar(player_box_t box, int value, int max, color_t co
     g_render->draw_box(box.x, box.y + box.h + 2, box.w + 2, 3, color_t(0, 0, 0, 200));
 }
 
+
+
 /*
  *
  *
  */
 static void draw_offscreen(player_t* player)
 {
-    
+    // todo
 }
 
 /*
@@ -122,6 +124,71 @@ static void draw_bomb_timer(planted_c4_t* bomb)
                 g_render->draw_string(screenx - _ts.x / 2, screeny - _ts.y / 2 - 15 + 60, renderer_t::verdana12, cant_defuse,color_t(255,48,79,110));
             }
         }
+    }
+}
+
+/*
+ *
+ *
+ */
+void visuals_t::remove_flash()
+{
+    // todo : if !alive then get the player we spectating
+    if(!global::local || !global::local->is_alive())
+        return;
+    
+    static float last_val = set.visuals.other.flash_alpha;
+    
+    // only do all this when the value has been changed
+    if(last_val != set.visuals.other.flash_alpha)
+    {
+        float step = 255.f / 100.f;
+        float alpha = (float)set.visuals.other.flash_alpha * step;
+        
+        *global::local->get_flash_alpha() = alpha;
+        
+        last_val = set.visuals.other.flash_alpha;
+    }
+}
+
+/*
+ *
+ *  Changes to wireframe
+ */
+void visuals_t::remove_smoke()
+{
+    static const std::vector<const char*> smoke_mats =
+    {
+        "particle/vistasmokev1/vistasmokev1_fire",
+        "particle/vistasmokev1/vistasmokev1_smokegrenade",
+        "particle/vistasmokev1/vistasmokev1_emods",
+        "particle/vistasmokev1/vistasmokev1_emods_impactdust",
+    };
+
+    // FRAME_NET_UPDATE_POSTDATAUPDATE_END
+    
+    static bool last_val = set.visuals.other.remove_smoke;
+    
+    if(last_val != set.visuals.other.remove_smoke)
+    {
+        if(set.visuals.other.remove_smoke)
+        {
+            for (auto mat_name : smoke_mats)
+            {
+                material_t* mat = g_mat_system->find_material(mat_name, TEXTURE_GROUP_OTHER);
+                mat->set_material_var_flag(MATERIAL_VAR_WIREFRAME, set.visuals.other.remove_smoke);
+            }
+        }
+        else
+        {
+            for (auto mat_name : smoke_mats)
+            {
+                material_t* mat = g_mat_system->find_material(mat_name, TEXTURE_GROUP_OTHER);
+                mat->set_material_var_flag(MATERIAL_VAR_WIREFRAME, false);
+            }
+        }
+        
+        last_val = set.visuals.other.remove_smoke;
     }
 }
 

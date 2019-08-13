@@ -27,6 +27,7 @@
 		B622BE5C22E4354000A2824A /* visuals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B622BE5A22E4354000A2824A /* visuals.cpp */; };
 		B63E90CC22F9288E00F7FA3B /* key_event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63E90CB22F9288E00F7FA3B /* key_event.cpp */; };
 		B64D257A22DAA40000BDE458 /* vec3.h in Headers */ = {isa = PBXBuildFile; fileRef = B64D257922DAA40000BDE458 /* vec3.h */; };
+		B67D4B0723025399007556BD /* override_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67D4B0623025399007556BD /* override_view.cpp */; };
 		B68774FB22FEC44900C78C00 /* create_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B68774FA22FEC44900C78C00 /* create_move.cpp */; };
 		B69F44BE22DBF66F005A0433 /* vec2.h in Headers */ = {isa = PBXBuildFile; fileRef = B69F44BD22DBF66F005A0433 /* vec2.h */; };
 		B6DB699822E47026001D4428 /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = B6DB699622E47026001D4428 /* util.h */; };
@@ -105,6 +106,9 @@
 		B64D257922DAA40000BDE458 /* vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vec3.h; path = sdk/vec3.h; sourceTree = "<group>"; };
 		B64D257B22DAA4BA00BDE458 /* qangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = qangle.h; path = sdk/qangle.h; sourceTree = "<group>"; };
 		B6696D6A22FFBBDF00EE731A /* base_planted_c4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = base_planted_c4.h; path = sdk/base_planted_c4.h; sourceTree = "<group>"; };
+		B67D4B0623025399007556BD /* override_view.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = override_view.cpp; path = hooks/override_view.cpp; sourceTree = "<group>"; };
+		B67D4B08230254C1007556BD /* view_setup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = view_setup.h; path = sdk/view_setup.h; sourceTree = "<group>"; };
+		B67D4B0923025670007556BD /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = input.h; path = sdk/input.h; sourceTree = "<group>"; };
 		B68774FA22FEC44900C78C00 /* create_move.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = create_move.cpp; path = hooks/create_move.cpp; sourceTree = "<group>"; };
 		B68855B322F69CD7004092BC /* anim_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = anim_state.h; path = sdk/anim_state.h; sourceTree = "<group>"; };
 		B69F44B822DBF38E005A0433 /* matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = matrix.h; path = sdk/matrix.h; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 				B68774FA22FEC44900C78C00 /* create_move.cpp */,
 				B61C81D722FADDB3005BEF4C /* frame_stage_notify.cpp */,
 				B6F948FB22FE9F18007C05F7 /* draw_model_execute.cpp */,
+				B67D4B0623025399007556BD /* override_view.cpp */,
 				B63E90CB22F9288E00F7FA3B /* key_event.cpp */,
 				B6DC592822F8FCE200420F28 /* opengl.cpp */,
 				B609B2F622E01F69007EF73B /* lock_cursor.cpp */,
@@ -297,37 +302,19 @@
 		B69F44C022DBF759005A0433 /* csgo */ = {
 			isa = PBXGroup;
 			children = (
+				B6E37E912300FFFA003E8ECF /* interfaces */,
 				B6190C1E22DC9EA3003748F0 /* color.h */,
-				B609B20522DFF048007EF73B /* app_system.h */,
-				B6190C1F22DCA0A1003748F0 /* panel.h */,
-				B6190C2022DCA120003748F0 /* surface.h */,
-				B6D4328C22E2E86400086236 /* base_client_dll.h */,
-				B6DB699522E46CD9001D4428 /* cvar.h */,
-				B6DB699A22E47407001D4428 /* engine.h */,
-				B6DB699B22E47419001D4428 /* entity_list.h */,
-				B6DB699C22E4745C001D4428 /* debug_overlay.h */,
-				B6DC592722F7A6BF00420F28 /* global_vars.h */,
-				B6DC592522F7A6A300420F28 /* engine_trace.h */,
-				B6DC592622F7A6AE00420F28 /* client_mode.h */,
-				B63E90CD22F92F4F00F7FA3B /* input_system.h */,
-				B6F948F522FE9781007C05F7 /* model_render.h */,
-				B6F948F622FE9951007C05F7 /* model_info.h */,
-				B6F948F722FE9966007C05F7 /* material_system.h */,
-				B6F06FF42300D076003350C4 /* client_state.h */,
-				B6F06FF32300D02A003350C4 /* render_view.h */,
-				B6F06FF52300D0ED003350C4 /* sdl_manager.h */,
-				B6F06FF62300D10E003350C4 /* game_rules.h */,
-				B6F06FF72300D1E1003350C4 /* glow_manager.h */,
-				B61C81D622FADCBA005BEF4C /* user_cmd.h */,
 				B6F948F922FE9A75007C05F7 /* material.h */,
+				B61C81D622FADCBA005BEF4C /* user_cmd.h */,
+				B67D4B08230254C1007556BD /* view_setup.h */,
+				B6DC592422F7A0FD00420F28 /* net_channel.h */,
+				B61C81D922FADE38005BEF4C /* game_event.h */,
 				B68855B322F69CD7004092BC /* anim_state.h */,
 				B6B2941622E7CFC200382E4B /* base_handle.h */,
 				B6DB699222E46800001D4428 /* base_entity.h */,
 				B6DB699122E4646A001D4428 /* base_player.h */,
 				B61C81D522FADC4C005BEF4C /* base_weapon.h */,
 				B6696D6A22FFBBDF00EE731A /* base_planted_c4.h */,
-				B6DC592422F7A0FD00420F28 /* net_channel.h */,
-				B61C81D922FADE38005BEF4C /* game_event.h */,
 			);
 			name = csgo;
 			sourceTree = "<group>";
@@ -388,6 +375,34 @@
 				B6DC595122F9156600420F28 /* menu.h */,
 			);
 			name = menu;
+			sourceTree = "<group>";
+		};
+		B6E37E912300FFFA003E8ECF /* interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				B609B20522DFF048007EF73B /* app_system.h */,
+				B6190C1F22DCA0A1003748F0 /* panel.h */,
+				B6190C2022DCA120003748F0 /* surface.h */,
+				B6D4328C22E2E86400086236 /* base_client_dll.h */,
+				B6DB699522E46CD9001D4428 /* cvar.h */,
+				B6DB699A22E47407001D4428 /* engine.h */,
+				B6DB699B22E47419001D4428 /* entity_list.h */,
+				B6DB699C22E4745C001D4428 /* debug_overlay.h */,
+				B6DC592722F7A6BF00420F28 /* global_vars.h */,
+				B6DC592522F7A6A300420F28 /* engine_trace.h */,
+				B6DC592622F7A6AE00420F28 /* client_mode.h */,
+				B63E90CD22F92F4F00F7FA3B /* input_system.h */,
+				B6F948F522FE9781007C05F7 /* model_render.h */,
+				B6F948F622FE9951007C05F7 /* model_info.h */,
+				B6F948F722FE9966007C05F7 /* material_system.h */,
+				B6F06FF42300D076003350C4 /* client_state.h */,
+				B6F06FF32300D02A003350C4 /* render_view.h */,
+				B6F06FF52300D0ED003350C4 /* sdl_manager.h */,
+				B6F06FF62300D10E003350C4 /* game_rules.h */,
+				B6F06FF72300D1E1003350C4 /* glow_manager.h */,
+				B67D4B0923025670007556BD /* input.h */,
+			);
+			name = interfaces;
 			sourceTree = "<group>";
 		};
 		B6E8239B22FF0E670016E123 /* movement */ = {
@@ -581,6 +596,7 @@
 				B6DC595422F9156600420F28 /* menu_items.cpp in Sources */,
 				B6E8239A22FF0E620016E123 /* hitmarkers.cpp in Sources */,
 				B6DC593F22F9054400420F28 /* imgui_draw.cpp in Sources */,
+				B67D4B0723025399007556BD /* override_view.cpp in Sources */,
 				B63E90CC22F9288E00F7FA3B /* key_event.cpp in Sources */,
 				B6DC595222F9156600420F28 /* menu.cpp in Sources */,
 				B6DC594722F9054400420F28 /* imgui.cpp in Sources */,

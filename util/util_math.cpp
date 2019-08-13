@@ -72,3 +72,24 @@ player_box_t get_player_box(base_entity_t* entity)
     box.h = bottom - top;
     box.valid = true;
 }
+
+/*
+ *
+ *
+ */
+float util_curtime_fixed()
+{
+    if (!global::local)
+        return 0;
+    
+    static int tick = 0;
+    static user_cmd_t* last_cmd = nullptr;
+    
+    if (!last_cmd || last_cmd->m_has_been_predicted)
+        tick = (float)global::local->get_tick_base();
+    else
+        ++tick;
+
+    last_cmd = global::cmd;
+    return tick * g_globals->m_interval_per_tick;
+}

@@ -7,14 +7,25 @@
 
 chams_manager_t* g_chams = new chams_manager_t;
 
+/*
+ *  materials
+ */
 static material_t *mat_flat_vis = nullptr, *mat_flat_ign = nullptr, *mat_text_vis = nullptr, *mat_text_ign = nullptr;
 
+/*
+ *
+ *
+ */
 static bool does_file_exist(const std::string& str)
 {
     std::fstream f(str);
     return f.good();
 }
 
+/*
+ *
+ *
+ */
 static material_t* create_material(string filename, string type, bool ignorez, bool wireframe)
 {
     if(does_file_exist(filename))
@@ -44,6 +55,10 @@ static material_t* create_material(string filename, string type, bool ignorez, b
     return mat;
 }
 
+/*
+ *
+ *
+ */
 void chams_manager_t::create_materials(bool reload)
 {
     static bool created = false;
@@ -58,7 +73,7 @@ void chams_manager_t::create_materials(bool reload)
         mat_flat_vis = create_material("VertexLitGeneric",  "pwned_flat",       false, false);
         mat_flat_ign = create_material("VertexLitGeneric",  "pwned_flat_ign",   true,  false);
         mat_text_vis = create_material("UnlitGeneric",      "pwned_text",       false, false);
-        mat_text_ign = create_material("UnlitGeneric",      "pwned_flat_ign", 	true,  false);
+        mat_text_ign = create_material("UnlitGeneric",      "pwned_text_ign", 	true,  false);
         
         created = true;
         
@@ -66,31 +81,62 @@ void chams_manager_t::create_materials(bool reload)
     }
 }
 
+/*
+ *
+ *
+ */
 void chams_manager_t::hands(void* thisptr, void* context, void* state, const model_render_info_t& model_info, matrix3x4_t* matrix)
 {
     
 }
 
+/*
+ *
+ *
+ */
 void chams_manager_t::player(void* thisptr, void* context, void* state, const model_render_info_t& model_info, matrix3x4_t* matrix)
 {
+    player_t* player = (player_t*)g_ent_list->get_entity(model_info.m_entity_index);
+    
+    if(!player)
+        return;
+    
+    if(!player->is_player())
+        return;
     
 }
 
+/*
+ *
+ *
+ */
 void chams_manager_t::weapons(void* thisptr, void* context, void* state, const model_render_info_t& model_info, matrix3x4_t* matrix)
 {
     
 }
 
+/*
+ *
+ *
+ */
 void chams_manager_t::fake_lag(void* thisptr, void* context, void* state, const model_render_info_t& model_info, matrix3x4_t* matrix)
 {
     
 }
 
+/*
+ *
+ *
+ */
 void chams_manager_t::backtrack(void* thisptr, void* context, void* state, const model_render_info_t& model_info, matrix3x4_t* matrix)
 {
     
 }
 
+/*
+ *
+ *
+ */
 void chams_manager_t::fake_angles(void* thisptr, void* context, void* state, const model_render_info_t& model_info, matrix3x4_t* matrix)
 {
     

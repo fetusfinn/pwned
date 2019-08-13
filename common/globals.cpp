@@ -31,6 +31,7 @@ model_render_t*     g_model_render;
 model_info_t*       g_model_info;
 material_system_t*  g_mat_system;
 client_state_t*     g_client_state;
+input_t*            g_input;
 
 random_int_fn       random_int_func;
 random_seed_fn      random_seed_func;

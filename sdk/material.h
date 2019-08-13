@@ -3,7 +3,7 @@
  */
 #pragma once
 
-#pragma once
+// todo : clean
 
 class material_var_t;
 typedef uint64_t vertex_format_t;

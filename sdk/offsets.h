@@ -22,12 +22,26 @@ struct offsets_t
         uintptr_t m_lifestate;
         uintptr_t m_view_offset;
         uintptr_t m_tick_base;
+        uintptr_t m_flags;
+        uintptr_t m_aim_punch_angle;
+        uintptr_t m_view_punch_angle;        
     }base_player;
+    
+    struct
+    {
+        uintptr_t m_flash_alpha;
+        uintptr_t m_is_scoped;
+    }cs_player;
     
     struct
     {
         
     }base_combat_character;
+    
+    struct
+    {
+        uintptr_t m_clip1;
+    }base_combat_weapon;
     
     struct
     {
@@ -37,11 +51,6 @@ struct offsets_t
         uintptr_t m_bomb_defuser;
         uintptr_t m_defuse_count_down;
     }planted_c4;
-    
-    struct
-    {
-        
-    }cs_player;
     
     struct
     {
@@ -65,14 +74,8 @@ struct offsets_t
     
     struct
     {
-        uintptr_t m_clip1;
-    }base_combat_weapon;
-    
-    struct
-    {
         
     }base_cs_grenade;
-    
     
     struct
     {

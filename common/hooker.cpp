@@ -34,12 +34,10 @@ static void init_interfaces()
     g_model_render  = create_interface<model_render_t>("./bin/osx64/engine.dylib", "VEngineModel");
     g_model_info    = create_interface<model_info_t>("./bin/osx64/engine.dylib", "VModelInfoClient");
     g_mat_system    = create_interface<material_system_t>("./bin/osx64/materialsystem.dylib", "VMaterialSystem");
+    
 //    pPrediction     = GetInterface<IPrediction>("./csgo/bin/osx64/client_panorama.dylib", "VClientPrediction");
 //    pGameMovement   = GetInterface<IGameMovement>("./csgo/bin/osx64/client_panorama.dylib", "GameMovement");
 //    pPhysics        = GetInterface<IPhysicsSurfaceProps>("./bin/osx64/vphysics.dylib", "VPhysicsSurfaceProps");
-    
-    // todo
-    dump_interfaces();
 }
 
 /*
@@ -70,6 +68,7 @@ static void init_hooks()
     g_globals       = *(global_vars_t**)(global_vars_ptr);
     g_client_mode   =  (client_mode_t*)(client_mode_ptr);
     g_client_state  =  get_local_client_func(-1);
+    g_input         = **(input_t***)(g_memory->get_absolue_address(getvfunc<uintptr_t>(g_client, 16) + 0x4, 0x3, 0x7));
     // g_client_mode   =  (client_mode_t*)(g_memory->get_absolue_address(hud_process_input_ptr + 0x8, 0x1, 0x5));
     
     panel_vmt   = new vmt_t(g_panel);
@@ -114,6 +113,7 @@ static void hook_functions()
     client_vmt->apply();
     
     client_mode_vmt->hook((void*)create_move_hook, INDEX_CREATE_MOVE);
+    client_mode_vmt->hook((void*)override_view_hook, INDEX_OVERRIDE_VIEW);
     client_mode_vmt->apply();
     
     model_vmt->hook((void*)draw_model_execute_hook, INDEX_DRAW_MODEL_EXE);

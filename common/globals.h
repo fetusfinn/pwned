@@ -38,6 +38,7 @@ extern model_render_t*      g_model_render;
 extern model_info_t*        g_model_info;
 extern material_system_t*   g_mat_system;
 extern client_state_t*      g_client_state;
+extern input_t*             g_input;
 
 /*
  *  functions

@@ -25,7 +25,7 @@ public:
     float   landing_animation_time_left_until_done; //0x00BC Adds some time when landing animation starts.
     char    pad_00C0[4];                //0x00C0
     vec3_t  origin;                     //0x00C4
-    vec3_t  last_rigin;                 //0x00D0
+    vec3_t  last_origin;                //0x00D0
     float   velocity_x;                 //0x00DC Speeds on axis
     float   velocity_y;                 //0x00E0 ^^^^^^^^^^
     char    pad_00E4[4];                //0x00E4
@@ -35,8 +35,8 @@ public:
     float   last_known_direction_x;     //0x00F4 Same as its counterpart above, but this is saved until the next update
     float   last_known_direction_y;     //0x00F8 ^^^^^^^^^^^^^^^^^^^^^^^
     char    pad_00FC[4];                //0x00FC
-    float 	horizontal_velocity;        //0x0100 Affected by slopes. ( got 240 with knife on a hill )
-    float 	vertical_velocity;          //0x0104. Goes up when jumping, negative when falling
+    float 	speed_2d;                   //0x0100 Affected by slopes. ( got 240 with knife on a hill )   // horizontal_velocity
+    float 	vertical_velocity;          //0x0104. Goes up when jumping, negative when falling           // up velocity
     float 	speed;                      //0x0108 0.0 -> 1.0, how fast you are going; 1.0 = full speed.
     float 	feet_shuffle_speed;         //0x010C // 0.0-2.0 (approx)
     float   feet_shuffle_Speed2;        //0x0110 // 0.0-3.0 (approx)

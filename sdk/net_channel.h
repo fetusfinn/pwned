@@ -63,40 +63,40 @@ public:
     virtual float   get_timeout_seconds() const = 0;
     virtual const char* get_name() const = 0;    // get channel name
 };
-//
-////typedef struct netpacket_s netpacket_t;
-////typedef struct netadr_s    netadr_t;
-//
-//enum NetMsgType_t : int
-//{
-//    MSG_NOP = 0,
-//    MSG_DISCONNECT = 1,
-//    MSG_FILE = 2,
-//    MSG_SPLITSCREENUSER = 3,
-//    MSG_TICK = 4,
-//    MSG_STRINGCMD = 5,
-//    MSG_SETCONVAR = 6,
-//    MSG_SIGNONSTATE = 7,
-//    MSG_CLIENTINFO = 8, // client info (table CRC etc)
-//    MSG_MOVE = 9, // [CUserCmd]
-//    MSG_VOICEDATA = 10, // Voicestream data from a client
-//    MSG_BASELINEACK  = 11, // client acknowledges a new baseline seqnr
-//    MSG_LISTENEVENTS = 12, // client acknowledges a new baseline seqnr
-//    MSG_RESPONDCVARVALUE = 13, // client is responding to a svc_GetCvarValue message.
-//    MSG_FILECRCCHECK = 14, // client is sending a file's CRC to the server to be verified.
-//    MSG_LOADINGPROGRESS = 15,
-//    MSG_SPLITPLAYERCONNECT = 16,
-//    MSG_CLIENTMESSAGE = 17,
-//    MSG_CMDKEYVALUES = 18,
-//    MSG_HLTV_REPLAY = 20,
-//    MSG_HLTV_FIXUPOPERATORTICK = 21,
-//    MSG_HLTV_FIXUPOPERATORRECEIVER = 22,
-//};
-//
-//class INetChannel : public INetChannelInfo
+
+//typedef struct netpacket_s netpacket_t;
+//typedef struct netadr_s    netadr_t;
+
+enum net_msg_type_t
+{
+    MSG_NOP = 0,
+    MSG_DISCONNECT = 1,
+    MSG_FILE = 2,
+    MSG_SPLITSCREENUSER = 3,
+    MSG_TICK = 4,
+    MSG_STRINGCMD = 5,
+    MSG_SETCONVAR = 6,
+    MSG_SIGNONSTATE = 7,
+    MSG_CLIENTINFO = 8,         // client info (table CRC etc)
+    MSG_MOVE = 9,               // [CUserCmd]
+    MSG_VOICEDATA = 10,         // Voicestream data from a client
+    MSG_BASELINEACK  = 11,      // client acknowledges a new baseline seqnr
+    MSG_LISTENEVENTS = 12,      // client acknowledges a new baseline seqnr
+    MSG_RESPONDCVARVALUE = 13,  // client is responding to a svc_GetCvarValue message.
+    MSG_FILECRCCHECK = 14,      // client is sending a file's CRC to the server to be verified.
+    MSG_LOADINGPROGRESS = 15,
+    MSG_SPLITPLAYERCONNECT = 16,
+    MSG_CLIENTMESSAGE = 17,
+    MSG_CMDKEYVALUES = 18,
+    MSG_HLTV_REPLAY = 20,
+    MSG_HLTV_FIXUPOPERATORTICK = 21,
+    MSG_HLTV_FIXUPOPERATORRECEIVER = 22,
+};
+
+//class net_channel_t : public net_channel_info_t
 //{
 //public:
-//    virtual ~INetChannel( void ) {}; // 27
+//    virtual ~net_channel_t( void ) {}; // 27
 //    virtual void Destroy( void ) = 0; // calls destructor.
 //    virtual void SetDataRate( float rate ) = 0;
 //    virtual void __unknown1( void ) = 0; // 30
@@ -113,9 +113,6 @@ public:
 //    virtual bool ProcessStream( void ) = 0;
 //    virtual void ProcessPacket( /*struct netpacket_s*/void* packet, bool bHasHeader ) = 0;
 //    virtual bool SendNetMsg( INetMessage& msg, bool bForceReliable = false, bool bVoice = false ) = 0;
-//#ifdef POSIX
-//    FORCEINLINE bool SendNetMsg(INetMessage const &msg, bool bForceReliable = false, bool bVoice = false ) { return SendNetMsg( *( (INetMessage *) &msg ), bForceReliable, bVoice ); }
-//#endif
 //    virtual bool SendData(/*bf_write&*/void *msg, bool bReliable = true) = 0;
 //    virtual bool SendFile( const char* filename, unsigned int transferID ) = 0; // 45
 //    virtual void DenyFile( const char* filename, unsigned int transferID ) = 0;
@@ -193,7 +190,7 @@ public:
 //    float maxRoutablePayloadSize; //0x4344
 //    int splitPacketSequence; //0x4348
 //};
-//
+
 //class INetChannelHandler
 //{
 //public:
@@ -208,8 +205,8 @@ public:
 //    virtual void FileDenied( const char* fileName, unsigned int transferID ) = 0;    // a file request was denied by other side
 //    virtual void FileSent( const char* fileName, unsigned int transferID ) = 0;    // we sent a file
 //};
-//
-///// Unsure about these; ToString and Get/SetNetChannel should be ok
+
+/// Unsure about these; ToString and Get/SetNetChannel should be ok
 //class INetMessage
 //{
 //public:
@@ -229,7 +226,7 @@ public:
 //    virtual const char* ToString( void ) const = 0;
 //    virtual void __unknown5( void ) const = 0;
 //};
-//
+
 //class INetwork
 //{
 //public:

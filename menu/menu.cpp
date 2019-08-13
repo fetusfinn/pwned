@@ -131,6 +131,8 @@ void menu_t::tab_visuals()
     set_side(side_right);
     combo_multi("hitmarkers", {"crosshair", "sound", "damage"}, &set.visuals.other.hitmarkers, &opened.hitmarkers);
     checkbox("bomb timer", &set.visuals.other.bomb_timer, opened.hitmarkers);
+    checkbox("remove smoke", &set.visuals.other.remove_smoke, opened.hitmarkers);
+    slider_f("flashbang effect", {0.f, 100.f}, &set.visuals.other.flash_alpha, false, "%", 0);
 }
 
 void menu_t::tab_movement()
@@ -140,7 +142,11 @@ void menu_t::tab_movement()
 
 void menu_t::tab_misc()
 {
+    set_side(side_left);
+    slider_i("override fov", {0, 100}, &set.misc.fov);
+    checkbox("remove view punch", &set.misc.remove_view_punch);
     
+    set_side(side_right);
 }
 
 void menu_t::tab_skins()

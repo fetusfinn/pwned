@@ -146,6 +146,7 @@ void menu_t::tab_visuals()
     checkbox("bomb timer", &set.visuals.other.bomb_timer, opened.hitmarkers);
     checkbox("remove smoke", &set.visuals.other.remove_smoke, opened.hitmarkers);
     slider_f("flashbang effect", {0.f, 100.f}, &set.visuals.other.flash_alpha, false, "%", 0);
+    checkbox("remove scope", &set.visuals.other.remove_scope);
 }
 
 void menu_t::tab_movement()

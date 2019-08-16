@@ -9,7 +9,9 @@
 void paint_traverse_hook(void* thisptr, VPANEL panel, bool repaint, bool allow_force)
 {
     print_hook();
-    // todo : no scope
+    
+    if(set.visuals.other.remove_scope && !strcmp(g_panel->get_name(panel), "HudZoom"))
+        return;
     
     panel_vmt->get_original_method<paint_traverse_fn>(INDEX_PAINT_TRAVERSE)(thisptr, panel, repaint, allow_force);
     
@@ -33,6 +35,7 @@ void paint_traverse_hook(void* thisptr, VPANEL panel, bool repaint, bool allow_f
             g_visuals->draw_player_esp();
             g_visuals->draw_other_esp();
             g_visuals->draw_hitmarkers();
+            g_visuals->draw_scope();
         }
         else
         {

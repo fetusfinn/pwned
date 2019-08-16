@@ -1,6 +1,5 @@
 /*
  *  structs.h
- *  todo : comment what the structs are and what theyre used in
  */
 #pragma once
 

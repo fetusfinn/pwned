@@ -45,8 +45,6 @@ void renderer_t::draw_box_outlined(int x, int y, int w, int h, int thickness, co
  */
 void renderer_t::draw_box_gradient(int x, int y, int w, int h, color_t color_start, color_t color_end, bool hori)
 {
-    // todo : make more efficient
-    
     // verticle
     if(!hori)
     {
@@ -121,7 +119,7 @@ void renderer_t::draw_circle(vec2_t center, int radius, int points, color_t colo
 {
     if(hollow)
     {
-        // todo
+        
     }
     else
     {

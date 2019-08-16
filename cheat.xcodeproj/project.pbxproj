@@ -246,7 +246,6 @@
 		B609B2FA22E02567007EF73B /* features */ = {
 			isa = PBXGroup;
 			children = (
-				B6EA3DB22306E91D00DAA946 /* backtrack */,
 				B6E8239E22FF0E770016E123 /* legit */,
 				B6E8239D22FF0E720016E123 /* rage */,
 				B6E8239B22FF0E670016E123 /* movement */,
@@ -483,13 +482,6 @@
 				B6FB473722DD26B0000F62BB /* renderer */,
 			);
 			name = sdk;
-			sourceTree = "<group>";
-		};
-		B6EA3DB22306E91D00DAA946 /* backtrack */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = backtrack;
 			sourceTree = "<group>";
 		};
 		B6FB473722DD26B0000F62BB /* renderer */ = {

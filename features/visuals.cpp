@@ -355,3 +355,27 @@ void visuals_t::draw_other_esp()
             draw_bomb_timer((planted_c4_t*)entity);
     }
 }
+
+/*
+ *  draw_scope
+ *  Draws the scope crosshair if scope is removed
+ */
+void visuals_t::draw_scope()
+{
+    if(!set.visuals.other.remove_scope)
+        return;
+    
+    if(!global::local || !global::weapon)
+        return;
+    
+    if(!global::local->is_scoped())
+        return;
+    
+    short item_def = global::weapon->get_item_definition_index();
+    
+    if(item_def == WEAPON_SSG08 || item_def == WEAPON_AUG)
+        return;
+    
+    g_render->draw_line(0, set.screen.h / 2, set.screen.w, set.screen.h / 2, color_t::black);
+    g_render->draw_line(set.screen.w / 2, 0, set.screen.w / 2, set.screen.h, color_t::black);
+}

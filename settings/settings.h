@@ -51,6 +51,7 @@ struct settings_t
             // removals
             float 	flash_alpha = 0.f;
             bool    remove_smoke= false;
+            bool    remove_scope= false;
         }other;
     }visuals;
     

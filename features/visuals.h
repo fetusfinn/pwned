@@ -20,6 +20,7 @@ public:
     void draw_other_esp();
     
     void draw_hitmarkers();
+    void draw_scope();
     
     void remove_flash();
     void remove_smoke();

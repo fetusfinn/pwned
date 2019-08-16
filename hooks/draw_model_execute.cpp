@@ -11,7 +11,10 @@ void draw_model_execute_hook(void* thisptr, void* context, void* state, const mo
     
     if(model_info.m_model)
     {
-        g_chams->player(thisptr, context, state, model_info, matrix);
+        string model_name = g_model_info->get_model_name(model_info.m_model);
+        
+        if(set.visuals.chams.players && model_name.find("models/player") != std::string::npos)
+            g_chams->player(thisptr, context, state, model_info, matrix);
     }
     
     model_vmt->get_original_method<draw_model_execute_fn>(INDEX_DRAW_MODEL_EXE)(thisptr, context, state, model_info, matrix);

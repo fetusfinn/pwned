@@ -167,7 +167,7 @@ public:
     void color_modulate(color_t color)
     {
         typedef void (*o_color_modulate)(void*, float, float, float);
-        return getvfunc<o_color_modulate>(this, 28)(this, color.r() / 255.0f, color.g() / 255.0f, color.b() / 255.0f);
+        return getvfunc<o_color_modulate>(this, 28)(this, color.r() / 255.f, color.g() / 255.f, color.b() / 255.f);
     }
     
     void increment_reference_count()

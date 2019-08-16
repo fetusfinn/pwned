@@ -5,6 +5,7 @@
 
 #include "base_entity.h"
 #include "base_handle.h"
+#include "base_player.h"
 
 class entity_list_t
 {
@@ -14,6 +15,11 @@ public:
     {
         typedef base_entity_t* (*o_get_entity)(void*, int);
         return getvfunc<o_get_entity>(this, 3)(this, index);
+    }
+    
+    base_player_t* get_player(int index)
+    {
+        return (base_player_t*)get_entity(index);
     }
     
     base_entity_t* get_entity_from_handle(void* handle)

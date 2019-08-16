@@ -7,6 +7,7 @@
 #include "common.h"
 #include "memory.h"
 
+#include <sys/mman.h>
 #include <mach-o/dyld_images.h>
 
 memory_manager_t* g_memory = nullptr;
@@ -143,4 +144,11 @@ uintptr_t memory_manager_t::get_base_address(string imageName)
 uintptr_t memory_manager_t::get_absolue_address(uintptr_t ptr, uintptr_t start_offset, uintptr_t size)
 {
     return ptr + *reinterpret_cast<uint32_t*>(ptr + start_offset) + size;
+}
+
+void memory_manager_t::protect_addr(void* addr, int prot)
+{
+    long pagesize = sysconf(_SC_PAGESIZE);
+    void* address = (void*)((long)(uintptr_t)addr & ~(pagesize - 1));
+    mprotect(address, sizeof(address), prot);
 }

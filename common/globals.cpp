@@ -9,11 +9,11 @@ namespace global
     bool*       send_packet;
     user_cmd_t* cmd;
     player_t*   local;
-    weapon_t*   wepaon;
+    weapon_t*   weapon;
     int         choked;
 }
 
-settings_t  set;
+settings_t          set;
 
 panel_t*            g_panel;
 surface_t*          g_surface;
@@ -32,6 +32,7 @@ model_info_t*       g_model_info;
 material_system_t*  g_mat_system;
 client_state_t*     g_client_state;
 input_t*            g_input;
+physics_t*          g_physics;
 
 random_int_fn       random_int_func;
 random_seed_fn      random_seed_func;

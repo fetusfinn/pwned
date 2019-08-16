@@ -30,35 +30,35 @@ struct player_box_t
 struct weapon_info_t
 {
     char    _pad1[8];           // 0x0
-    char*   m_szConsoleName;    // 0x8
+    char*   m_console_name;    // 0x8
     char    _pad2[8];           // 0x12
-    int     m_iClipSize;        // 0x20
+    int     m_clip_size;        // 0x20
     char    _pad3[220];         // 0x24
-    char*   m_szHUDName;
+    char*   m_hud_name;
     char    _pad4[64];
-    int     m_WeaponType;
+    int     m_weapon_type;;
     char    _pad5[36];
-    bool    m_bIsFullAuto;
+    bool    m_is_full_auto;
     char    _pad6[3];
-    int     m_iDamage;
-    float   m_flArmorRatio;
-    int     m_iBulletsPerShot;
-    float   m_flPenetration;
+    int     m_damage;
+    float   m_armor_ratio;
+    int     m_bullets_per_shot;
+    float   m_penetration;
     char    _pad7[8];
-    float   m_flRange;
-    float   m_flRangeModifier;
-    float   m_flThrowVelocity;
+    float   m_range;
+    float   m_range_modifier;
+    float   m_throw_velocity;
     char    _pad8[12];
-    bool    m_bHasSilencer;
+    bool    m_has_silencer;
     char    _pad9[163];
-    int     m_iZoomLevels;      // 0x1B0
-    int     m_iZoomFOV1;        //
-    int     m_iZoomFOV2;        //
-    float   m_flZoomTime[3];
+    int     m_zoom_levels;      // 0x1B0
+    int     m_zoom_fov1;        //
+    int     m_zoom_fov2;        //
+    float   m_zoom_time[3];
     char    _pad0[152];
-    bool    m_bHasBurstMode;
-    bool    m_bIsRevolver;
-    bool    m_bCanShootUnderwater;
+    bool    m_has_burst_mode;
+    bool    m_is_revolver;
+    bool    m_can_shoot_under_water;
 };
 
 typedef struct player_info_s

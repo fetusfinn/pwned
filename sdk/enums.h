@@ -59,7 +59,7 @@ enum observer_mode_t
     OBS_MODE_ROAMING    = 6
 };
 
-enum item_definition_index_t
+enum item_definition_index_t : short
 {
     WEAPON_INVALID      = -1,
     WEAPON_DEAGLE       = 1,
@@ -116,6 +116,7 @@ enum item_definition_index_t
     WEAPON_KNIFE_SURVIVAL_BOWIE = 514,
     WEAPON_KNIFE_BUTTERFLY  = 515,
     WEAPON_KNIFE_PUSH       = 516,
+    // todo : add new knives
     GLOVE_STUDDED_BLOODHOUND= 5027,
     GLOVE_T             = 5028,
     GLOVE_CT            = 5029,
@@ -428,8 +429,7 @@ enum bone_t
 };
 
 enum hitbox_t
-{
-    
+{    
     HITBOX_HEAD,
     HITBOX_NECK,
     HITBOX_PELVIS,
@@ -651,4 +651,12 @@ enum button_code_t
     BUTTON_CODE_LAST,
     BUTTON_CODE_COUNT = BUTTON_CODE_LAST - KEY_FIRST + 1,
      */
+};
+
+enum trace_type_t
+{
+    TRACE_EVERYTHING = 0,
+    TRACE_WORLD_ONLY,               // NOTE: This does *not* test static props!!!
+    TRACE_ENTITIES_ONLY,            // NOTE: This version will *not* test static props
+    TRACE_EVERYTHING_FILTER_PROPS,  // NOTE: This version will pass the IHandleEntity for props through the filter, unlike all other filters
 };

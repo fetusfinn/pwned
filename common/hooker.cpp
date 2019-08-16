@@ -34,10 +34,10 @@ static void init_interfaces()
     g_model_render  = create_interface<model_render_t>("./bin/osx64/engine.dylib", "VEngineModel");
     g_model_info    = create_interface<model_info_t>("./bin/osx64/engine.dylib", "VModelInfoClient");
     g_mat_system    = create_interface<material_system_t>("./bin/osx64/materialsystem.dylib", "VMaterialSystem");
+    g_physics       = create_interface<physics_t>("./bin/osx64/vphysics.dylib", "VPhysicsSurfaceProps");
     
 //    pPrediction     = GetInterface<IPrediction>("./csgo/bin/osx64/client_panorama.dylib", "VClientPrediction");
 //    pGameMovement   = GetInterface<IGameMovement>("./csgo/bin/osx64/client_panorama.dylib", "GameMovement");
-//    pPhysics        = GetInterface<IPhysicsSurfaceProps>("./bin/osx64/vphysics.dylib", "VPhysicsSurfaceProps");
 }
 
 /*
@@ -53,8 +53,12 @@ static void init_hooks()
     g_offsets.player_anim_state = g_memory->get_procedure("client_panorama.dylib", SIG_ANIM_STATE_OFFSET, MSK_ANIM_STATE_OFFSET, 0) + 0x3;
     uintptr_t global_vars_ptr   = g_memory->get_pointer("client_panorama.dylib", SIG_GLOBALVARS, MSK_GLOBALVARS, 0x3) + 0x4;
     uintptr_t client_mode_ptr   = g_memory->get_pointer("client_panorama.dylib", SIG_CLIENTMODE, MSK_CLIENTMODE, 0xA) + 0x4;
+    uintptr_t send_packet_ptr   = g_memory->get_pointer("engine.dylib", SIG_SENDPACKET, MSK_SENDPACKET, 0x1) + 0x2;
     
-    // uintptr_t hud_process_input_ptr = (uintptr_t)getvtable(g_client)[10];
+    global::send_packet = reinterpret_cast<bool*>(send_packet_ptr);
+    g_memory->protect_addr(global::send_packet, 0x1 | 0x2 | 0x4);
+    global::send_packet = nullptr;
+    
     uintptr_t get_local_client_ptr  = (uintptr_t)getvtable(g_engine)[12];
     
     void* handle            = dlopen("./csgo/bin/osx64/client_panorama.dylib", RTLD_NOLOAD | RTLD_NOW);
@@ -69,7 +73,6 @@ static void init_hooks()
     g_client_mode   =  (client_mode_t*)(client_mode_ptr);
     g_client_state  =  get_local_client_func(-1);
     g_input         = **(input_t***)(g_memory->get_absolue_address(getvfunc<uintptr_t>(g_client, 16) + 0x4, 0x3, 0x7));
-    // g_client_mode   =  (client_mode_t*)(g_memory->get_absolue_address(hud_process_input_ptr + 0x8, 0x1, 0x5));
     
     panel_vmt   = new vmt_t(g_panel);
     surface_vmt = new vmt_t(g_surface);

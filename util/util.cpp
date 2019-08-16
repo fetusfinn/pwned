@@ -6,6 +6,19 @@
 #include "util.h"
 
 /*
+ *  sdk definitions, todo : move elsewhere
+ */
+base_weapon_t* base_player_t::get_weapon()
+{
+    void* handle = this->get_weapon_handle();
+    
+    if(!handle)
+        return nullptr;
+    
+    return (base_weapon_t*)g_ent_list->get_entity_from_handle(handle);
+}
+
+/*
  *  cheat_print
  *  Prints a message to the csgo console
  */
@@ -30,15 +43,6 @@ player_info_t util_get_player_info(player_t* player)
     g_engine->get_player_info(player->get_index(), &info);
     
     return info;
-}
-
-/*
- *
- *
- */
-vec3_t util_get_hitbox_position(player_t* player, int hitbox)
-{
-    return vec3_t();
 }
 
 /*
@@ -86,7 +90,7 @@ bool util_is_hitbox_visible(player_t* player, int hitbox)
     if(!global::local || !g_engine_trace || !player)
         return false;
     
-    ray_t ray(global::local->get_eye_position(), util_get_hitbox_position(player, hitbox));
+    ray_t ray(global::local->get_eye_position(), get_hitbox_position(player, hitbox));
     trace_t trace;
     trace_filter_t filter(global::local);
     
@@ -127,4 +131,13 @@ std::string util_execute_cmd(const std::string& cmd, bool pop)
         result.pop_back();
     
     return result;
+}
+
+/*
+ *  to_color
+ *  Returns the color_t value
+ */
+color_t ImColor::to_color()
+{
+    return color_t(Value.x * 255.f, Value.y * 255.f, Value.z * 255.f, Value.w * 255.f);
 }

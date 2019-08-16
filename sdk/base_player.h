@@ -3,8 +3,8 @@
  */
 #pragma once
 
-#define sdk_get_offset(type, table, netvar) *(type*)((uintptr_t)this + g_offsets.table.netvar);
-#define sdk_get_pointer(type, table, netvar) (type*)((uintptr_t)this + g_offsets.table.netvar);
+class anim_state_t;
+class base_weapon_t;
 
 class base_player_t : public base_entity_t
 {
@@ -18,6 +18,11 @@ public:
     bool is_player()
     {        
         return !strcmp(get_client_class()->m_network_name, "CCSPlayer");
+    }
+    
+    bool is_immune()
+    {
+        return sdk_get_offset(bool, cs_player, m_immune);
     }
     
     int get_health()
@@ -70,10 +75,37 @@ public:
         return sdk_get_pointer(qangle_t, base_player, m_view_punch_angle);
     }
     
+    vec3_t get_velocity()
+    {
+        return sdk_get_offset(vec3_t, base_player, m_velocity);
+    }
+    
+    float get_lower_body_yaw()
+    {
+        return sdk_get_offset(float, cs_player, m_lower_body_yaw);
+    }
+    
+    int get_armor()
+    {
+        return sdk_get_offset(int, cs_player, m_armor);
+    }
+    
+    bool has_helmet()
+    {
+        return sdk_get_offset(bool, cs_player, m_has_helmet);
+    }
+    
+    void* get_weapon_handle()
+    {
+        return sdk_get_pointer(void, base_combat_character, m_active_weapon);
+    }
+    
     anim_state_t* get_anim_state()
     {
         return *(anim_state_t**)((uintptr_t)this + g_offsets.player_anim_state);
     }
+    
+    base_weapon_t* get_weapon();
 };
 
 typedef base_player_t player_t;

@@ -81,16 +81,12 @@ void menu_t::draw_tabs()
         // draw label
         draw->draw_string(x + 22, y + 20 + (i * 15), tab_names.at(i).c_str(), Fonts::small, col);
         
-        // clickable area
-        // draw->draw_box(x + 19, y + 17 + (i * 15), 75, 15, ImColor(255, 0 ,0 ,255));
-        
         // change to this tab if clicked
         if(draw->in_area(x + 19, y + 17 + (i * 15), 75, 15) && ImGui::GetIO().MouseClicked[0])
             tab = i;
     }
-    
-    // render tab accordingly
-    
+
+    // draw current tab
     if(tab == 0)
         tab_rage();
     else if(tab == 1)
@@ -106,17 +102,26 @@ void menu_t::draw_tabs()
     else if(tab == 6)
         tab_players();
     
+    // render these last so they are on top of everything
+    // when theyre open
     render_combos();
+    // render this last so its ontop of combos,
+    // bc it looks like a lil window ontop of the current one
+    render_color_pickers();
 }
 
 void menu_t::tab_rage()
 {
+    set_side(side_left);    
     
+    set_side(side_right);
 }
 
 void menu_t::tab_legit()
 {
+    set_side(side_left);
     
+    set_side(side_right);
 }
 
 void menu_t::tab_visuals()
@@ -125,8 +130,16 @@ void menu_t::tab_visuals()
     combo("team flags", {"enemy", "teammates", "all"}, &set.visuals.team_flags, &opened.team_flags);
     checkbox("visible", &set.visuals.visible, opened.team_flags);
     checkbox("box", &set.visuals.player.box, opened.team_flags);
+    color_picker(&set.colors.players.box, &opened.picker_box);
     checkbox("name", &set.visuals.player.name);
-    checkbox("health", &set.visuals.player.health);
+    checkbox("health bar", &set.visuals.player.health);
+    combo("bottom bar", {"off", "armor", "ammo"}, &set.visuals.player.bot_bar, &opened.bot_bar);
+    checkbox("equipment", &set.visuals.player.equipment);
+    checkbox("chams", &set.visuals.chams.players);
+    color_picker(&set.colors.chams.players, &opened.picker_chams_players);
+    checkbox("through walls", &set.visuals.chams.behind_walls);
+    color_picker(&set.colors.chams.behind_walls, &opened.picker_behind_walls);
+    combo("chams type", {"flat", "textured"}, &set.visuals.chams.player_type, &opened.chams_players);
     
     set_side(side_right);
     combo_multi("hitmarkers", {"crosshair", "sound", "damage"}, &set.visuals.other.hitmarkers, &opened.hitmarkers);
@@ -137,13 +150,17 @@ void menu_t::tab_visuals()
 
 void menu_t::tab_movement()
 {
+    set_side(side_left);
+    checkbox("bhop", &set.misc.bhop);
+    checkbox("auto strafe", &set.misc.strafe);
     
+    set_side(side_right);
 }
 
 void menu_t::tab_misc()
 {
     set_side(side_left);
-    slider_i("override fov", {0, 100}, &set.misc.fov);
+    slider_i("override fov", {0, 60}, &set.misc.fov, false, "º");
     checkbox("remove view punch", &set.misc.remove_view_punch);
     
     set_side(side_right);
@@ -151,10 +168,14 @@ void menu_t::tab_misc()
 
 void menu_t::tab_skins()
 {
+    set_side(side_left);
     
+    set_side(side_right);
 }
 
 void menu_t::tab_players()
 {
+    set_side(side_left);
     
+    set_side(side_right);
 }

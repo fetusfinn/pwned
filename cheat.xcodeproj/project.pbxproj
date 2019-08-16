@@ -27,6 +27,9 @@
 		B622BE5C22E4354000A2824A /* visuals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B622BE5A22E4354000A2824A /* visuals.cpp */; };
 		B63E90CC22F9288E00F7FA3B /* key_event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B63E90CB22F9288E00F7FA3B /* key_event.cpp */; };
 		B64D257A22DAA40000BDE458 /* vec3.h in Headers */ = {isa = PBXBuildFile; fileRef = B64D257922DAA40000BDE458 /* vec3.h */; };
+		B677EF312303667000F9A0CF /* autowall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B677EF302303667000F9A0CF /* autowall.cpp */; };
+		B677EF3523037FAC00F9A0CF /* movement.h in Headers */ = {isa = PBXBuildFile; fileRef = B677EF3323037FAC00F9A0CF /* movement.h */; };
+		B677EF3623037FAC00F9A0CF /* movement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B677EF3423037FAC00F9A0CF /* movement.cpp */; };
 		B67D4B0723025399007556BD /* override_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67D4B0623025399007556BD /* override_view.cpp */; };
 		B68774FB22FEC44900C78C00 /* create_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B68774FA22FEC44900C78C00 /* create_move.cpp */; };
 		B69F44BE22DBF66F005A0433 /* vec2.h in Headers */ = {isa = PBXBuildFile; fileRef = B69F44BD22DBF66F005A0433 /* vec2.h */; };
@@ -106,9 +109,15 @@
 		B64D257922DAA40000BDE458 /* vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vec3.h; path = sdk/vec3.h; sourceTree = "<group>"; };
 		B64D257B22DAA4BA00BDE458 /* qangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = qangle.h; path = sdk/qangle.h; sourceTree = "<group>"; };
 		B6696D6A22FFBBDF00EE731A /* base_planted_c4.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = base_planted_c4.h; path = sdk/base_planted_c4.h; sourceTree = "<group>"; };
+		B677EF2F2303652700F9A0CF /* base_attributable_item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = base_attributable_item.h; path = sdk/base_attributable_item.h; sourceTree = "<group>"; };
+		B677EF302303667000F9A0CF /* autowall.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = autowall.cpp; path = features/autowall.cpp; sourceTree = "<group>"; };
+		B677EF3223036D2A00F9A0CF /* physics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = physics.h; path = sdk/physics.h; sourceTree = "<group>"; };
+		B677EF3323037FAC00F9A0CF /* movement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = movement.h; path = features/movement.h; sourceTree = "<group>"; };
+		B677EF3423037FAC00F9A0CF /* movement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = movement.cpp; path = features/movement.cpp; sourceTree = "<group>"; };
 		B67D4B0623025399007556BD /* override_view.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = override_view.cpp; path = hooks/override_view.cpp; sourceTree = "<group>"; };
 		B67D4B08230254C1007556BD /* view_setup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = view_setup.h; path = sdk/view_setup.h; sourceTree = "<group>"; };
 		B67D4B0923025670007556BD /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = input.h; path = sdk/input.h; sourceTree = "<group>"; };
+		B67D4B0A2302773D007556BD /* cutlmemory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cutlmemory.h; path = sdk/cutlmemory.h; sourceTree = "<group>"; };
 		B68774FA22FEC44900C78C00 /* create_move.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = create_move.cpp; path = hooks/create_move.cpp; sourceTree = "<group>"; };
 		B68855B322F69CD7004092BC /* anim_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = anim_state.h; path = sdk/anim_state.h; sourceTree = "<group>"; };
 		B69F44B822DBF38E005A0433 /* matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = matrix.h; path = sdk/matrix.h; sourceTree = "<group>"; };
@@ -237,6 +246,7 @@
 		B609B2FA22E02567007EF73B /* features */ = {
 			isa = PBXGroup;
 			children = (
+				B6EA3DB22306E91D00DAA946 /* backtrack */,
 				B6E8239E22FF0E770016E123 /* legit */,
 				B6E8239D22FF0E720016E123 /* rage */,
 				B6E8239B22FF0E670016E123 /* movement */,
@@ -304,6 +314,7 @@
 			children = (
 				B6E37E912300FFFA003E8ECF /* interfaces */,
 				B6190C1E22DC9EA3003748F0 /* color.h */,
+				B67D4B0A2302773D007556BD /* cutlmemory.h */,
 				B6F948F922FE9A75007C05F7 /* material.h */,
 				B61C81D622FADCBA005BEF4C /* user_cmd.h */,
 				B67D4B08230254C1007556BD /* view_setup.h */,
@@ -313,6 +324,7 @@
 				B6B2941622E7CFC200382E4B /* base_handle.h */,
 				B6DB699222E46800001D4428 /* base_entity.h */,
 				B6DB699122E4646A001D4428 /* base_player.h */,
+				B677EF2F2303652700F9A0CF /* base_attributable_item.h */,
 				B61C81D522FADC4C005BEF4C /* base_weapon.h */,
 				B6696D6A22FFBBDF00EE731A /* base_planted_c4.h */,
 			);
@@ -401,6 +413,7 @@
 				B6F06FF62300D10E003350C4 /* game_rules.h */,
 				B6F06FF72300D1E1003350C4 /* glow_manager.h */,
 				B67D4B0923025670007556BD /* input.h */,
+				B677EF3223036D2A00F9A0CF /* physics.h */,
 			);
 			name = interfaces;
 			sourceTree = "<group>";
@@ -408,6 +421,8 @@
 		B6E8239B22FF0E670016E123 /* movement */ = {
 			isa = PBXGroup;
 			children = (
+				B677EF3423037FAC00F9A0CF /* movement.cpp */,
+				B677EF3323037FAC00F9A0CF /* movement.h */,
 			);
 			name = movement;
 			sourceTree = "<group>";
@@ -417,6 +432,7 @@
 			children = (
 				B6E823A022FF0E830016E123 /* antiaim.cpp */,
 				B6E8239F22FF0E830016E123 /* antiaim.h */,
+				B677EF302303667000F9A0CF /* autowall.cpp */,
 				B6E823A422FF0E8D0016E123 /* ragebot.cpp */,
 				B6E823A322FF0E8D0016E123 /* ragebot.h */,
 			);
@@ -469,6 +485,13 @@
 			name = sdk;
 			sourceTree = "<group>";
 		};
+		B6EA3DB22306E91D00DAA946 /* backtrack */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = backtrack;
+			sourceTree = "<group>";
+		};
 		B6FB473722DD26B0000F62BB /* renderer */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,6 +517,7 @@
 				B6DC594422F9054400420F28 /* imgui_internal.h in Headers */,
 				B6DC594C22F906DB00420F28 /* imrenderer.h in Headers */,
 				B6190C2722DCA566003748F0 /* globals.h in Headers */,
+				B677EF3523037FAC00F9A0CF /* movement.h in Headers */,
 				B6E823A922FF0E9C0016E123 /* legitbot.h in Headers */,
 				B609B30522E025CB007EF73B /* offsets.h in Headers */,
 				B6DC594622F9054400420F28 /* imconfig.h in Headers */,
@@ -596,6 +620,7 @@
 				B6DC595422F9156600420F28 /* menu_items.cpp in Sources */,
 				B6E8239A22FF0E620016E123 /* hitmarkers.cpp in Sources */,
 				B6DC593F22F9054400420F28 /* imgui_draw.cpp in Sources */,
+				B677EF3623037FAC00F9A0CF /* movement.cpp in Sources */,
 				B67D4B0723025399007556BD /* override_view.cpp in Sources */,
 				B63E90CC22F9288E00F7FA3B /* key_event.cpp in Sources */,
 				B6DC595222F9156600420F28 /* menu.cpp in Sources */,
@@ -603,6 +628,7 @@
 				B609B30622E025CB007EF73B /* offsets.cpp in Sources */,
 				B6DC592922F8FCE200420F28 /* opengl.cpp in Sources */,
 				B6DC593222F900A600420F28 /* util_sdl.cpp in Sources */,
+				B677EF312303667000F9A0CF /* autowall.cpp in Sources */,
 				B6DC593E22F9054400420F28 /* imgui_demo.cpp in Sources */,
 				B6DB699922E47026001D4428 /* util.cpp in Sources */,
 				B6F948FD22FE9F18007C05F7 /* draw_model_execute.cpp in Sources */,

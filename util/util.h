@@ -5,7 +5,7 @@
 
 #define skeep(msg) cheat_print(msg, "skeep", color_t(148, 213, 90))
 
-void cheat_print(const string& msg, string prefix = "cheat", color_t col = color_t::white);
+void cheat_print(const std::string& msg, std::string prefix = "cheat", color_t col = color_t::white);
 
 player_info_t util_get_player_info(player_t* player);
 

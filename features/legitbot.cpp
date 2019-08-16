@@ -2,4 +2,5 @@
  *
  *
  */
+#include "common.h"
 #include "legitbot.h"

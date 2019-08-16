@@ -3,11 +3,9 @@
  */
 #pragma once
 
+// todo rewrite
+
 class  quaternion_t;
-struct mstudioanimdesc_t;
-struct mstudioseqdesc_t;
-struct mstudiobodyparts_t;
-struct mstudiotexture_t;
 
 class radian_euler_t
 {
@@ -158,13 +156,14 @@ struct studio_bbox_t
 struct studio_hitbox_set_t
 {
     int m_name_index;
-    int m_num_hitboxes;
-    int m_hitbox_index;
     
     inline char* const get_name() const
     {
         return ((char*)this) + m_name_index;
     }
+    
+    int m_num_hitboxes;
+    int m_hitbox_index;
     
     inline studio_bbox_t* get_hitbox(int i) const
     {
@@ -213,14 +212,14 @@ struct studio_hdr_t
     };
     
     // Calls through to hitbox to determine size of specified set
-    inline studio_bbox_t* get_hitbox(int i, int set) const
+    inline studio_bbox_t* get_hitbox(int hitbox, int set_index) const
     {
-        const studio_hitbox_set_t* s = get_hitbox_set(set);
+        const studio_hitbox_set_t* set = get_hitbox_set(set_index);
         
-        if (!s)
-            return NULL;
+        if (!set)
+            return nullptr;
         
-        return s->get_hitbox(i);
+        return set->get_hitbox(hitbox);
     };
     
     // Calls through to set to get hitbox count for set

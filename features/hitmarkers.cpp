@@ -67,13 +67,10 @@ void visuals_t::draw_hitmarkers()
         
         vec2_t pos = vec2_t(set.screen.w / 2 + 10 + 4, set.screen.h / 2 - 10 - text_height * i + 4);
         
-        int damage = g_damages.at(i).m_damage;
-        std::string damage_str = '-' + std::to_string(damage);
-        
         color.set_a(255);
         color.set_a(std::min(color.a(), (int)(hit_dif * color.a() / duration * 2)));
         
-        g_render->draw_string(pos.x, pos.y, renderer_t::verdana12, damage_str, color);
+        g_render->draw_string(pos.x, pos.y, renderer_t::verdana12, to_string(g_damages.at(i).m_damage), color);
     }
 }
 

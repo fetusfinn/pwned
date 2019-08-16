@@ -26,6 +26,7 @@
 
 // csgo
 #include "color.h"
+#include "cutlmemory.h"
 #include "app_system.h"
 #include "panel.h"
 #include "surface.h"
@@ -43,6 +44,7 @@
 #include "material_system.h"
 #include "client_state.h"
 #include "input.h"
+#include "physics.h"
 // todo
 #include "render_view.h"
 #include "sdl_manager.h"
@@ -56,6 +58,7 @@
 #include "base_handle.h"
 #include "base_entity.h"
 #include "base_player.h"
+#include "base_attributable_item.h"
 #include "base_weapon.h"
 #include "base_planted_c4.h"
 #include "net_channel.h"

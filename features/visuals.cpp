@@ -5,6 +5,7 @@
 #include "common.h"
 #include "visuals.h"
 #include "renderer.h"
+#include "ragebot.h" // g_rage->get_target();
 
 visuals_t* g_visuals = new visuals_t;
 
@@ -66,62 +67,66 @@ static void draw_offscreen(player_t* player)
  */
 static void draw_bomb_timer(planted_c4_t* bomb)
 {
-    float blow = bomb->get_blow_time();
-    blow -= g_globals->m_interval_per_tick * global::local->get_tick_base();
+    if(set.visuals.other.bomb_timer)
+        return;
     
-    int screenx = set.screen.w / 2;
-    int screeny = set.screen.h - 100;
+    float flBlow  = bomb->get_blow_time();
+          flBlow -= g_globals->m_interval_per_tick * global::local->get_tick_base();
     
-    if (blow <= 0.0)
-        blow = 0.0;
+    int screenx = set.screen.w, screeny = set.screen.h;
     
-    if (blow < 40.f)
+    screenx = screenx / 2;
+    screeny = screeny - 100;
+    
+    if (flBlow <= 0.0)
+        flBlow = 0.0;
+    
+    if (flBlow < 40.f)
     {
-        float ptc = blow / 40.f;
+        float ptc = flBlow / 40.f;
         
-        g_render->draw_box_filled(screenx - 150, screeny - 4, 300, 8, color_t(0, 0, 0, 110.f));
-        g_render->draw_box_filled(screenx - 150, screeny - 4, 300 + (300 * ptc), 8, color_t(194.f, 244.f, 66.f, 110.f));
+        g_render->draw_box_filled(screenx - 150, screeny - 4, 300, 8, color_t(0, 0, 0, 110));
+        g_render->draw_box_filled(screenx - 150, screeny - 4, 300 * ptc, 8, color_t(194, 244, 66, 110));
         
-        if (blow > 5.f)
-            g_render->draw_box_filled(screenx - 150, screeny - 4, 300 + (300 * 0.125), 8, color_t(27.f, 120.f, 214.f, 110.f));
+        if(flBlow > 5.f)
+            g_render->draw_box_filled(screenx - 150, screeny - 4, 300 * 0.125f, 8, color_t(27, 120, 214, 110));
         else
-            g_render->draw_box_filled(screenx - 150, screeny - 4, 300 + (300 * ptc), 8, color_t(27.f, 120.f, 214.f, 110.f));
+            g_render->draw_box_filled(screenx - 150, screeny - 4, 300 * ptc, 8, color_t(27, 120, 214, 110));
         
-        g_render->draw_box_filled(screenx - 150, screeny - 4, 300, 4, color_t(0, 0, 0, 110.f/255.f));
+        g_render->draw_box_filled(screenx - 150, screeny - 4, 300, 8, color_t(0, 0, 0, 110));
         
-        char _buf[16];
-        sprintf(_buf, "%.1f", blow);
+        char buf[16];
+        sprintf(buf, "%.1f", flBlow);
+        std::string str = buf;
         
-        string str = _buf;
+        auto ts = g_render->get_text_size(renderer_t::verdana12, str);
         
-        vec2_t tex_size = g_render->get_text_size(renderer_t::verdana12, str);
-        
-        g_render->draw_string(screenx - tex_size.x / 2, screeny - tex_size.y / 2 - 15, renderer_t::verdana12, str, color_t(255, 255, 255, 110));
+        g_render->draw_string(screenx - ts.x / 2, screeny - ts.y / 2 - 15, renderer_t::verdana12, str, color_t(255, 255, 255, 110));
         
         if(bomb->get_defuser() > 0)
         {
-            float count_down = bomb->get_defuse_countdown() - (global::local->get_tick_base() * g_globals->m_interval_per_tick);
-            float ptc2 = count_down / 10;
+            float flCountdown = bomb->get_defuse_countdown() - (global::local->get_tick_base() * g_globals->m_interval_per_tick);
             
-            char _buf[16];
-            sprintf(_buf, "%.1f", count_down);
+            float ptc2 = flCountdown / 10;
             
-            std::string ss = _buf;
+            char buf2[16];
+            sprintf(buf2, "%.1f", flBlow);
+            str = buf2;
             
             g_render->draw_box_filled(screenx - 150, screeny - 4 + 30, 300, 8, color_t(0, 0, 0, 110));
             g_render->draw_box_filled(screenx - 150, screeny - 4 + 30, 300 * ptc2, 8, color_t(84, 169, 255, 110));
+            g_render->draw_box_filled(screenx - 150, screeny - 4 + 30, 300, 8, color_t(0, 0, 0, 110));
             
-            g_render->draw_box(screenx - 150, screeny - 4 + 30, 300, 8, color_t(0, 0, 0, 110));
+            ts = g_render->get_text_size(renderer_t::verdana12, str);
             
-            vec2_t ts = g_render->get_text_size(renderer_t::verdana12, ss);
+            g_render->draw_string(screenx - ts.x / 2, screeny - ts.y / 2 - 15 + 30, renderer_t::verdana12, str, color_t(84, 169, 255, 110));
             
-            g_render->draw_string(screenx - ts.x / 2, screeny - ts.y, renderer_t::verdana12, ss, color_t(84, 169, 255, 110));
-            
-            if (count_down > blow)
+            if (flCountdown > flBlow)
             {
-                std::string cant_defuse = "can't be defused";
-                vec2_t _ts = g_render->get_text_size(renderer_t::verdana12, cant_defuse);
-                g_render->draw_string(screenx - _ts.x / 2, screeny - _ts.y / 2 - 15 + 60, renderer_t::verdana12, cant_defuse,color_t(255,48,79,110));
+                str = "cant be defused";
+                ts  = g_render->get_text_size(renderer_t::verdana12, str);
+                
+                g_render->draw_string(screenx - ts.x / 2, screeny - ts.y / 2 - 15 + 60, renderer_t::verdana12, str, color_t(255,48,79,110));
             }
         }
     }
@@ -198,6 +203,9 @@ void visuals_t::remove_smoke()
  */
 void visuals_t::draw_player_esp()
 {
+    if(!global::local)
+        return;
+    
     for(int i = 1; i < g_globals->m_max_clients; i++)
     {
         player_t* player = (player_t*)g_ent_list->get_entity(i);
@@ -219,22 +227,23 @@ void visuals_t::draw_player_esp()
         
         // esp fade in/out
         {
-            m_player_alpha.at(i) = util_clamp(m_player_alpha.at(i), 0.f, 255.f);
+            float& alpha = m_player_alpha.at(i);
+            alpha = util_clamp(alpha, 0.f, 255.f);
             
             if(player->is_dormant())
             {
                 // no alpha so dont draw
-                if(m_player_alpha.at(i) == 0)
+                if(alpha <= 0)
                     continue;
                 // got alpha so decrease
-                if(m_player_alpha.at(i) > 0)
-                    m_player_alpha.at(i) -= 10.f;
+                if(alpha > 0)
+                    alpha -= 7.f;
             }
             else // not dormant
             {
                 // not full so increase
-                if(m_player_alpha.at(i) < 255)
-                    m_player_alpha.at(i) += 20.f;
+                if(alpha < 255)
+                    alpha += 15.f;
             }            
         }
         
@@ -246,25 +255,27 @@ void visuals_t::draw_player_esp()
             continue;
         // else if == 2 draw all
         
-        // todo :
+        // todo
         // if(set.visuals.player.radar)
         //    *player->get_spotted() = true;
         
-        // offscreen players
-        if(set.visuals.player.offscreen)
-            draw_offscreen(player);
+        // todo
+        // if(set.visuals.player.offscreen)
+        //    draw_offscreen(player);
         
         // only how visible players?
         if(set.visuals.visible && !util_is_player_visible(player))
             continue;
         
-        color_t box_col  = set.colors.players.box;
         player_box_t box = get_player_box(player);
         
         if(!box.valid)
             continue;
         
+        color_t box_col  = set.colors.players.box.to_color();
         box_col.set_a(m_player_alpha.at(i));
+        
+        color_t white = color_t(255, 255, 255, m_player_alpha.at(i));
         
         player_info_t info;
         g_engine->get_player_info(i, &info);
@@ -275,7 +286,7 @@ void visuals_t::draw_player_esp()
         
         // draw name on top
         if(set.visuals.player.name)
-            g_render->draw_string(box.x + (box.w / 2), box.y - 15, renderer_t::verdana12, info.name, color_t(255, 255, 255, m_player_alpha.at(i)));
+            g_render->draw_string(box.x + (box.w / 2), box.y - 15, renderer_t::verdana12, info.name, white, true);
         
         if(set.visuals.player.health)
             draw_heath_bar(box, player->get_health(), color_t::green);
@@ -288,17 +299,37 @@ void visuals_t::draw_player_esp()
             switch(set.visuals.player.bot_bar)
             {
                 case 1:
-                    // value = player->get_armor();
+                    value = player->get_armor();
                     break;
                 case 2:
-                    // weapon   = player->get_weapon();
-                    // value    = weapon->get_ammo();
-                    // max      = weapon->get_weapon_info()->m_clip_size;
+                    auto weapon   = player->get_weapon();
+                    if(weapon)
+                    {
+                        value    = weapon->get_ammo();
+                        max      = weapon->get_weapon_info()->m_clip_size;
+                    }
                     break;
             }
             
             draw_bottom_bar(box, value, max, color_t::blue);
         }
+        
+        std::string right_text = "";
+        
+        if(set.visuals.player.equipment)
+        {
+            if(player->has_helmet())
+                right_text += "H";
+            
+            if(player->get_armor() > 0)
+                right_text += "K";
+            
+            // if(player->has_defuser())
+            //     right_text += "D";
+        }
+        
+        if(!right_text.empty())
+            g_render->draw_string(box.x + box.w + 2, box.y, renderer_t::verdana12, right_text, white);
     }
 }
 

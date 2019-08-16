@@ -4,7 +4,6 @@
 #pragma once
 
 // todo :
-//  override_view
 //  sdl_poll_event
 
 #define print_hook() do{ static bool print = false; if(!print) { skeep(std::string(__FUNCTION__) + " hooked"); print = true; } }while(0)

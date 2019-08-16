@@ -12,14 +12,17 @@ enum menu_side_t
     side_right = 1,
 };
 
+// the offset amount
 enum menu_item_type_t
 {
-    item_checkbox   = 0,
-    item_slider     = 1,
-    item_combo      = 2,
-    item_combo_multi    = 3,
-    item_color_picker   = 4,
-    item_button     = 5,
+    item_none           = 0,
+    item_label          = 15,
+    item_checkbox       = item_label,
+    item_slider         = item_label * 2,
+    item_combo          = 35,
+    item_combo_multi    = item_combo,
+    item_color_picker   = item_none,
+    item_button         = 20,
 };
 
 class menu_t
@@ -27,23 +30,34 @@ class menu_t
 private:
     
     // general vars
+    int x, y, w, h, tab;
     im_renderer_t* draw;
-    int x, y, w, h;
-    int tab;
     
     // menu item vars
-    // 2 = num cols
-    std::array<ImVec2, 2> m_offsets;
-    menu_side_t m_side;
-    int m_item_index;
+    // const int num_cols = 2
+    std::array<ImVec2, 2>   m_offsets;
+    menu_side_t             m_side;
+    menu_item_type_t        m_last_item_type;
     
+    // opened combos n pickers, todo : auto check if open
+    // private struct of menu, only accessable to the menu
     struct
     {
+        // combos
         bool team_flags = false;
+        bool bot_bar    = false;
         bool hitmarkers = false;
+        bool chams_players = false;
+        
+        // color pickers
+        bool picker_box = false;
+        bool picker_chams_players = false;
+        bool picker_behind_walls  = false;
     }opened;
     
 private:
+    
+    // menu window
     
     void draw_window();
     void draw_tabs();
@@ -64,26 +78,23 @@ private:
     void    set_side(menu_side_t new_side);
     
     ImVec2  add_menu_item(menu_item_type_t item_type);
+    void    label(std::string label, bool* value = nullptr, bool cancel = false, std::vector<ImColor> colors = {ImColor(130, 130, 130, 255)});
     void    checkbox(std::string label, bool*   val, bool cancel = false);
     void    slider_i(std::string label, ImVec2 bounds, int*   val, bool cancel = false, std::string suffix = "");
     void    slider_f(std::string label, ImVec2 bounds, float* val, bool cancel = false, std::string suffix = "", int precision = 2);
-    void    render_combos();
+    bool    button(std::string label, bool* val = nullptr);
     void    combo(std::string label, std::vector<std::string> items, int* value, bool* open, bool cancel = false);
     void    combo_multi(std::string label, std::vector<std::string> items, std::vector<bool>* value, bool* open, bool cancel = false);
-    // todo : button
-    bool    button(std::string label, bool* val = nullptr);
+    void    color_picker(ImColor* value, bool* open, bool cancel = false, bool alpha = false);
+    
+    void    render_combos();
+    void    render_color_pickers();
     
 public:
     
     menu_t();
     
-    // functions
-    
-    void render();
     void move();
-    
-public:
-    
-    // variables
+    void render();
     
 };

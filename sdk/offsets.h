@@ -24,18 +24,23 @@ struct offsets_t
         uintptr_t m_tick_base;
         uintptr_t m_flags;
         uintptr_t m_aim_punch_angle;
-        uintptr_t m_view_punch_angle;        
+        uintptr_t m_view_punch_angle;
+        uintptr_t m_velocity;
     }base_player;
     
     struct
     {
         uintptr_t m_flash_alpha;
         uintptr_t m_is_scoped;
+        uintptr_t m_lower_body_yaw;
+        uintptr_t m_armor;
+        uintptr_t m_has_helmet;
+        uintptr_t m_immune;
     }cs_player;
     
     struct
     {
-        
+        uintptr_t m_active_weapon;
     }base_combat_character;
     
     struct
@@ -54,7 +59,7 @@ struct offsets_t
     
     struct
     {
-        
+        uintptr_t m_item_definition_index;
     }base_attributable_item;
     
     struct

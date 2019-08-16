@@ -94,14 +94,18 @@ void renderer_t::draw_line(int x, int y, int xx, int yy, color_t color)
  *
  *
  */
-void renderer_t::draw_string(int x, int y, HFONT font, string str, color_t color, bool centered)
+void renderer_t::draw_string(int x, int y, HFONT font, string str, color_t color, bool centered_x, bool centered_y)
 {
-    if(centered)
-    {
-        vec2_t ts = get_text_size(font, str);
+    vec2_t ts = vec2_t();
+    
+    if(centered_x || centered_y)
+        ts = get_text_size(font, str);
+    
+    if(centered_x)
         x -= (ts.x / 2);
+    
+    if(centered_y)
         y -= (ts.y / 2);
-    }
     
     g_surface->set_text_font(font);
     g_surface->set_text_color(color);

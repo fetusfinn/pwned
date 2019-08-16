@@ -7,6 +7,8 @@
 
 chams_manager_t* g_chams = new chams_manager_t;
 
+static bool g_mats_created = false;
+
 /*
  *  materials
  */
@@ -28,25 +30,25 @@ static bool does_file_exist(const std::string& str)
  */
 static material_t* create_material(string filename, string type, bool ignorez, bool wireframe)
 {
-    if(does_file_exist(filename))
-        return;
-    
-    std::string path = util_execute_cmd("pwd") + "csgo/materials/" + filename + ".vmt";
-    std::stringstream ss;
-    
-    ss << "\"" + type + "\"\n" << endl;
-    ss << "{\n" << endl;
-    ss << "\t\"$basetexture\" \"VGUI/white_additive\"\n" << endl;
-    ss << "\t\"$nofog\" \"1\"\n" << endl;
-    ss << "\t\"$ignorez\" \"" + to_string(ignorez) + "\"\n" << endl;
-    ss << "\t\"$wireframe\" \""+ to_string(wireframe) +"\"\n" << endl;
-    ss << "\t\"$halflambert\" \"1\"\n" << endl;
-    ss << "}\n" << endl;
-    
-    ofstream f;
-    f.open(path);
-    f << ss.str();
-    f.close();
+    if(!does_file_exist(filename))
+    {
+        std::string path = util_execute_cmd("pwd") + "csgo/materials/" + filename + ".vmt";
+        std::stringstream ss;
+        
+        ss << "\"" + type + "\"\n" << endl;
+        ss << "{\n" << endl;
+        ss << "    \"$basetexture\" \"VGUI/white_additive\"\n" << endl;
+        ss << "    \"$nofog\" \"1\"\n" << endl;
+        ss << "    \"$ignorez\" \"" + to_string(ignorez) + "\"\n" << endl;
+        ss << "    \"$wireframe\" \""+ to_string(wireframe) +"\"\n" << endl;
+        ss << "    \"$halflambert\" \"1\"\n" << endl;
+        ss << "}\n" << endl;
+        
+        ofstream f;
+        f.open(path);
+        f << ss.str();
+        f.close();
+    }
     
     material_t* mat = g_mat_system->find_material(filename.c_str(), TEXTURE_GROUP_MODEL);
     
@@ -61,21 +63,19 @@ static material_t* create_material(string filename, string type, bool ignorez, b
  */
 void chams_manager_t::create_materials(bool reload)
 {
-    static bool created = false;
-    
     // if we want to relaod then create again
     if(reload)
-        created = false;
+        g_mats_created = false;
     
     // if we havent created yet
-    if(!created)
+    if(!g_mats_created)
     {
         mat_flat_vis = create_material("VertexLitGeneric",  "pwned_flat",       false, false);
         mat_flat_ign = create_material("VertexLitGeneric",  "pwned_flat_ign",   true,  false);
         mat_text_vis = create_material("UnlitGeneric",      "pwned_text",       false, false);
         mat_text_ign = create_material("UnlitGeneric",      "pwned_text_ign", 	true,  false);
         
-        created = true;
+        g_mats_created = true;
         
         skeep("Chams materials created");
     }
@@ -96,14 +96,81 @@ void chams_manager_t::hands(void* thisptr, void* context, void* state, const mod
  */
 void chams_manager_t::player(void* thisptr, void* context, void* state, const model_render_info_t& model_info, matrix3x4_t* matrix)
 {
+    if(!g_mats_created)
+        create_materials();
+    
     player_t* player = (player_t*)g_ent_list->get_entity(model_info.m_entity_index);
     
-    if(!player)
+    if(!player || !global::local)
+        return;
+    
+    // todo : remove, just temp
+    if(player == global::local)
         return;
     
     if(!player->is_player())
         return;
     
+    if(!player->is_alive() || player->is_dormant())
+        return;
+    
+    if(player->get_team() == global::local->get_team() && set.visuals.team_flags == 0)
+        return;
+    
+    if(player->get_team() != global::local->get_team() && set.visuals.team_flags == 1)
+        return;
+    
+    skeep("player chams : " + std::to_string(player->get_index()));
+    
+    // color_t col_vis = set.colors.chams.players.to_color();;
+    // color_t col_ign = set.colors.chams.behind_walls.to_color();;
+    
+    color_t col_vis = color_t::white, col_ign = color_t::white;
+    
+    material_t* mat_vis = nullptr;
+    material_t* mat_ign = nullptr;
+    
+    switch(set.visuals.chams.player_type)
+    {
+        case 0: // flat
+            mat_vis = mat_flat_vis;
+            mat_ign = mat_flat_ign;
+            break;
+            
+        case 1: // textured
+        default:
+            mat_vis = mat_text_vis;
+            mat_ign = mat_text_ign;
+            break;
+    }
+    
+    if(!mat_vis || !mat_ign)
+    {
+        skeep("no chams mat");
+        return;
+    }
+    
+    if(player == global::local)
+    {
+        // alpha modulate 0.7
+    }
+    else
+    {
+        float alpha = 1.f;
+        
+        if(!set.visuals.chams.behind_walls)
+        {
+            mat_ign->color_modulate(col_ign);
+            mat_ign->alpha_modulate(alpha);
+            g_model_render->forced_material_override(mat_ign);
+            model_vmt->get_original_method<draw_model_execute_fn>(INDEX_DRAW_MODEL_EXE)(thisptr, context, state, model_info, matrix);
+        }
+        
+        mat_vis->color_modulate(col_vis);
+        mat_vis->alpha_modulate(alpha);
+        g_model_render->forced_material_override(mat_vis);
+        model_vmt->get_original_method<draw_model_execute_fn>(INDEX_DRAW_MODEL_EXE)(thisptr, context, state, model_info, matrix);
+    }
 }
 
 /*

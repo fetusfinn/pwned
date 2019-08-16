@@ -1,19 +1,12 @@
 /*
- * engine_trace.h
+ *  engine_trace.h
+ *  https://github.com/ValveSoftware/source-sdk-2013/blob/master/mp/src/public/engine/IEngineTrace.h
  */
 #pragma once
 
-// todo : move n clean
-// https://github.com/ValveSoftware/source-sdk-2013/blob/master/mp/src/public/engine/IEngineTrace.h
-
-
-enum trace_type_t
-{
-    TRACE_EVERYTHING = 0,
-    TRACE_WORLD_ONLY,               // NOTE: This does *not* test static props!!!
-    TRACE_ENTITIES_ONLY,            // NOTE: This version will *not* test static props
-    TRACE_EVERYTHING_FILTER_PROPS,  // NOTE: This version will pass the IHandleEntity for props through the filter, unlike all other filters
-};
+/*
+ *  structs
+ */
 
 struct ray_t
 {
@@ -45,26 +38,43 @@ struct plane_t
     vec3_t          m_normal;
     float           m_dist;
     unsigned char   m_type;
-    unsigned char   m_signbits;
+    unsigned char   m_sign_bits;
     unsigned char   m_pad[2];
 };
 
-class _trace_filter_t
+struct csurface_t
 {
-    virtual bool should_hit_entity(base_entity_t* ent, int mask)
-    {
-        return !(ent == m_skip);
-    }
-    
-    virtual trace_type_t get_trace_type()
-    {
-        return m_type;
-    }
-    
-    void*   m_skip;
-    int     m_collision_group;
-    trace_type_t m_type;
+    const char*         m_name;
+    short               m_surface_props;
+    unsigned short      m_flags;
 };
+
+struct trace_t
+{
+    vec3_t          m_start_pos;
+    vec3_t          m_end_pos;
+    plane_t         m_plane;
+    float           m_fraction;
+    int             m_contents;
+    unsigned int    m_disp_flags;
+    bool            m_all_solid;
+    bool            m_start_solid;
+    float           m_fraction_left_solid;
+    csurface_t      m_surface;
+    hit_group_t     m_hit_group;
+    short           m_physics_bone;
+    unsigned short  m_world_surface_index;
+    base_entity_t*  m_ent;
+    int             m_hitbox;
+    
+    inline bool did_hit() const { return m_fraction < 1.0f || m_all_solid || m_start_solid; }
+    bool did_hit_world() const { return m_ent->get_index() == 0; }
+    bool did_hit_non_world_entity() const { return m_ent != nullptr && !did_hit_world(); }
+};
+
+/*
+ *  trace filter
+ */
 
 class i_trace_filter_t
 {
@@ -109,50 +119,9 @@ public:
     }
 };
 
-struct csurface_t
-{
-    const char*         m_name;
-    short               m_surfaceProps;
-    unsigned short      m_flags;
-};
-
-struct trace_t
-{
-    vec3_t          m_start_pos;
-    vec3_t          m_end_pos;
-    plane_t     	m_plane;
-    float           m_fraction;
-    int             m_contents;
-    unsigned int    m_disp_flags;
-    bool            m_all_solid;
-    bool            m_start_solid;
-    float           m_fraction_left_solid;
-    csurface_t      m_surface;
-    hit_group_t     m_hit_group;
-    short           m_physics_bone;
-    unsigned short  m_world_surface_index;
-    base_entity_t*  m_ent;
-    int             m_hitbox;
-    
-    bool did_hit() const;
-    bool did_hit_world() const;
-    bool did_hit_non_world_entity() const;
-};
-
-inline bool trace_t::did_hit() const
-{
-    return m_fraction < 1.0f || m_all_solid || m_start_solid;
-}
-
-inline bool trace_t::did_hit_world() const
-{
-    return m_ent->get_index() == 0;
-}
-
-inline bool trace_t::did_hit_non_world_entity() const
-{
-    return m_ent != nullptr && !did_hit_world();
-}
+/*
+ *  engine trace
+ */
 
 class engine_trace_t
 {
@@ -165,7 +134,7 @@ public:
     
     // Get the point contents, but only test the specific entity. This works
     // on static props and brush models.
-    //
+
     // If the entity isn't a static prop or a brush model, it returns CONTENTS_EMPTY and sets
     // bFailed to true if bFailed is non-null.
     virtual int get_point_contents_collideable(collidable_t* collide, const vec3_t& abs_pos) = 0;

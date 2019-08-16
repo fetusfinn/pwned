@@ -5,8 +5,6 @@
 
 class chams_manager_t
 {
-private:
-    
 public:
     
     void create_materials(bool reload = false);

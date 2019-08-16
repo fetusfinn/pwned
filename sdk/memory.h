@@ -36,6 +36,8 @@ public:
     uintptr_t get_base_address(string name);
     uintptr_t get_absolue_address(uintptr_t ptr, uintptr_t start_offset, uintptr_t size);
     
+    void protect_addr(void* addr, int prot);
+    
     void load_modules();
 };
 

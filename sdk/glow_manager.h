@@ -3,51 +3,6 @@
  */
 #pragma once
 
-// todo : cleanup, move
-
-template <class T, class I = int>
-class CUtlMemory
-{
-public:
-    
-    T& operator[](I i)
-    {
-        return m_memory[i];
-    }
-    
-protected:
-    
-    T*  m_memory;
-    int m_allocation_count;
-    int m_grow_size;
-    
-};
-
-template <class T, class A = CUtlMemory<T>>
-class CUtlVector
-{
-    typedef A CAllocator;
-    
-public:
-    
-    T& operator[](int i)
-    {
-        return m_memory[i];
-    }
-    
-    int count() const
-    {
-        return m_size;
-    }
-    
-protected:
-    
-    CAllocator 	m_memory;
-    int         m_size;
-    T*          m_elements;
-    
-};
-
 #define END_OF_FREE_LIST    -1
 #define ENTRY_IN_USE        -2
 
@@ -74,7 +29,6 @@ struct glow_object_t
         return m_next_free_slot != ENTRY_IN_USE;
     }
 };
-
 
 class glow_manager_t
 {

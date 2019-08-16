@@ -197,7 +197,7 @@ inline vec3_t vec3_t::get_normalised(void)
     float length = this->length();
     
     if (length != 0)
-        return vec3_t(*this / this->length());
+        return vec3_t(*this / length);
     
     return vec3_t(0, 0, 1);
 }

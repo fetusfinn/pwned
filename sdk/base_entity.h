@@ -3,6 +3,9 @@
  */
 #pragma once
 
+#define sdk_get_offset(type, table, netvar) *(type*)((uintptr_t)this + g_offsets.table.netvar);
+#define sdk_get_pointer(type, table, netvar) (type*)((uintptr_t)this + g_offsets.table.netvar);
+
 class collidable_t
 {
 public:
@@ -118,23 +121,22 @@ public:
     
     bool is_dormant()
     {
-        // might be 0x125
-        return *(bool*)((uintptr_t)this + 0x121);
+        return *(bool*)((uintptr_t)this + 0x125);
     }
     
     int get_team()
     {
-        return *(int*)((uintptr_t)this + g_offsets.base_entity.m_team);
+        return sdk_get_offset(int, base_entity, m_team);
     }
     
     collidable_t* get_collidable()
     {
-        return (collidable_t*)((uintptr_t)this + g_offsets.base_entity.m_collision);
+        return sdk_get_pointer(collidable_t, base_entity, m_collision);
     }
     
     vec3_t get_origin()
     {
-        return *(vec3_t*)((uintptr_t)this + g_offsets.base_entity.m_origin);
+        return sdk_get_offset(vec3_t, base_entity, m_origin);
     }
 };
 

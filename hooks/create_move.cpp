@@ -3,7 +3,7 @@
  *
  */
 #include "common.h"
-#include "ragebot.h"
+#include "legitbot.h"
 #include "movement.h"
 
 // todo : clean up
@@ -47,7 +47,7 @@ bool create_move_hook(void* thisptr, float sample, user_cmd_t* cmd)
         {
             // g_rage->aimbot();
             
-            // g_legit->aimbot();
+            g_legit->aimbot();
         }
         
         // prediction end

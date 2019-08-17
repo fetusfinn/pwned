@@ -5,6 +5,8 @@
 
 #include "imgui.h"
 
+typedef std::vector<bool> multi;
+
 struct settings_t
 {
     struct
@@ -45,7 +47,7 @@ struct settings_t
         
         struct
         {
-            std::vector<bool> hitmarkers; // crosshair, sound, damage
+            multi   hitmarkers; // crosshair, sound, damage
             bool    bomb_timer  = false;
             
             // removals
@@ -85,11 +87,12 @@ struct settings_t
     
     struct
     {
-        bool aimbot = false;
-        int  fov    = 0;    // 0 - 180
-        int  smooth = 0;    // 0 - 100, percent, 0 = off
-        int  rcs_x  = 0;    // 0 - 100, percent, 0 = off
-        int  rcs_y  = 0;
+        bool  aimbot    = false;
+        multi hitboxes  = {};
+        int   fov       = 0;    // 0 - 180
+        int   smooth    = 0;    // 0 - 100, percent, 0 = off
+        int   rcs_x     = 0;    // 0 - 100, percent, 0 = off
+        int   rcs_y     = 0;
     }legit;
     
 };

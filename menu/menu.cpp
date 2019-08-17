@@ -120,6 +120,9 @@ void menu_t::tab_rage()
 void menu_t::tab_legit()
 {
     set_side(side_left);
+    checkbox("aimbot", &set.legit.aimbot);
+    slider_i("fov", {0, 90}, &set.legit.fov, false, "º");
+    slider_i("smoothing", {0, 100}, &set.legit.smooth, false, "%");    
     
     set_side(side_right);
 }

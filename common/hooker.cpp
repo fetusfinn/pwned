@@ -139,6 +139,7 @@ static void prepare_settings()
     g_engine->get_screen_size(set.screen.w, set.screen.h);
     
     set.visuals.other.hitmarkers.resize(3);
+    set.legit.hitboxes.resize(5); // head, chest, stomach, arms, legs 
     
     g_chams->create_materials();
 }

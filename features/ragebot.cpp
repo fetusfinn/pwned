@@ -12,31 +12,54 @@ rage_bot_t* g_rage = new rage_bot_t();
 /*
  *
  *  Returns the hitboxes we want to aim at
- *
-std::vector<hitbox_t> rage_bot_t::get_target_hitboxes() const
+ */
+std::vector<hitbox_t> rage_bot_t::get_target_hitboxes()
 {
-    // todo
-    std::vector<hitbox_t> hitboxes = {
-        HITBOX_HEAD,
-        HITBOX_NECK,
-        HITBOX_PELVIS,
-        HITBOX_BODY,
-//        HITBOX_THORAX,
-        HITBOX_CHEST,
-//        HITBOX_UPPER_CHEST,
-//        HITBOX_RIGHT_THIGH,
-//        HITBOX_LEFT_THIGH,
-        HITBOX_RIGHT_CALF,
-        HITBOX_LEFT_CALF,
-        HITBOX_RIGHT_FOOT,
-        HITBOX_LEFT_FOOT,
-//        HITBOX_RIGHT_HAND,
-//        HITBOX_LEFT_HAND,
-//        HITBOX_RIGHT_UPPER_ARM,
-//        HITBOX_RIGHT_FOREARM,
-//        HITBOX_LEFT_UPPER_ARM,
-//        HITBOX_LEFT_FOREARM,
-    };
+     std::vector<hitbox_t> hitboxes;
+     
+     if(set.rage.hitboxes.at(0))
+     {
+         hitboxes.push_back(HITBOX_HEAD);
+         hitboxes.push_back(HITBOX_NECK);
+     }
+     
+     if(set.rage.hitboxes.at(1))
+     {
+         hitboxes.push_back(HITBOX_CHEST);
+         hitboxes.push_back(HITBOX_UPPER_CHEST);
+     }
+     
+     if(set.rage.hitboxes.at(2))
+     {
+         hitboxes.push_back(HITBOX_PELVIS);
+         hitboxes.push_back(HITBOX_BODY);
+     }
+     
+     if(set.rage.hitboxes.at(3))
+     {
+         hitboxes.push_back(HITBOX_LEFT_UPPER_ARM);
+         hitboxes.push_back(HITBOX_RIGHT_UPPER_ARM);
+     }
+     
+     if(set.rage.hitboxes.at(4))
+     {
+         hitboxes.push_back(HITBOX_LEFT_THIGH);
+         hitboxes.push_back(HITBOX_RIGHT_THIGH);
+         hitboxes.push_back(HITBOX_LEFT_CALF);
+         hitboxes.push_back(HITBOX_RIGHT_CALF);
+     }
+
+    // nothing selected so just default
+    if(hitboxes.empty())
+    {
+        hitboxes.push_back(HITBOX_HEAD);
+        hitboxes.push_back(HITBOX_CHEST);
+        hitboxes.push_back(HITBOX_BODY);
+        hitboxes.push_back(HITBOX_LEFT_UPPER_ARM);
+        hitboxes.push_back(HITBOX_RIGHT_UPPER_ARM);
+        hitboxes.push_back(HITBOX_LEFT_CALF);
+        hitboxes.push_back(HITBOX_RIGHT_CALF);
+    }
     
     return hitboxes;
 }

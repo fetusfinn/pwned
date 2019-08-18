@@ -95,4 +95,22 @@ struct settings_t
         int   rcs_y     = 0;
     }legit;
     
+    struct
+    {
+        bool    aimbot  = false;
+        multi   hitboxes= {};
+        int     fov     = 0;
+    }rage;
+    
+    struct
+    {
+        bool slow_walk  = false;
+        bool fake_duck  = false;
+        
+        // todo
+        bool desync     = false;
+        bool antiaim    = false;
+        int  yaw        = 0;       
+        int  pitch      = 0;
+    }antiaim;
 };

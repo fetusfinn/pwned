@@ -47,7 +47,7 @@ public:
 
 struct bf_read;
 struct bf_write;
-class key_values;
+class key_values_t;
 
 class game_event_manager2_t
 {
@@ -66,5 +66,5 @@ public:
     virtual void free_event(game_event_t* event) = 0;
     virtual bool serialize_event(game_event_t* event, bf_write* buffer) = 0;
     virtual game_event_t* unserialize_event(bf_read* buffer) = 0;
-    virtual key_values* get_event_data_types(game_event_t* event) = 0;
+    virtual key_values_t* get_event_data_types(game_event_t* event) = 0;
 };

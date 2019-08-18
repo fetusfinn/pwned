@@ -53,11 +53,10 @@ static void init_hooks()
     g_offsets.player_anim_state = g_memory->get_procedure("client_panorama.dylib", SIG_ANIM_STATE_OFFSET, MSK_ANIM_STATE_OFFSET, 0) + 0x3;
     uintptr_t global_vars_ptr   = g_memory->get_pointer("client_panorama.dylib", SIG_GLOBALVARS, MSK_GLOBALVARS, 0x3) + 0x4;
     uintptr_t client_mode_ptr   = g_memory->get_pointer("client_panorama.dylib", SIG_CLIENTMODE, MSK_CLIENTMODE, 0xA) + 0x4;
-    uintptr_t send_packet_ptr   = g_memory->get_pointer("engine.dylib", SIG_SENDPACKET, MSK_SENDPACKET, 0x1) + 0x2;
+    uintptr_t send_packet_ptr   = g_memory->get_procedure("engine.dylib", SIG_SENDPACKET, MSK_SENDPACKET, 0x1) + 0x2;
     
     global::send_packet = reinterpret_cast<bool*>(send_packet_ptr);
     g_memory->protect_addr(global::send_packet, 0x1 | 0x2 | 0x4);
-    global::send_packet = nullptr;
     
     uintptr_t get_local_client_ptr  = (uintptr_t)getvtable(g_engine)[12];
     
@@ -139,7 +138,8 @@ static void prepare_settings()
     g_engine->get_screen_size(set.screen.w, set.screen.h);
     
     set.visuals.other.hitmarkers.resize(3);
-    set.legit.hitboxes.resize(5); // head, chest, stomach, arms, legs 
+    set.legit.hitboxes.resize(5); // head, chest, stomach, arms, legs
+    set.rage.hitboxes.resize(5); // head, chest, stomach, arms, legs
     
     g_chams->create_materials();
 }

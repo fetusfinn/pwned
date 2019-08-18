@@ -5,6 +5,10 @@
 #include "common.h"
 #include "chams.h"
 
+#include <unistd.h>
+#include <sys/proc_info.h>
+#include <libproc.h>
+
 chams_manager_t* g_chams = new chams_manager_t;
 
 static bool g_mats_created = false;
@@ -24,15 +28,28 @@ static bool does_file_exist(const std::string& str)
     return f.good();
 }
 
+static std::string get_path()
+{
+    char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
+    proc_pidpath(getpid(), pathbuf, sizeof(pathbuf));
+    std::string path = pathbuf;
+    path.erase(find(path.rbegin(), path.rend(), '/').base(), path.end());
+    return path;
+    return util_execute_cmd("pwd");
+}
+
 /*
  *
  *
  */
-static material_t* create_material(string filename, string type, bool ignorez, bool wireframe)
+static material_t* create_material(string filename, bool flat, bool ignorez, bool wireframe)
 {
-    if(!does_file_exist(filename))
+    std::string type     = flat ? "VertexLitGeneric" : "UnlitGeneric";
+    std::string mat_path = get_path() + "csgo/materials/";
+    std::string path     = mat_path + filename + ".vmt";
+    
+    if(!does_file_exist(path))
     {
-        std::string path = util_execute_cmd("pwd") + "csgo/materials/" + filename + ".vmt";
         std::stringstream ss;
         
         ss << "\"" + type + "\"\n" << endl;
@@ -48,10 +65,10 @@ static material_t* create_material(string filename, string type, bool ignorez, b
         f.open(path);
         f << ss.str();
         f.close();
+        
     }
-    
-    material_t* mat = g_mat_system->find_material(filename.c_str(), TEXTURE_GROUP_MODEL);
-    
+
+    material_t* mat = g_mat_system->find_material(filename.c_str(), TEXTURE_GROUP_MODEL);    
     mat->increment_reference_count();
     
     return mat;
@@ -70,10 +87,10 @@ void chams_manager_t::create_materials(bool reload)
     // if we havent created yet
     if(!g_mats_created)
     {
-        mat_flat_vis = create_material("VertexLitGeneric",  "pwned_flat",       false, false);
-        mat_flat_ign = create_material("VertexLitGeneric",  "pwned_flat_ign",   true,  false);
-        mat_text_vis = create_material("UnlitGeneric",      "pwned_text",       false, false);
-        mat_text_ign = create_material("UnlitGeneric",      "pwned_text_ign", 	true,  false);
+        mat_flat_vis = create_material("pwned_flat",        true,   false, false);
+        mat_flat_ign = create_material("pwned_flat_ign",    true,   true,  false);
+        mat_text_vis = create_material("pwned_text",        false,  false, false);
+        mat_text_ign = create_material("pwned_text_ign",    false, 	true,  false);
         
         g_mats_created = true;
         
@@ -96,8 +113,8 @@ void chams_manager_t::hands(void* thisptr, void* context, void* state, const mod
  */
 void chams_manager_t::player(void* thisptr, void* context, void* state, const model_render_info_t& model_info, matrix3x4_t* matrix)
 {
-    if(!g_mats_created)
-        create_materials();
+    if(!set.visuals.chams.players)
+        return;
     
     player_t* player = (player_t*)g_ent_list->get_entity(model_info.m_entity_index);
     
@@ -120,24 +137,19 @@ void chams_manager_t::player(void* thisptr, void* context, void* state, const mo
     if(player->get_team() != global::local->get_team() && set.visuals.team_flags == 1)
         return;
     
-    skeep("player chams : " + std::to_string(player->get_index()));
-    
-    // color_t col_vis = set.colors.chams.players.to_color();;
-    // color_t col_ign = set.colors.chams.behind_walls.to_color();;
-    
-    color_t col_vis = color_t::white, col_ign = color_t::white;
+    color_t col_vis = set.colors.chams.players.to_color();
+    color_t col_ign = set.colors.chams.behind_walls.to_color();
     
     material_t* mat_vis = nullptr;
     material_t* mat_ign = nullptr;
     
     switch(set.visuals.chams.player_type)
     {
-        case 0: // flat
+        case 0:
             mat_vis = mat_flat_vis;
             mat_ign = mat_flat_ign;
             break;
-            
-        case 1: // textured
+        case 1:
         default:
             mat_vis = mat_text_vis;
             mat_ign = mat_text_ign;
@@ -146,7 +158,7 @@ void chams_manager_t::player(void* thisptr, void* context, void* state, const mo
     
     if(!mat_vis || !mat_ign)
     {
-        skeep("no chams mat");
+        skeep("no chams mats");
         return;
     }
     
@@ -158,7 +170,7 @@ void chams_manager_t::player(void* thisptr, void* context, void* state, const mo
     {
         float alpha = 1.f;
         
-        if(!set.visuals.chams.behind_walls)
+        if(set.visuals.chams.behind_walls)
         {
             mat_ign->color_modulate(col_ign);
             mat_ign->alpha_modulate(alpha);

@@ -1,6 +1,6 @@
-/*  legitbot.cpp
- *
- *
+/*
+ *  legitbot.cpp
+ *  todo : recode
  */
 #include "common.h"
 #include "legitbot.h"
@@ -11,7 +11,42 @@ static vec3_t screen_mid(0, 0, 0);
 
 static std::vector<hitbox_t> get_target_hitboxes()
 {
-    // todo
+    /*
+    std::vector<hitbox_t> hitboxes;
+    
+    if(set.legit.hitboxes.at(0))
+    {
+        hitboxes.push_back(HITBOX_HEAD);
+        hitboxes.push_back(HITBOX_NECK);
+    }
+    
+    if(set.legit.hitboxes.at(1))
+    {
+        hitboxes.push_back(HITBOX_CHEST);
+        hitboxes.push_back(HITBOX_UPPER_CHEST);
+    }
+    
+    if(set.legit.hitboxes.at(2))
+    {
+        hitboxes.push_back(HITBOX_PELVIS);
+        hitboxes.push_back(HITBOX_BODY);
+    }
+    
+    if(set.legit.hitboxes.at(3))
+    {
+        hitboxes.push_back(HITBOX_LEFT_UPPER_ARM);
+        hitboxes.push_back(HITBOX_RIGHT_UPPER_ARM);
+    }
+    
+    if(set.legit.hitboxes.at(4))
+    {
+        hitboxes.push_back(HITBOX_LEFT_THIGH);
+        hitboxes.push_back(HITBOX_RIGHT_THIGH);
+        hitboxes.push_back(HITBOX_LEFT_CALF);
+        hitboxes.push_back(HITBOX_RIGHT_CALF);
+    }
+    */
+    
     std::vector<hitbox_t> hitboxes = {
         HITBOX_HEAD,
         HITBOX_NECK,
@@ -108,7 +143,7 @@ vec3_t legitbot_t::get_aim_position(player_t* player, int hitbox)
     vec3_t aim_pos = vec3_t(0, 0, 0);
     
     // if backtrack
-    //     get_best_record // try get lby update tick
+    //     get_closest_record
     
     if(aim_pos.is_zero())
         aim_pos = get_hitbox_position(player, hitbox);
@@ -116,6 +151,7 @@ vec3_t legitbot_t::get_aim_position(player_t* player, int hitbox)
     // todo : prediction
     
     // extrapolate
+    // todo : make better
     if(!aim_pos.is_zero())
         aim_pos += player->get_velocity() * g_globals->m_interval_per_tick;
     
@@ -155,7 +191,7 @@ void legitbot_t::aimbot()
         return;
     
     if(screen_mid.is_zero())
-        screen_mid  = vec3_t(set.screen.w, set.screen.h, 0);
+        screen_mid  = vec3_t(set.screen.w / 2, set.screen.h / 2, 0);
     
     if(!can_hit_target())
     {

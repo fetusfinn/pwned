@@ -112,7 +112,10 @@ void menu_t::draw_tabs()
 
 void menu_t::tab_rage()
 {
-    set_side(side_left);    
+    set_side(side_left);
+    checkbox("aimbot", &set.rage.aimbot);
+    slider_i("fov", {0, 180}, &set.rage.fov);
+    combo_multi("target hitboxes", {"head", "chest", "stomach", "arms", "legs"}, &set.rage.hitboxes, &opened.rage_hitboxes);
     
     set_side(side_right);
 }

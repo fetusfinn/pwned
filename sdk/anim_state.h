@@ -1,7 +1,22 @@
 /*
- * anim_state.h
+ *  anim_state.h
  */
 #pragma once
+
+class anim_layer_t
+{
+public:
+    char    _pad0[24];
+    int     m_order;
+    int     m_sequence;
+    float   m_prev_cycle;
+    float   m_weight;
+    float   m_weight_delta_rate;
+    float   m_playback_rate;
+    float   m_cycle;
+    void*   m_owner;        // players thisptr
+    char    _pad1[8];       // 0x40
+}; //Size: 0x0048
 
 class anim_state_t
 {

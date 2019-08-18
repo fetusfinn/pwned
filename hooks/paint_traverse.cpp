@@ -30,7 +30,14 @@ void paint_traverse_hook(void* thisptr, VPANEL panel, bool repaint, bool allow_f
     if(panel == focus_panel)
     {
         if(g_engine->is_in_game())
-        {            
+        {
+            if(global::send_packet)
+            {
+                // draw choked packets
+                for(int i = 0; i < 16; i++)
+                    g_render->draw_box_filled(10 + (i * 11), 250, 10, 10, color_t(250, 160, 50, (global::choked > i) ? 225 : 100));
+            }
+            
             // features
             g_visuals->draw_player_esp();
             g_visuals->draw_other_esp();

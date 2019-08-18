@@ -6,8 +6,17 @@
 #include "antiaim.h"
 
 // https://github.com/EternityX/DEADCELL-CSGO/blob/master/csgo/features/anti-aim/antiaim.cpp
+// https://www.unknowncheats.me/forum/counterstrike-global-offensive/317456-detecting-desync.html
+// https://www.unknowncheats.me/forum/counterstrike-global-offensive/267534-breaking-lby-below-100-delta.html
+// https://www.unknowncheats.me/forum/counterstrike-global-offensive/325128-desync-send.html
 
-float get_max_desync_delta()
+antiaim_manager_t* g_antiaim = new antiaim_manager_t();
+
+/*
+ *  Antiaim
+ */
+
+float antiaim_manager_t::get_max_desync_delta()
 {
     if(!global::local)
         return 0.f;
@@ -85,7 +94,7 @@ float normalise_yaw(float yaw)
     return yaw;
 }
 
-void desync()
+void antiaim_manager_t::desync()
 {
     float max_delta = get_max_desync_delta(), yaw = 0;
     
@@ -107,7 +116,7 @@ void real()
     global::cmd->m_view_angles.y = yaw;
 }
 
-void anti_aim()
+void antiaim_manager_t::anti_aim()
 {
     // desync only works if moving or breaking, this moves side to side
     if(global::local->get_flags() & FL_ONGROUND && global::cmd->m_side_move < 3 && global::cmd->m_side_move > -3)
@@ -143,54 +152,6 @@ void anti_aim()
         // real
         // view_angles -= delta;
     }
-}
-
-void fake_duck()
-{
-    if(!global::cmd)
-        return;
-    
-    global::cmd->m_buttons |= IN_BULLRUSH;
-    
-    if (global::choked > 7)
-        global::cmd->m_buttons |= IN_DUCK;
-    else
-        global::cmd->m_buttons &= ~IN_DUCK;
-}
-
-void slow_walk()
-{
-    /*
-    if(!set.misc.slow_walk || !g_input_system->is_button_down(KEY_LSHIFT))
-        return;
-    
-    if (!global::local || !global::weapon)
-        return;
-    
-    float setings_val = 50; // options.misc.slow_walk_amount
-    float amount = 0.0034f * setings_val; // options.misc.slow_walk_amount has 100 max value
-    
-    vec3_t velocity = cheat.local->velocity( );
-    qangle_t direction;
-    
-    math::get( ).vector_angles(velocity, direction);
-    
-    float speed = velocity.length_2d( );
-    
-    direction.yaw = cmd->view_angles.yaw - direction.yaw;
-    
-    vec3_t forward;
-    
-    math::get( ).angle_vectors(direction, forward);
-    
-    vec3_t source = forward * -speed;
-    
-    if (speed >= (weapon_handle->get_weapon_info( )->max_speed * amount))
-    {
-        global::cmd->m_forward = source.x;
-        global::cmd->m_side = source.y;
-    }
-    */
 }
 
 void desync2(float& angle, const float& old_angle, bool& bSendPacket)
@@ -391,4 +352,162 @@ void desync2(float& angle, const float& old_angle, bool& bSendPacket)
         }
     }
     */
+}
+
+void LegitPeek(user_cmd_t* pCmd, player_t* pLocalPlayer, bool& bSendPacket, int choke_factor)
+{
+    // fake lag on peek
+    /*
+    if (!pLocalPlayer)
+        return;
+    
+    static bool m_bIsPeeking = false;
+    
+    if (m_bIsPeeking)
+    {
+        bSendPacket = !(global::choked < choke_factor);
+        if (bSendPacket)
+            m_bIsPeeking = false;
+        return;
+    }
+    
+    float speed = pLocalPlayer->get_velocity().length();
+    
+    if (speed <= 100.0f)
+        return;
+    
+    collidable_t* pCollidable = pLocalPlayer->get_collidable();
+    
+    if (!pCollidable)
+        return;
+    
+    vec3_t min, max;
+    min = pCollidable->obb_max();
+    max = pCollidable->obb_max();
+    
+    min += pLocalPlayer->get_origin();
+    max += pLocalPlayer->get_origin();
+    
+    vec3_t center = (min + max) * 0.5f;
+    
+    for (int i = 0; i <= g_ent_list->get_highest_index(); i++)
+    {
+        player_t* pEntity = g_ent_list->get_player(i);
+        
+        if(!!pEntity)
+            continue;
+        
+        if(!pEntity->is_alive() || pEntity->is_dormant())
+            continue;
+        
+        if (pEntity == pLocalPlayer || pLocalPlayer->get_team() == pEntity->get_team())
+            continue;
+        
+        weapon_t* pWeapon = pLocalPlayer->get_weapon();
+        
+        if (!pWeapon)
+            continue;
+        
+        if (pWeapon->get_ammo() <= 0)
+            continue;
+        
+        weapon_info_t* pWeaponInfo = pWeapon->get_weapon_info();
+        
+        if (!pWeaponInfo)
+            continue;
+        
+        if (pWeaponInfo->iWeaponType <= CSWeaponType::WEAPONTYPE_KNIFE || pWeaponInfo->iWeaponType >= CSWeaponType::WEAPONTYPE_C4)
+            continue;
+        
+        Vector eye_pos = pEntity->GetEyePosition();
+        
+        Vector direction;
+        pMatch->AngleVectors(pEntity->GetEyeAnglesXY(), &direction);
+        direction.NormalizeInPlace();
+        
+        Vector hit_point;
+        
+        bool hit = IntersectionBoundingBox(eye_pos, direction, min, max, &hit_point);
+        
+        if (hit && eye_pos.DistTo(hit_point) <= pWeaponInfo->flRange)
+        {
+            Ray_t ray;
+            trace_t tr;
+            CTraceFilter filter((CBaseEntity*)pEntity);
+            ray.Init(eye_pos, hit_point);
+            
+            I::EngineTrace()->TraceRay(ray, MASK_SHOT_HULL | CONTENTS_HITBOX, &filter, &tr);
+            
+            if (tr.contents & CONTENTS_WINDOW) //skip windows XPPPP
+            {                                                                                         // at this moment, we dont care about local player
+                filter.pSkip = tr.m_pEnt;
+                ray.Init(tr.endpos, hit_point);
+                I::EngineTrace()->TraceRay(ray, MASK_SHOT_HULL | CONTENTS_HITBOX, &filter, &tr);
+            }
+            
+            if (tr.fraction == 1.0f || tr.m_pEnt == pLocalPlayer)
+            {
+                m_bIsPeeking = true;
+                break;
+            }
+        }
+    }
+     */
+}
+
+/*
+ *  Movement
+ */
+
+void antiaim_manager_t::slow_walk()
+{
+    if(!set.antiaim.slow_walk || !g_input_system->is_button_down(KEY_LSHIFT))
+        return;
+    
+    if (!global::local || !global::weapon || !global::cmd)
+        return;
+    
+    weapon_info_t* weapon_info = global::weapon->get_weapon_info();
+    
+    if(!weapon_info)
+        return;
+    
+    float setings_val = 50; // 0 - 100
+    float amount = 0.0034f * setings_val;
+    
+    vec3_t velocity = global::local->get_velocity();
+    qangle_t direction;
+    
+    vector_angles(velocity, direction);
+    
+    float speed = velocity.length_2d( );
+    
+    direction.y = global::cmd->m_view_angles.y - direction.y;
+    
+    vec3_t forward;
+    
+    angle_vectors(direction, forward);
+    
+    vec3_t source = forward * -speed;
+    
+    if (speed >= (weapon_info->m_max_speed * amount))
+    {
+        global::cmd->m_forward_move = source.x;
+        global::cmd->m_side_move = source.y;
+    }
+}
+
+void antiaim_manager_t::fake_duck()
+{
+    if(!set.antiaim.fake_duck)
+    
+    if(!global::cmd)
+        return;
+    
+    global::cmd->m_buttons |= IN_BULLRUSH;
+    
+    if (global::choked > 7)
+        global::cmd->m_buttons |= IN_DUCK;
+    else
+        global::cmd->m_buttons &= ~IN_DUCK;
 }

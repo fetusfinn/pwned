@@ -1,6 +1,5 @@
-/*  hitmarkers.cpp
- *
- *
+/*
+ *  hitmarkers.cpp
  */
 #include "common.h"
 #include "visuals.h"

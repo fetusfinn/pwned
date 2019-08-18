@@ -42,6 +42,10 @@ void movement_t::bhop()
     }
 }
 
+/*
+ *
+ *  auto strafe
+ */
 void movement_t::strafe()
 {
     if(!global::local || !global::cmd)

@@ -5,16 +5,16 @@
 
 typedef unsigned short material_handle_t;
 
-class key_values;
+class key_values_t;
 
-class material_system_t
+class material_system_t : public app_system_t
 {
 public:
     
-    material_t* create_material(const char* mat_name, key_values* vmt_key_values)
+    material_t* create_material(const char* mat_name, key_values_t* key_values)
     {
-        typedef material_t* (*o_create_material)(void*, const char*, key_values*);
-        return getvfunc<o_create_material>(this, 83)(this, mat_name, vmt_key_values);
+        typedef material_t* (*o_create_material)(void*, const char*, key_values_t*);
+        return getvfunc<o_create_material>(this, 83)(this, mat_name, key_values);
     }
     
     material_t* find_material(char const* mat_name, const char* tex_group_name, bool complain = true, const char* complain_prefix = NULL)

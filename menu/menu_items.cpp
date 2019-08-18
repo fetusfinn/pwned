@@ -118,7 +118,7 @@ void menu_t::checkbox(std::string label, bool* val, bool cancel)
     draw->draw_box_filled(x - 10 - size, y + 1, size, size, col);
     draw->draw_string(x, y, label.c_str(), Fonts::small, col_text);
     
-    if(draw->in_area(x - 1 - 10 - size, y - 1, 110 + 10 + size, size + 2) && mouse_clicked() && !cancel)
+    if(draw->in_area(x - 1 - 10 - size, y - 1, 100, size + 2) && mouse_clicked() && !cancel)
         *val = !(*val);
 }
 

@@ -67,7 +67,7 @@ static void draw_offscreen(player_t* player)
  */
 static void draw_bomb_timer(planted_c4_t* bomb)
 {
-    if(set.visuals.other.bomb_timer)
+    if(!set.visuals.other.bomb_timer)
         return;
     
     float flBlow  = bomb->get_blow_time();

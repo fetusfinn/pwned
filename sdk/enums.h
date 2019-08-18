@@ -504,7 +504,7 @@ enum move_type_t
     MOVETYPE_MAX_BITS = 4
 };
 
-enum weapon_type_t
+enum weapon_type_t : int
 {
     WEAPONTYPE_KNIFE = 0,
     WEAPONTYPE_PISTOL,

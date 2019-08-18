@@ -16,7 +16,6 @@ struct fire_bullet_data_t
     float           m_damage;
     int             m_count; // penetration_count
     player_t*       m_target;
-    int             m_target_index;
 };
 
 /*
@@ -71,11 +70,8 @@ static void scale_damage(hit_group_t hitgroup, base_player_t* player, float weap
  *
  *
  */
-static bool trace_to_exit(vec3_t& end, trace_t* enter_trace, vec3_t start, vec3_t dir, trace_t* exit_trace, player_t* m_target, int m_target_index)
+static bool trace_to_exit(vec3_t& end, trace_t* enter_trace, vec3_t start, vec3_t dir, trace_t* exit_trace, player_t* target)
 {
-    if(!m_target || m_target_index == -1)
-        return false;
-    
     float distance = 0.0f;
     
     while(distance <= 90.0f)
@@ -115,7 +111,7 @@ static bool trace_to_exit(vec3_t& end, trace_t* enter_trace, vec3_t start, vec3_
         {
             if (exit_trace->m_ent)
             {
-                if (enter_trace->m_ent && enter_trace->m_ent == g_ent_list->get_entity(m_target_index))
+                if (enter_trace->m_ent && enter_trace->m_ent == (entity_t*)target)
                     return true;
             }
             
@@ -159,7 +155,7 @@ static bool handle_bullet_penetration(weapon_info_t* weapon_info, fire_bullet_da
     vec3_t dummy;
     trace_t trace_exit;
 
-    if(!trace_to_exit(dummy, &data.m_trace, data.m_trace.m_end_pos, data.m_direction, &trace_exit, data.m_target, data.m_target_index))
+    if(!trace_to_exit(dummy, &data.m_trace, data.m_trace.m_end_pos, data.m_direction, &trace_exit, data.m_target))
         return false;
     
     surface_data_t* exit_surface_data = g_physics->get_surface_data(trace_exit.m_surface.m_surface_props);
@@ -284,9 +280,9 @@ static bool simulate_fire_bullet(bool team, fire_bullet_data_t& data)
  *
  *
  */
-int get_damage(player_t* player, const vec3_t& point, bool team)
+int rage_bot_t::get_damage(const vec3_t& point, bool team, player_t* player)
 {
-    if(!player)
+    if(!global::local || !global::weapon)
         return -1;
     
     float damage = 0.f;
@@ -295,7 +291,6 @@ int get_damage(player_t* player, const vec3_t& point, bool team)
     fire_bullet_data_t data;
     data.m_src = global::local->get_eye_position();
     data.m_target = player;
-    data.m_target_index = player->get_index();
     data.m_filter.m_skip = global::local;
     
     qangle_t angles = calculate_angle(data.m_src, dst);
@@ -304,9 +299,6 @@ int get_damage(player_t* player, const vec3_t& point, bool team)
     
     vec3_t tmp = data.m_direction;
     data.m_direction = tmp.normalise();
-    
-    if(!global::weapon)
-        return -1;
     
     if(simulate_fire_bullet(team, data))
         damage = data.m_damage;

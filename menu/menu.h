@@ -48,6 +48,7 @@ private:
         bool bot_bar    = false;
         bool hitmarkers = false;
         bool chams_players = false;
+        bool rage_hitboxes = false;
         
         // color pickers
         bool picker_box = false;

@@ -42,15 +42,15 @@ bool create_move_hook(void* thisptr, float sample, user_cmd_t* cmd)
         
         g_movement->strafe();
         
-        g_antiaim->slow_walk();
+        // g_antiaim->slow_walk();
         
-        g_antiaim->fake_duck();
+        // g_antiaim->fake_duck();
         
         // prediction start
         
         if(global::weapon)
         {
-            // g_rage->aimbot();
+            g_rage->aimbot();
             
             // g_legit->aimbot();
         }

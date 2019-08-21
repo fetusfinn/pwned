@@ -9,6 +9,8 @@
 
 rage_bot_t* g_rage = new rage_bot_t();
 
+static vec3_t screen_mid = vec3_t(0, 0, 0);
+
 /*
  *
  *  Returns the hitboxes we want to aim at
@@ -63,6 +65,151 @@ std::vector<hitbox_t> rage_bot_t::get_target_hitboxes()
     
     return hitboxes;
 }
+
+int rage_bot_t::find_target_hitbox(player_t* player)
+{
+    auto hitboxes = get_target_hitboxes();
+    
+    int best_damage = 0;
+    int best_hitbox = HITBOX_HEAD;
+    
+    for(auto hitbox : hitboxes)
+    {
+        if(set.rage.autowall)
+        {
+            vec3_t aim_pos = get_hitbox_position(player, hitbox);
+            
+            if(aim_pos.is_zero())
+                continue;
+            
+            int damage = get_damage(aim_pos, false, player);
+            
+            if(damage > best_damage)
+            {
+                best_damage = damage;
+                best_hitbox = hitbox;
+            }
+        }
+        else
+        {
+            // first vis
+            // todo : closest
+            if(util_is_hitbox_visible(player, hitbox))
+                return hitbox;
+        }
+    }
+    
+    return best_hitbox;
+}
+
+player_t* rage_bot_t::find_target()
+{
+    int         best_fov    = 999;
+    int         best_hitbox = -1;
+    player_t*   best_player = nullptr;
+    
+    qangle_t view_angles;
+    g_engine->get_view_angles(view_angles);
+    
+    for(int i = 1; i < g_globals->m_max_clients; i++)
+    {
+        player_t* player = g_ent_list->get_player(i);
+        
+        if(!player)
+            continue;
+        
+        if(!player->is_player())
+            continue;
+        
+        if(!player->is_alive() || player->is_immune() || player->is_dormant())
+            continue;
+        
+        int hitbox = find_target_hitbox(player);
+        
+        if(hitbox < 1)
+            continue;
+        
+        vec3_t hitbox_pos = get_hitbox_position(player, hitbox);
+        
+        if(hitbox_pos.is_zero())
+            continue;
+        
+        int fov = get_fov(view_angles, calculate_angle(global::local->get_eye_position(), hitbox_pos));
+        
+        if(fov >= best_fov || fov > set.rage.fov)
+            continue;
+        
+        // good target
+        best_fov        = fov;
+        m_target_index  = i;
+        m_target_hitbox = best_hitbox = hitbox;
+        m_target        = best_player = player;
+    }
+    
+    return best_player;
+}
+
+bool can_hit_player(player_t* player)
+{
+    if(!player)
+        return false;
+    
+    //if(m_target_index < 1)
+     //   return false;
+    
+    return true;
+}
+
+void rage_bot_t::aimbot()
+{
+    if(screen_mid.is_zero())
+        screen_mid = vec3_t(set.screen.w, set.screen.h, 0);
+    
+    if(!can_hit_player(m_target))
+        m_target = find_target();
+    
+    if(!m_target)
+    {
+        skeep("no aimbot target");
+        return;
+    }
+    
+    skeep("new aimbot target");
+    
+    if(m_target_index < 1)
+    {
+        skeep("no target hitbox");
+        return;
+    }
+    
+    qangle_t view_angles;
+    g_engine->get_view_angles(view_angles);
+    
+    vec3_t aim_pos = get_hitbox_position(m_target, m_target_hitbox);
+    
+    if(aim_pos.is_zero())
+    {
+        skeep("aim_pos.is_zero");
+        return;
+    }
+    
+    qangle_t aim_ang = calculate_angle(global::local->get_eye_position(), aim_pos);
+    
+    if(global::cmd->m_buttons & IN_ATTACK)
+    {
+        if(set.rage.silent)
+        {
+            global::cmd->m_view_angles = aim_ang;
+        }
+        else
+        {
+            global::cmd->m_view_angles = aim_ang;
+            g_engine->set_view_angles(global::cmd->m_view_angles);
+        }
+    }
+}
+
+
 
 /*
  *

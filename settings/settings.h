@@ -97,9 +97,12 @@ struct settings_t
     
     struct
     {
-        bool    aimbot  = false;
-        multi   hitboxes= {};
-        int     fov     = 0;
+        bool  aimbot    = false;
+        multi hitboxes  = {};
+        int   fov       = 0;    // 0 - 180
+        bool  silent    = false;
+        bool  autowall  = false;
+        int   min_damage= 0;    // 0 - 100
     }rage;
     
     struct

@@ -9,8 +9,8 @@ void frame_stage_notify_hook(void* thisptr, frame_stage_t frame_stage)
 {
     print_hook();
     
-    bool in_game = g_engine->is_in_game(), punch_this_tick = false;
-    qangle_t  orig_view, orig_aim;
+    bool in_game = g_engine->is_in_game();
+    qangle_t orig_view, orig_aim;
     
     if(frame_stage == FRAME_START)
     {
@@ -60,8 +60,6 @@ void frame_stage_notify_hook(void* thisptr, frame_stage_t frame_stage)
                 
                 global::local->get_aim_punch_angle()->init();
                 global::local->get_view_punch_angle()->init();
-                
-                punch_this_tick = true;
             }
         }
     }
@@ -73,7 +71,7 @@ void frame_stage_notify_hook(void* thisptr, frame_stage_t frame_stage)
     
     client_vmt->get_original_method<frame_stage_notify_fn>(INDEX_FRAME_STAGE_NOTIFY)(thisptr, frame_stage);
         
-    if(in_game && punch_this_tick)
+    if(in_game && set.misc.remove_view_punch)
     {
         *global::local->get_aim_punch_angle()  = orig_aim;
         *global::local->get_view_punch_angle() = orig_view;

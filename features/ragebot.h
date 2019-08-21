@@ -16,6 +16,7 @@ private:
     std::vector<hitbox_t> get_target_hitboxes();
     
     int find_target_hitbox(player_t* player);
+    player_t* find_target();
     
 public:
     

@@ -45,6 +45,8 @@ player_info_t util_get_player_info(player_t* player)
     return info;
 }
 
+// is_visible, todo : bool skip_ent, pass thru players n shit
+
 /*
  *
  *

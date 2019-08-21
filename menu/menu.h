@@ -63,6 +63,7 @@ private:
     void draw_window();
     void draw_tabs();
     void tab_rage();
+    void tab_antiaim();
     void tab_legit();
     void tab_visuals();
     void tab_movement();

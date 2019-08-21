@@ -181,7 +181,8 @@ void chams_manager_t::player(void* thisptr, void* context, void* state, const mo
         mat_vis->color_modulate(col_vis);
         mat_vis->alpha_modulate(alpha);
         g_model_render->forced_material_override(mat_vis);
-        model_vmt->get_original_method<draw_model_execute_fn>(INDEX_DRAW_MODEL_EXE)(thisptr, context, state, model_info, matrix);
+        // dont need to call this again cause we're calling it in draw_model_execute
+        // model_vmt->get_original_method<draw_model_execute_fn>(INDEX_DRAW_MODEL_EXE)(thisptr, context, state, model_info, matrix);
     }
 }
 

@@ -8,6 +8,8 @@
  *
  *  features
  *      offscreen
+ *      chams
+ *      antiaim
  *
  *  menu
  *      header

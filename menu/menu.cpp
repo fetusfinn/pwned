@@ -67,7 +67,7 @@ void menu_t::draw_window()
 
 void menu_t::draw_tabs()
 {
-    const std::vector<std::string> tab_names = {"rage", "legit", "visuals", "movement", "misc", "skins", "players"};
+    const std::vector<std::string> tab_names = {"rage", "antiaim", "legit", "visuals", "movement", "misc", "skins", "players"};
     
     for(int i = 0; i < tab_names.size(); i++)
     {
@@ -87,19 +87,22 @@ void menu_t::draw_tabs()
     }
 
     // draw current tab
-    if(tab == 0)
+    int counter = 0;
+    if(tab == counter++)
         tab_rage();
-    else if(tab == 1)
+    else if(tab == counter++)
+        tab_antiaim();
+    else if(tab == counter++)
         tab_legit();
-    else if(tab == 2)
+    else if(tab == counter++)
         tab_visuals();
-    else if(tab == 3)
+    else if(tab == counter++)
         tab_movement();
-    else if(tab == 4)
+    else if(tab == counter++)
         tab_misc();
-    else if(tab == 5)
+    else if(tab == counter++)
         tab_skins();
-    else if(tab == 6)
+    else if(tab == counter++)
         tab_players();
     
     // render these last so they are on top of everything
@@ -114,8 +117,20 @@ void menu_t::tab_rage()
 {
     set_side(side_left);
     checkbox("aimbot", &set.rage.aimbot);
-    slider_i("fov", {0, 180}, &set.rage.fov);
+    slider_i("fov", {0, 180}, &set.rage.fov, false, "º");
     combo_multi("target hitboxes", {"head", "chest", "stomach", "arms", "legs"}, &set.rage.hitboxes, &opened.rage_hitboxes);
+    checkbox("slient", &set.rage.silent);
+    checkbox("autowall", &set.rage.autowall, opened.rage_hitboxes);
+    slider_i("min damage", {0, 100}, &set.rage.min_damage, opened.rage_hitboxes, "hp");
+    
+    set_side(side_right);
+}
+
+void menu_t::tab_antiaim()
+{
+    set_side(side_left);
+    checkbox("slow walk", &set.antiaim.slow_walk);
+    checkbox("fake duck", &set.antiaim.fake_duck);
     
     set_side(side_right);
 }

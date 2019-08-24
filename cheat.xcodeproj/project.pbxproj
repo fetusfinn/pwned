@@ -32,12 +32,12 @@
 		B677EF3623037FAC00F9A0CF /* movement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B677EF3423037FAC00F9A0CF /* movement.cpp */; };
 		B67D4B0723025399007556BD /* override_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67D4B0623025399007556BD /* override_view.cpp */; };
 		B68774FB22FEC44900C78C00 /* create_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B68774FA22FEC44900C78C00 /* create_move.cpp */; };
+		B6960C5D2310FCBC0007B3E2 /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B6960C5B2310FCA20007B3E2 /* libSDL2-2.0.0.dylib */; };
 		B69F44BE22DBF66F005A0433 /* vec2.h in Headers */ = {isa = PBXBuildFile; fileRef = B69F44BD22DBF66F005A0433 /* vec2.h */; };
 		B6DB699822E47026001D4428 /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = B6DB699622E47026001D4428 /* util.h */; };
 		B6DB699922E47026001D4428 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6DB699722E47026001D4428 /* util.cpp */; };
 		B6DC592922F8FCE200420F28 /* opengl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6DC592822F8FCE200420F28 /* opengl.cpp */; };
 		B6DC592C22F8FFEF00420F28 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6DC592B22F8FFEF00420F28 /* OpenGL.framework */; };
-		B6DC592E22F9000200420F28 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6DC592D22F9000200420F28 /* SDL2.framework */; };
 		B6DC593122F900A600420F28 /* util_sdl.h in Headers */ = {isa = PBXBuildFile; fileRef = B6DC592F22F900A600420F28 /* util_sdl.h */; };
 		B6DC593222F900A600420F28 /* util_sdl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6DC593022F900A600420F28 /* util_sdl.cpp */; };
 		B6DC593E22F9054400420F28 /* imgui_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6DC593322F9054300420F28 /* imgui_demo.cpp */; };
@@ -120,6 +120,7 @@
 		B67D4B0A2302773D007556BD /* cutlmemory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cutlmemory.h; path = sdk/cutlmemory.h; sourceTree = "<group>"; };
 		B68774FA22FEC44900C78C00 /* create_move.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = create_move.cpp; path = hooks/create_move.cpp; sourceTree = "<group>"; };
 		B68855B322F69CD7004092BC /* anim_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = anim_state.h; path = sdk/anim_state.h; sourceTree = "<group>"; };
+		B6960C5B2310FCA20007B3E2 /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../../../usr/local/Cellar/sdl2/2.0.9_1/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
 		B69F44B822DBF38E005A0433 /* matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = matrix.h; path = sdk/matrix.h; sourceTree = "<group>"; };
 		B69F44BD22DBF66F005A0433 /* vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vec2.h; path = sdk/vec2.h; sourceTree = "<group>"; };
 		B69F44BF22DBF6A3005A0433 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
@@ -198,7 +199,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6DC592E22F9000200420F28 /* SDL2.framework in Frameworks */,
+				B6960C5D2310FCBC0007B3E2 /* libSDL2-2.0.0.dylib in Frameworks */,
 				B6DC592C22F8FFEF00420F28 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +372,7 @@
 		B6DC592A22F8FFEF00420F28 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B6960C5B2310FCA20007B3E2 /* libSDL2-2.0.0.dylib */,
 				B6DC592D22F9000200420F28 /* SDL2.framework */,
 				B6DC592B22F8FFEF00420F28 /* OpenGL.framework */,
 			);
@@ -456,7 +458,6 @@
 				B6DC594922F9061700420F28 /* menu */,
 				B622BE5222E4304B00A2824A /* settings */,
 				B6E832A822D5DB4900B40D5A /* sdk */,
-				B609B2F822E021FC007EF73B /* thirdparty */,
 				B6E832A222D5DB0200B40D5A /* Products */,
 				B6DC592A22F8FFEF00420F28 /* Frameworks */,
 			);
@@ -477,9 +478,10 @@
 				B69F44C022DBF759005A0433 /* csgo */,
 				B601AE1322DAD6DE002F6599 /* vec */,
 				B69F44C222DBF7E2005A0433 /* other */,
+				B6FB473722DD26B0000F62BB /* renderer */,
 				B6DB699022E4642C001D4428 /* util */,
 				B69F44C122DBF772005A0433 /* memory */,
-				B6FB473722DD26B0000F62BB /* renderer */,
+				B609B2F822E021FC007EF73B /* thirdparty */,
 			);
 			name = sdk;
 			sourceTree = "<group>";
@@ -752,6 +754,11 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				HEADER_SEARCH_PATHS = /usr/local/include/;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/sdl2/2.0.9_1/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -767,6 +774,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = /usr/local/include/;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/sdl2/2.0.9_1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

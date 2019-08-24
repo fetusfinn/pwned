@@ -44,6 +44,7 @@ private:
     struct
     {
         // combos
+        bool config     = false;
         bool team_flags = false;
         bool bot_bar    = false;
         bool hitmarkers = false;

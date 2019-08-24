@@ -1,21 +1,24 @@
 /*
- * 	config.h
+ *  config.h
  */
 #pragma once
+
+using namespace std;
 
 class config_manager_t
 {
 private:
     
-    int         m_config;
-    std::string m_configs;
+    std::vector<std::string> m_configs;
     
 public:
     
+    void init();
     void load();
     void save();
     
-    // todo 
+    vector<std::string> get_configs() { return m_configs; }
 };
 
 extern config_manager_t g_config;
+

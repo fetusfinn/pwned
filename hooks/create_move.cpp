@@ -38,6 +38,8 @@ bool create_move_hook(void* thisptr, float sample, user_cmd_t* cmd)
     {
         // code that affects movement is called before predition
         
+        g_client_state;
+        
         g_movement->bhop();
         
         g_movement->strafe();

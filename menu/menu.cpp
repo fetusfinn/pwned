@@ -4,6 +4,7 @@
  */
 #include "common.h"
 #include "menu.h"
+#include "config.h"
 
 namespace
 {
@@ -186,6 +187,11 @@ void menu_t::tab_misc()
     checkbox("remove view punch", &set.misc.remove_view_punch);
     
     set_side(side_right);
+    combo("config", g_config.get_configs(), &set.config, &opened.config);
+    if(button("save"))
+        g_config.save();
+    if(button("load"))
+        g_config.load();
 }
 
 void menu_t::tab_skins()

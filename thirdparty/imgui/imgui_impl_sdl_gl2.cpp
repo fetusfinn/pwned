@@ -36,7 +36,7 @@
 
 #define GL_SILENCE_DEPRECATION
 
-#include <SDL2/SDL.H>
+#include <SDL2/SDL.h>
 #include <OpenGL/gl.h>
 #include <SDL2/SDL_syswm.h>
 #include "imgui.h"

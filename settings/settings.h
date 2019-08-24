@@ -9,11 +9,12 @@ typedef std::vector<bool> multi;
 
 struct settings_t
 {
+    int config  = 0;
+    
     struct
     {
         bool    open    = false;
         int     key     = -1;
-        color_t color   = color_t::white;
     }menu;
     
     struct
@@ -59,6 +60,8 @@ struct settings_t
     
     struct
     {
+        ImColor menu = ImColor(255, 255, 255, 255);
+        
         struct
         {
             // color_t box = color_t::white, offscreen = color_t::blue;

@@ -7,10 +7,8 @@
 
 void bullet_impact(game_event_t* event)
 {
-    // "bullet_impact"
     if(strcmp(event->get_name(), __FUNCTION__))
         return;
-    
     
 }
 

@@ -138,6 +138,11 @@ public:
     {
         return sdk_get_offset(vec3_t, base_entity, m_origin);
     }
+    
+    float get_simulation_time()
+    {
+        return sdk_get_offset(float, base_entity, m_simulation_time);
+    }
 };
 
 typedef base_entity_t entity_t;

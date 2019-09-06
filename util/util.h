@@ -15,4 +15,5 @@ bool util_is_hitbox_visible(player_t* player, int hitbox);
 
 long util_timestamp();
 
+std::string get_weapon_name(weapon_t* weapon);
 std::string util_execute_cmd(const std::string& cmd, bool pop = false);

@@ -3,7 +3,10 @@
  *
  */
 #include "common.h"
-#include "visuals.h" // g_visuals
+
+#include "ragebot.h"
+#include "visuals.h"
+#include "backtrack.h"
 
 void frame_stage_notify_hook(void* thisptr, frame_stage_t frame_stage)
 {
@@ -53,6 +56,8 @@ void frame_stage_notify_hook(void* thisptr, frame_stage_t frame_stage)
                 // *local->get_view_angles() = fake / real
             }
             
+            g_rage->remove_recoil();
+            
             if(set.misc.remove_view_punch)
             {
                 orig_aim    = *global::local->get_aim_punch_angle();
@@ -62,6 +67,8 @@ void frame_stage_notify_hook(void* thisptr, frame_stage_t frame_stage)
                 global::local->get_view_punch_angle()->init();
             }
         }
+        
+        g_backtrack->store();
     }
     
     if(frame_stage == FRAME_RENDER_END)

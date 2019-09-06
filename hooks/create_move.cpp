@@ -6,6 +6,7 @@
 #include "antiaim.h"
 #include "ragebot.h"
 #include "movement.h"
+#include "backtrack.h"
 
 // todo : clean up
 bool create_move_hook(void* thisptr, float sample, user_cmd_t* cmd)
@@ -50,12 +51,16 @@ bool create_move_hook(void* thisptr, float sample, user_cmd_t* cmd)
         
         // prediction start
         
+        // maybe move to framestage        
+        
         if(global::weapon)
         {
             g_rage->aimbot();
             
             // g_legit->aimbot();
         }
+        
+        g_backtrack->backtrack_player(nullptr);
         
         // prediction end
     }

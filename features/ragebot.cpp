@@ -174,8 +174,6 @@ void rage_bot_t::aimbot()
         return;
     }
     
-    skeep("new aimbot target");
-    
     if(m_target_index < 1)
     {
         skeep("no target hitbox");
@@ -209,6 +207,25 @@ void rage_bot_t::aimbot()
     }
 }
 
+void rage_bot_t::remove_recoil()
+{
+    if(!set.rage.remove_recoil)
+        return;
+    
+    if(!global::local || !global::cmd)
+        return;
+    
+    if(!global::local->is_alive())
+        return;
+    
+    qangle_t punch = *global::local->get_aim_punch_angle();
+    
+    if(global::cmd->m_buttons & IN_ATTACK)
+    {
+        global::cmd->m_view_angles.x -= punch.x;
+        global::cmd->m_view_angles.y -= punch.y;
+    }
+}
 
 
 /*

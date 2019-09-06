@@ -106,6 +106,11 @@ public:
     }
     
     base_weapon_t* get_weapon();
+    
+    move_type_t get_move_type()
+    {
+        return sdk_get_offset(move_type_t, base_entity, m_move_type);
+    }
 };
 
 typedef base_player_t player_t;

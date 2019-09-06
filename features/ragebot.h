@@ -22,6 +22,9 @@ public:
     
     void aimbot();
     int  get_damage(const vec3_t& point, bool team = false, player_t* target = nullptr);
+    void remove_recoil();
+    
+    inline player_t* get_target() const { return m_target; } 
     
 };
 

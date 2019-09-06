@@ -14,6 +14,8 @@ struct offsets_t
         uintptr_t m_team;
         uintptr_t m_collision;
         uintptr_t m_origin;
+        uintptr_t m_simulation_time;
+        uintptr_t m_move_type;
     }base_entity;
     
     struct
@@ -46,6 +48,7 @@ struct offsets_t
     struct
     {
         uintptr_t m_clip1;
+        uintptr_t m_next_primary_attack;
     }base_combat_weapon;
     
     struct

@@ -6,6 +6,7 @@
 #include "visuals.h"
 #include "renderer.h"
 #include "ragebot.h" // g_rage->get_target();
+#include "backtrack.h"
 
 visuals_t* g_visuals = new visuals_t;
 
@@ -50,15 +51,87 @@ static void draw_bottom_bar(player_box_t box, int value, int max, color_t color)
     g_render->draw_box(box.x, box.y + box.h + 2, box.w + 2, 3, color_t(0, 0, 0, 200));
 }
 
+/*
+ *
+ *
+ */
+static void draw_skeleton(player_t* player)
+{
+    matrix3x4_t matrix[128];
+    studio_hdr_t* model = g_model_info->get_studio_model(player->get_model());
+    
+    if(!model)
+        return;
+    
+    if(!player->setup_bones(matrix, 128, 256))
+        return;
+    
+    for(int i = 0; i < model->m_num_bones; i++)
+    {
+        studio_bone_t* bone = model->get_bone(i);
+        
+        if (!bone || !(bone->m_flags & 256) || bone->m_parent == -1)
+            continue;
+        
+        matrix3x4_t hitbox1 = matrix[i];
+        matrix3x4_t hitbox2 = matrix[bone->m_parent];
+        
+        vec3_t bone1(hitbox1[0][3], hitbox1[1][3], hitbox1[2][3]), bone1_screen;
+        vec3_t bone2(hitbox2[0][3], hitbox2[1][3], hitbox2[2][3]), bone2_screen;
+        
+        color_t col = color_t::white; //
+        
+        if(world_to_screen(bone1, bone1_screen) && world_to_screen(bone2, bone2_screen))
+            g_render->draw_line(bone1_screen.x, bone1_screen.y, bone2_screen.x, bone2_screen.y, col);
+    }
+}
 
+qangle_t angle_between(const vec3_t& a, const vec3_t& b)
+{
+    float distanceX = (b.x - a.x);
+    float distanceY = (b.y - a.y);
+    float distanceZ = (b.z - a.z);
+    
+    float hipotenuseXY = sqrtf(distanceX * distanceX + distanceY * distanceY);
+ 
+    qangle_t angles;
+    
+    angles.x = atanf(distanceZ / hipotenuseXY) * (180.0f / M_PI_F) * -1.0f;
+    angles.y = atanf(distanceY / distanceX) * (180.0f / M_PI_F) + ((distanceX < 0) ? 180.0f : 0.f);
+    angles.z = 0;
+    
+    return angles;
+}
 
 /*
  *
  *
  */
-static void draw_offscreen(player_t* player)
+static void draw_snap_lines(vec3_t origin, float alpha, color_t col)
 {
-    // todo
+    vec3_t screen;
+    
+    if(!world_to_screen(origin, screen))
+        return;
+    
+    float x = (float)set.screen.w / 2.0f;
+    float y = (float)set.screen.h;
+    
+    qangle_t ang = angle_between(vec3_t(x, y, 0), vec3_t(screen.x, screen.y, 0));
+    
+    vec3_t end;
+    angle_vectors(ang, end);
+    end.normalise();
+    
+    float max_len = (float)set.screen.h / 4.0f;
+    
+    float dist_x = min(max_len, fabsf(x - screen.x));
+    float dist_y = min(max_len, fabsf(y - screen.y));
+    
+    col.set_a(alpha);
+    
+    g_render->draw_line(x, y, x + end.x * ((0<dist_x-3)?dist_x-3:0), y + end.y * ((0<dist_y-3)?dist_y-3:0), col);
+    // g_render->draw_circle({x + end.x * distX, y + end.y * distY}, 10, 3, color_t(255, 255, 255, alpha));
 }
 
 /*
@@ -263,6 +336,9 @@ void visuals_t::draw_player_esp()
         // if(set.visuals.player.offscreen)
         //    draw_offscreen(player);
         
+        if(set.visuals.player.snap_lines)
+            draw_snap_lines(player->get_origin(), m_player_alpha.at(i), player == g_rage->get_target() ? color_t(255,0,0,255) : color_t::white);
+        
         // only how visible players?
         if(set.visuals.visible && !util_is_player_visible(player))
             continue;
@@ -291,6 +367,9 @@ void visuals_t::draw_player_esp()
         if(set.visuals.player.health)
             draw_heath_bar(box, player->get_health(), color_t::green);
         
+        if(set.visuals.player.skeleton)
+            draw_skeleton(player);
+        
         if(set.visuals.player.bot_bar)
         {
             int value = 0;
@@ -316,6 +395,10 @@ void visuals_t::draw_player_esp()
         
         std::string right_text = "";
         
+        // todo : legitbot target too
+        if(player == g_rage->get_target())
+            right_text += "T";
+        
         if(set.visuals.player.equipment)
         {
             if(player->has_helmet())
@@ -328,8 +411,14 @@ void visuals_t::draw_player_esp()
             //     right_text += "D";
         }
         
+        if(set.visuals.player.weapon)
+            g_render->draw_string(box.x + box.w / 2, box.y + box.h + 5, renderer_t::verdana12,get_weapon_name(player->get_weapon()),white,true,true);
+        
         if(!right_text.empty())
             g_render->draw_string(box.x + box.w + 2, box.y, renderer_t::verdana12, right_text, white);
+        
+        if(set.visuals.player.backtrack == 1)
+            g_backtrack->draw(player);
     }
 }
 

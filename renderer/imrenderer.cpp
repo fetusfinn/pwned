@@ -6,7 +6,7 @@
 #include "common.h"
 #include "imrenderer.h"
 
-im_renderer_t* render = new im_renderer_t();
+// im_renderer_t* render = new im_renderer_t();
 
 bool im_renderer_t::fonts_init = false;
 

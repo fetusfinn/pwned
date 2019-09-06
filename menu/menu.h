@@ -48,6 +48,7 @@ private:
         bool team_flags = false;
         bool bot_bar    = false;
         bool hitmarkers = false;
+        bool backtrack  = false;
         bool chams_players = false;
         bool rage_hitboxes = false;
         
@@ -95,8 +96,9 @@ private:
     
 public:
     
-    menu_t();
+    ~menu_t();
     
+    void init();
     void move();
     void render();
     

@@ -13,7 +13,7 @@
 static uintptr_t  orig_swap_window = NULL;
 static uintptr_t* swap_window      = nullptr;
 
-menu_t* g_menu = nullptr;
+menu_t g_menu;
 
 /*
  *
@@ -35,7 +35,7 @@ void swap_window_hook(SDL_Window* window)
         
         ImGui_ImplSdlGL2_Init(window);
         
-        g_menu = new menu_t();
+        g_menu.init();
     }
     
     SDL_GL_MakeCurrent(window, context);
@@ -50,12 +50,8 @@ void swap_window_hook(SDL_Window* window)
     
     if(set.menu.open)
     {
-        if(g_menu)
-        {
-            g_menu->render();
-            
-            g_menu->move();
-        }
+        g_menu.render();
+        g_menu.move();
     }
     
     // draw the mouse

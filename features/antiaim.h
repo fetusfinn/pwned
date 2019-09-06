@@ -8,11 +8,13 @@ class antiaim_manager_t
 {
 private:
     
-    float get_max_desync_delta();
+    bool m_broke_last = false;
+    
+private:
+
     
 public:
     
-    void desync();
     void anti_aim();
     
     

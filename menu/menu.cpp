@@ -11,7 +11,12 @@ namespace
     ImColor col_background(14, 14, 14, 255), col_border1(70, 70, 70, 255), col_border2(41, 42, 42, 255);
 }
 
-menu_t::menu_t()
+menu_t::~menu_t()
+{
+    delete draw;
+}
+
+void menu_t::init()
 {
     draw = new im_renderer_t();
     
@@ -123,6 +128,7 @@ void menu_t::tab_rage()
     checkbox("slient", &set.rage.silent);
     checkbox("autowall", &set.rage.autowall, opened.rage_hitboxes);
     slider_i("min damage", {0, 100}, &set.rage.min_damage, opened.rage_hitboxes, "hp");
+    checkbox("backtrack", &set.rage.backtrack);
     
     set_side(side_right);
 }
@@ -142,6 +148,7 @@ void menu_t::tab_legit()
     checkbox("aimbot", &set.legit.aimbot);
     slider_i("fov", {0, 90}, &set.legit.fov, false, "º");
     slider_i("smoothing", {0, 100}, &set.legit.smooth, false, "%");    
+    checkbox("backtrack", &set.legit.backtrack);
     
     set_side(side_right);
 }
@@ -156,12 +163,16 @@ void menu_t::tab_visuals()
     checkbox("name", &set.visuals.player.name);
     checkbox("health bar", &set.visuals.player.health);
     combo("bottom bar", {"off", "armor", "ammo"}, &set.visuals.player.bot_bar, &opened.bot_bar);
+    checkbox("skeleton", &set.visuals.player.skeleton);
+    checkbox("weapon", &set.visuals.player.equipment);
     checkbox("equipment", &set.visuals.player.equipment);
+    checkbox("snap lines", &set.visuals.player.snap_lines);
     checkbox("chams", &set.visuals.chams.players);
     color_picker(&set.colors.chams.players, &opened.picker_chams_players);
     checkbox("through walls", &set.visuals.chams.behind_walls);
     color_picker(&set.colors.chams.behind_walls, &opened.picker_behind_walls);
-    combo("chams type", {"flat", "textured"}, &set.visuals.chams.player_type, &opened.chams_players);
+    combo("chams type", {"textured", "flat"}, &set.visuals.chams.player_type, &opened.chams_players);
+    combo("backtrack", {"off", "lines", "chams"}, &set.visuals.player.backtrack, &opened.backtrack);
     
     set_side(side_right);
     combo_multi("hitmarkers", {"crosshair", "sound", "damage"}, &set.visuals.other.hitmarkers, &opened.hitmarkers);

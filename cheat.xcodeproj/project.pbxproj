@@ -15,6 +15,7 @@
 		B609B30222E025B3007EF73B /* memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B609B30022E025B3007EF73B /* memory.cpp */; };
 		B609B30522E025CB007EF73B /* offsets.h in Headers */ = {isa = PBXBuildFile; fileRef = B609B30322E025CB007EF73B /* offsets.h */; };
 		B609B30622E025CB007EF73B /* offsets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B609B30422E025CB007EF73B /* offsets.cpp */; };
+		B60DBCC82318AABA00905E3E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6DC592D22F9000200420F28 /* SDL2.framework */; };
 		B6190C2322DCA4AF003748F0 /* paint_traverse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6190C2222DCA4AF003748F0 /* paint_traverse.cpp */; };
 		B6190C2722DCA566003748F0 /* globals.h in Headers */ = {isa = PBXBuildFile; fileRef = B6190C2522DCA566003748F0 /* globals.h */; };
 		B6190C2822DCA566003748F0 /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6190C2622DCA566003748F0 /* globals.cpp */; };
@@ -32,7 +33,6 @@
 		B677EF3623037FAC00F9A0CF /* movement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B677EF3423037FAC00F9A0CF /* movement.cpp */; };
 		B67D4B0723025399007556BD /* override_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67D4B0623025399007556BD /* override_view.cpp */; };
 		B68774FB22FEC44900C78C00 /* create_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B68774FA22FEC44900C78C00 /* create_move.cpp */; };
-		B6960C5D2310FCBC0007B3E2 /* libSDL2-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B6960C5B2310FCA20007B3E2 /* libSDL2-2.0.0.dylib */; };
 		B69F44BE22DBF66F005A0433 /* vec2.h in Headers */ = {isa = PBXBuildFile; fileRef = B69F44BD22DBF66F005A0433 /* vec2.h */; };
 		B6DB699822E47026001D4428 /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = B6DB699622E47026001D4428 /* util.h */; };
 		B6DB699922E47026001D4428 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6DB699722E47026001D4428 /* util.cpp */; };
@@ -70,6 +70,8 @@
 		B6E823AE22FF0F0D0016E123 /* events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E823AC22FF0F0D0016E123 /* events.cpp */; };
 		B6E823B122FF85130016E123 /* chams.h in Headers */ = {isa = PBXBuildFile; fileRef = B6E823AF22FF85130016E123 /* chams.h */; };
 		B6E823B222FF85130016E123 /* chams.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E823B022FF85130016E123 /* chams.cpp */; };
+		B6F674B52313CA3800CC1798 /* backtrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6F674B32313CA3800CC1798 /* backtrack.cpp */; };
+		B6F674B62313CA3800CC1798 /* backtrack.h in Headers */ = {isa = PBXBuildFile; fileRef = B6F674B42313CA3800CC1798 /* backtrack.h */; };
 		B6F948FD22FE9F18007C05F7 /* draw_model_execute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6F948FB22FE9F18007C05F7 /* draw_model_execute.cpp */; };
 		B6FB473A22DD26EF000F62BB /* renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B6FB473822DD26EF000F62BB /* renderer.h */; };
 		B6FB473B22DD26EF000F62BB /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6FB473922DD26EF000F62BB /* renderer.cpp */; };
@@ -185,6 +187,8 @@
 		B6F06FF52300D0ED003350C4 /* sdl_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sdl_manager.h; path = sdk/sdl_manager.h; sourceTree = "<group>"; };
 		B6F06FF62300D10E003350C4 /* game_rules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = game_rules.h; path = sdk/game_rules.h; sourceTree = "<group>"; };
 		B6F06FF72300D1E1003350C4 /* glow_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = glow_manager.h; path = sdk/glow_manager.h; sourceTree = "<group>"; };
+		B6F674B32313CA3800CC1798 /* backtrack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = backtrack.cpp; path = features/backtrack.cpp; sourceTree = "<group>"; };
+		B6F674B42313CA3800CC1798 /* backtrack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = backtrack.h; path = features/backtrack.h; sourceTree = "<group>"; };
 		B6F948F522FE9781007C05F7 /* model_render.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = model_render.h; path = sdk/model_render.h; sourceTree = "<group>"; };
 		B6F948F622FE9951007C05F7 /* model_info.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = model_info.h; path = sdk/model_info.h; sourceTree = "<group>"; };
 		B6F948F722FE9966007C05F7 /* material_system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = material_system.h; path = sdk/material_system.h; sourceTree = "<group>"; };
@@ -199,7 +203,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6960C5D2310FCBC0007B3E2 /* libSDL2-2.0.0.dylib in Frameworks */,
+				B60DBCC82318AABA00905E3E /* SDL2.framework in Frameworks */,
 				B6DC592C22F8FFEF00420F28 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,9 +251,10 @@
 		B609B2FA22E02567007EF73B /* features */ = {
 			isa = PBXGroup;
 			children = (
+				B6F674B22313C99000CC1798 /* backtrack */,
 				B6E8239E22FF0E770016E123 /* legit */,
 				B6E8239D22FF0E720016E123 /* rage */,
-				B6E8239B22FF0E670016E123 /* movement */,
+				B6E8239B22FF0E670016E123 /* misc */,
 				B622BE5822E4352B00A2824A /* visuals */,
 				B6E823AC22FF0F0D0016E123 /* events.cpp */,
 				B6E823AB22FF0F0D0016E123 /* events.h */,
@@ -419,13 +424,13 @@
 			name = interfaces;
 			sourceTree = "<group>";
 		};
-		B6E8239B22FF0E670016E123 /* movement */ = {
+		B6E8239B22FF0E670016E123 /* misc */ = {
 			isa = PBXGroup;
 			children = (
 				B677EF3423037FAC00F9A0CF /* movement.cpp */,
 				B677EF3323037FAC00F9A0CF /* movement.h */,
 			);
-			name = movement;
+			name = misc;
 			sourceTree = "<group>";
 		};
 		B6E8239D22FF0E720016E123 /* rage */ = {
@@ -486,6 +491,15 @@
 			name = sdk;
 			sourceTree = "<group>";
 		};
+		B6F674B22313C99000CC1798 /* backtrack */ = {
+			isa = PBXGroup;
+			children = (
+				B6F674B32313CA3800CC1798 /* backtrack.cpp */,
+				B6F674B42313CA3800CC1798 /* backtrack.h */,
+			);
+			name = backtrack;
+			sourceTree = "<group>";
+		};
 		B6FB473722DD26B0000F62BB /* renderer */ = {
 			isa = PBXGroup;
 			children = (
@@ -518,6 +532,7 @@
 				B6DB699822E47026001D4428 /* util.h in Headers */,
 				B6E255B322E6EA9900CDE520 /* util_math.h in Headers */,
 				B64D257A22DAA40000BDE458 /* vec3.h in Headers */,
+				B6F674B62313CA3800CC1798 /* backtrack.h in Headers */,
 				B622BE5B22E4354000A2824A /* visuals.h in Headers */,
 				B6190C2C22DCA828003748F0 /* hooker.h in Headers */,
 				B6DC594322F9054400420F28 /* stb_rect_pack.h in Headers */,
@@ -600,6 +615,7 @@
 				B6DC594D22F906DB00420F28 /* imrenderer.cpp in Sources */,
 				B6FB473B22DD26EF000F62BB /* renderer.cpp in Sources */,
 				B601AE1122DAD659002F6599 /* entry.cpp in Sources */,
+				B6F674B52313CA3800CC1798 /* backtrack.cpp in Sources */,
 				B68774FB22FEC44900C78C00 /* create_move.cpp in Sources */,
 				B6E823A622FF0E8D0016E123 /* ragebot.cpp in Sources */,
 				B6E823A222FF0E830016E123 /* antiaim.cpp in Sources */,
@@ -759,6 +775,7 @@
 					"$(inherited)",
 					/usr/local/Cellar/sdl2/2.0.9_1/lib,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -780,6 +797,7 @@
 					"$(inherited)",
 					/usr/local/Cellar/sdl2/2.0.9_1/lib,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

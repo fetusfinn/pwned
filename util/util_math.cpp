@@ -273,10 +273,12 @@ vec3_t get_hitbox_position(player_t* player, int hitbox)
     
     center = (min + max) * 0.5f;
 
+    /*
     int pointscale = 50;
     float ptwoz = 50 - pointscale;
     float zval  = (ptwoz * min.z + pointscale * max.z) / 50;
     center.z = zval;
+     */
     
     return center;
 }

@@ -16,6 +16,8 @@ void offsets_t::init()
     g_offsets.base_entity.m_team        = g_netvar.get_offset(table_name, "m_iTeamNum");
     g_offsets.base_entity.m_collision   = g_netvar.get_offset(table_name, "m_Collision");
     g_offsets.base_entity.m_origin      = g_netvar.get_offset(table_name, "m_vecOrigin");
+    g_offsets.base_entity.m_simulation_time = g_netvar.get_offset(table_name, "m_flSimulationTime");
+    g_offsets.base_entity.m_move_type   = g_netvar.get_offset(table_name, "m_MoveType");
     
     table_name = "DT_BasePlayer";
     g_offsets.base_player.m_health      = g_netvar.get_offset(table_name, "m_iHealth");
@@ -40,6 +42,7 @@ void offsets_t::init()
     
     table_name = "DT_BaseCombatWeapon";
     g_offsets.base_combat_weapon.m_clip1= g_netvar.get_offset(table_name, "m_iClip1");
+    g_offsets.base_combat_weapon.m_next_primary_attack = g_netvar.get_offset(table_name, "m_flNextPrimaryAttack");
     
     table_name = "DT_PlantedC4";
     g_offsets.planted_c4.m_bomb_ticking = g_netvar.get_offset(table_name, "m_bBombTicking");

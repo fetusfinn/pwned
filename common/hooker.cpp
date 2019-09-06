@@ -154,3 +154,9 @@ void cheat_start()
     
     prepare_settings();
 }
+
+void cheat_shutdown()
+{
+    delete g_memory;
+    delete g_listener;
+}

@@ -19,8 +19,9 @@ void vector_transform(vec3_t& in1, matrix3x4_t& in2, vec3_t& out);
 float get_fov(const qangle_t& view, const qangle_t& aim);
 
 qangle_t calculate_angle(const vec3_t& src, const vec3_t& dst);
+vec3_t calc_angle(vec3_t v1, vec3_t v2);
 
-vec3_t get_hitbox_position(player_t* player, int hitbox);
+vec3_t get_hitbox_position(player_t* player, int hitbox, matrix3x4_t* matrix = nullptr);
 
 
 template<class T>

@@ -18,6 +18,8 @@ void offsets_t::init()
     g_offsets.base_entity.m_origin      = g_netvar.get_offset(table_name, "m_vecOrigin");
     g_offsets.base_entity.m_simulation_time = g_netvar.get_offset(table_name, "m_flSimulationTime");
     g_offsets.base_entity.m_move_type   = g_netvar.get_offset(table_name, "m_MoveType");
+    g_offsets.base_entity.m_model_index = g_netvar.get_offset(table_name, "m_nModelIndex");
+    g_offsets.base_entity.m_view_model  = g_netvar.get_offset(table_name, "m_hViewModel");
     
     table_name = "DT_BasePlayer";
     g_offsets.base_player.m_health      = g_netvar.get_offset(table_name, "m_iHealth");
@@ -36,9 +38,19 @@ void offsets_t::init()
     g_offsets.cs_player.m_armor         = g_netvar.get_offset(table_name, "m_ArmorValue");
     g_offsets.cs_player.m_has_helmet    = g_netvar.get_offset(table_name, "m_bHasHelmet");
     g_offsets.cs_player.m_immune        = g_netvar.get_offset(table_name, "m_bGunGameImmunity");
-            
+    g_offsets.cs_player.m_eye_angles    = g_netvar.get_offset(table_name, "m_angEyeAngles[0]");
+    
     table_name = "DT_BaseAttributableItem";
-    g_offsets.base_attributable_item.m_item_definition_index = g_netvar.get_offset(table_name, "m_iItemDefinitionIndex");
+    g_offsets.base_attributable_item.m_item_definition_index= g_netvar.get_offset(table_name, "m_iItemDefinitionIndex");
+    g_offsets.base_attributable_item.m_account_id           = g_netvar.get_offset(table_name, "m_iAccountID");
+    g_offsets.base_attributable_item.m_item_id_high         = g_netvar.get_offset(table_name, "m_iItemIDHigh");
+    g_offsets.base_attributable_item.m_item_id_low          = g_netvar.get_offset(table_name, "m_iItemIDLow");
+    g_offsets.base_attributable_item.m_entity_quality       = g_netvar.get_offset(table_name, "m_iEntityQuality");
+    g_offsets.base_attributable_item.m_custom_name          = g_netvar.get_offset(table_name, "m_szCustomName");
+    g_offsets.base_attributable_item.m_fallback_paint_kit   = g_netvar.get_offset(table_name, "m_nFallbackPaintKit");
+    g_offsets.base_attributable_item.m_fallback_seed        = g_netvar.get_offset(table_name, "m_nFallbackSeed");
+    g_offsets.base_attributable_item.m_fallback_wear        = g_netvar.get_offset(table_name, "m_flFallbackWear");
+    g_offsets.base_attributable_item.m_fallback_stattrack   = g_netvar.get_offset(table_name, "m_nFallbackStatTrak");
     
     table_name = "DT_BaseCombatWeapon";
     g_offsets.base_combat_weapon.m_clip1= g_netvar.get_offset(table_name, "m_iClip1");
@@ -55,4 +67,9 @@ void offsets_t::init()
     
     table_name = "DT_BaseCombatCharacter";
     g_offsets.base_combat_character.m_active_weapon = g_netvar.get_offset(table_name, "m_hActiveWeapon");
+    g_offsets.base_combat_character.m_my_weapon     = g_netvar.get_offset(table_name, "m_hMyWeapons") / 2;
+    
+    table_name = "DT_BaseViewModel";
+    g_offsets.base_view_model.m_weapon  = g_netvar.get_offset(table_name, "m_hWeapon");
+    g_offsets.base_view_model.m_owner   = g_netvar.get_offset(table_name, "m_hOwner");    
 }

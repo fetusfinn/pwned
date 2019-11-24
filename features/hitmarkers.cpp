@@ -51,7 +51,7 @@ void visuals_t::draw_hitmarkers()
     if(!set.visuals.other.hitmarkers.at(2))
         return;
     
-    float text_height = g_render->get_text_size(renderer_t::verdana12, "[pwned]]").y;
+    float text_height = g_render->get_text_size(renderer_t::verdana12, "[pwned]").y;
     
     for (unsigned int i = 0; i < g_damages.size(); i++)
     {

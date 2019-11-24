@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B601AE1122DAD659002F6599 /* entry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B601AE0F22DAD659002F6599 /* entry.cpp */; };
+		B6058E1E2349F36000E4C2B2 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6DC592D22F9000200420F28 /* SDL2.framework */; };
 		B609B2F722E01F69007EF73B /* lock_cursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B609B2F622E01F69007EF73B /* lock_cursor.cpp */; };
 		B609B2FD22E0259C007EF73B /* netvar.h in Headers */ = {isa = PBXBuildFile; fileRef = B609B2FB22E0259C007EF73B /* netvar.h */; };
 		B609B2FE22E0259C007EF73B /* netvar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B609B2FC22E0259C007EF73B /* netvar.cpp */; };
@@ -15,7 +16,6 @@
 		B609B30222E025B3007EF73B /* memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B609B30022E025B3007EF73B /* memory.cpp */; };
 		B609B30522E025CB007EF73B /* offsets.h in Headers */ = {isa = PBXBuildFile; fileRef = B609B30322E025CB007EF73B /* offsets.h */; };
 		B609B30622E025CB007EF73B /* offsets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B609B30422E025CB007EF73B /* offsets.cpp */; };
-		B60DBCC82318AABA00905E3E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6DC592D22F9000200420F28 /* SDL2.framework */; };
 		B6190C2322DCA4AF003748F0 /* paint_traverse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6190C2222DCA4AF003748F0 /* paint_traverse.cpp */; };
 		B6190C2722DCA566003748F0 /* globals.h in Headers */ = {isa = PBXBuildFile; fileRef = B6190C2522DCA566003748F0 /* globals.h */; };
 		B6190C2822DCA566003748F0 /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6190C2622DCA566003748F0 /* globals.cpp */; };
@@ -31,6 +31,8 @@
 		B677EF312303667000F9A0CF /* autowall.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B677EF302303667000F9A0CF /* autowall.cpp */; };
 		B677EF3523037FAC00F9A0CF /* movement.h in Headers */ = {isa = PBXBuildFile; fileRef = B677EF3323037FAC00F9A0CF /* movement.h */; };
 		B677EF3623037FAC00F9A0CF /* movement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B677EF3423037FAC00F9A0CF /* movement.cpp */; };
+		B67BCF5823680D6A00CB46E3 /* skinchanger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67BCF5623680D6A00CB46E3 /* skinchanger.cpp */; };
+		B67BCF5923680D6A00CB46E3 /* skinchanger.h in Headers */ = {isa = PBXBuildFile; fileRef = B67BCF5723680D6A00CB46E3 /* skinchanger.h */; };
 		B67D4B0723025399007556BD /* override_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67D4B0623025399007556BD /* override_view.cpp */; };
 		B68774FB22FEC44900C78C00 /* create_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B68774FA22FEC44900C78C00 /* create_move.cpp */; };
 		B69F44BE22DBF66F005A0433 /* vec2.h in Headers */ = {isa = PBXBuildFile; fileRef = B69F44BD22DBF66F005A0433 /* vec2.h */; };
@@ -59,6 +61,8 @@
 		B6DC595522F9156600420F28 /* menu.h in Headers */ = {isa = PBXBuildFile; fileRef = B6DC595122F9156600420F28 /* menu.h */; };
 		B6E255B322E6EA9900CDE520 /* util_math.h in Headers */ = {isa = PBXBuildFile; fileRef = B6E255B122E6EA9900CDE520 /* util_math.h */; };
 		B6E255B422E6EA9900CDE520 /* util_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E255B222E6EA9900CDE520 /* util_math.cpp */; };
+		B6E6D67423498D47002EE4A2 /* notifications.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E6D67223498D47002EE4A2 /* notifications.cpp */; };
+		B6E6D67523498D47002EE4A2 /* notifications.h in Headers */ = {isa = PBXBuildFile; fileRef = B6E6D67323498D47002EE4A2 /* notifications.h */; };
 		B6E8239A22FF0E620016E123 /* hitmarkers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E8239822FF0E620016E123 /* hitmarkers.cpp */; };
 		B6E823A122FF0E830016E123 /* antiaim.h in Headers */ = {isa = PBXBuildFile; fileRef = B6E8239F22FF0E830016E123 /* antiaim.h */; };
 		B6E823A222FF0E830016E123 /* antiaim.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6E823A022FF0E830016E123 /* antiaim.cpp */; };
@@ -75,6 +79,8 @@
 		B6F948FD22FE9F18007C05F7 /* draw_model_execute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6F948FB22FE9F18007C05F7 /* draw_model_execute.cpp */; };
 		B6FB473A22DD26EF000F62BB /* renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B6FB473822DD26EF000F62BB /* renderer.h */; };
 		B6FB473B22DD26EF000F62BB /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6FB473922DD26EF000F62BB /* renderer.cpp */; };
+		B6FF9C36234ACB9600CB99AB /* misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6FF9C34234ACB9600CB99AB /* misc.cpp */; };
+		B6FF9C37234ACB9600CB99AB /* misc.h in Headers */ = {isa = PBXBuildFile; fileRef = B6FF9C35234ACB9600CB99AB /* misc.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,13 +122,14 @@
 		B677EF3223036D2A00F9A0CF /* physics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = physics.h; path = sdk/physics.h; sourceTree = "<group>"; };
 		B677EF3323037FAC00F9A0CF /* movement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = movement.h; path = features/movement.h; sourceTree = "<group>"; };
 		B677EF3423037FAC00F9A0CF /* movement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = movement.cpp; path = features/movement.cpp; sourceTree = "<group>"; };
+		B67BCF5623680D6A00CB46E3 /* skinchanger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = skinchanger.cpp; path = features/skinchanger.cpp; sourceTree = "<group>"; };
+		B67BCF5723680D6A00CB46E3 /* skinchanger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = skinchanger.h; path = features/skinchanger.h; sourceTree = "<group>"; };
 		B67D4B0623025399007556BD /* override_view.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = override_view.cpp; path = hooks/override_view.cpp; sourceTree = "<group>"; };
 		B67D4B08230254C1007556BD /* view_setup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = view_setup.h; path = sdk/view_setup.h; sourceTree = "<group>"; };
 		B67D4B0923025670007556BD /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = input.h; path = sdk/input.h; sourceTree = "<group>"; };
 		B67D4B0A2302773D007556BD /* cutlmemory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cutlmemory.h; path = sdk/cutlmemory.h; sourceTree = "<group>"; };
 		B68774FA22FEC44900C78C00 /* create_move.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = create_move.cpp; path = hooks/create_move.cpp; sourceTree = "<group>"; };
 		B68855B322F69CD7004092BC /* anim_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = anim_state.h; path = sdk/anim_state.h; sourceTree = "<group>"; };
-		B6960C5B2310FCA20007B3E2 /* libSDL2-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libSDL2-2.0.0.dylib"; path = "../../../../usr/local/Cellar/sdl2/2.0.9_1/lib/libSDL2-2.0.0.dylib"; sourceTree = "<group>"; };
 		B69F44B822DBF38E005A0433 /* matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = matrix.h; path = sdk/matrix.h; sourceTree = "<group>"; };
 		B69F44BD22DBF66F005A0433 /* vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vec2.h; path = sdk/vec2.h; sourceTree = "<group>"; };
 		B69F44BF22DBF6A3005A0433 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
@@ -170,6 +177,8 @@
 		B6E255B022E6CC0100CDE520 /* event_listener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = event_listener.h; path = hooks/event_listener.h; sourceTree = "<group>"; };
 		B6E255B122E6EA9900CDE520 /* util_math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = util_math.h; path = util/util_math.h; sourceTree = "<group>"; };
 		B6E255B222E6EA9900CDE520 /* util_math.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = util_math.cpp; path = util/util_math.cpp; sourceTree = "<group>"; };
+		B6E6D67223498D47002EE4A2 /* notifications.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = notifications.cpp; path = features/notifications.cpp; sourceTree = "<group>"; };
+		B6E6D67323498D47002EE4A2 /* notifications.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = notifications.h; path = features/notifications.h; sourceTree = "<group>"; };
 		B6E8239822FF0E620016E123 /* hitmarkers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = hitmarkers.cpp; path = features/hitmarkers.cpp; sourceTree = "<group>"; };
 		B6E8239F22FF0E830016E123 /* antiaim.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = antiaim.h; path = features/antiaim.h; sourceTree = "<group>"; };
 		B6E823A022FF0E830016E123 /* antiaim.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = antiaim.cpp; path = features/antiaim.cpp; sourceTree = "<group>"; };
@@ -196,6 +205,8 @@
 		B6F948FB22FE9F18007C05F7 /* draw_model_execute.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = draw_model_execute.cpp; path = hooks/draw_model_execute.cpp; sourceTree = "<group>"; };
 		B6FB473822DD26EF000F62BB /* renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = renderer.h; path = renderer/renderer.h; sourceTree = "<group>"; };
 		B6FB473922DD26EF000F62BB /* renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = renderer.cpp; path = renderer/renderer.cpp; sourceTree = "<group>"; };
+		B6FF9C34234ACB9600CB99AB /* misc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = misc.cpp; path = features/misc.cpp; sourceTree = "<group>"; };
+		B6FF9C35234ACB9600CB99AB /* misc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = misc.h; path = features/misc.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,7 +214,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B60DBCC82318AABA00905E3E /* SDL2.framework in Frameworks */,
+				B6058E1E2349F36000E4C2B2 /* SDL2.framework in Frameworks */,
 				B6DC592C22F8FFEF00420F28 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,6 +321,8 @@
 				B622BE5922E4354000A2824A /* visuals.h */,
 				B6E823B022FF85130016E123 /* chams.cpp */,
 				B6E823AF22FF85130016E123 /* chams.h */,
+				B6E6D67223498D47002EE4A2 /* notifications.cpp */,
+				B6E6D67323498D47002EE4A2 /* notifications.h */,
 			);
 			name = visuals;
 			sourceTree = "<group>";
@@ -377,7 +390,6 @@
 		B6DC592A22F8FFEF00420F28 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B6960C5B2310FCA20007B3E2 /* libSDL2-2.0.0.dylib */,
 				B6DC592D22F9000200420F28 /* SDL2.framework */,
 				B6DC592B22F8FFEF00420F28 /* OpenGL.framework */,
 			);
@@ -427,8 +439,12 @@
 		B6E8239B22FF0E670016E123 /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				B6FF9C34234ACB9600CB99AB /* misc.cpp */,
+				B6FF9C35234ACB9600CB99AB /* misc.h */,
 				B677EF3423037FAC00F9A0CF /* movement.cpp */,
 				B677EF3323037FAC00F9A0CF /* movement.h */,
+				B67BCF5623680D6A00CB46E3 /* skinchanger.cpp */,
+				B67BCF5723680D6A00CB46E3 /* skinchanger.h */,
 			);
 			name = misc;
 			sourceTree = "<group>";
@@ -536,16 +552,19 @@
 				B622BE5B22E4354000A2824A /* visuals.h in Headers */,
 				B6190C2C22DCA828003748F0 /* hooker.h in Headers */,
 				B6DC594322F9054400420F28 /* stb_rect_pack.h in Headers */,
+				B67BCF5923680D6A00CB46E3 /* skinchanger.h in Headers */,
 				B6DC594822F9054400420F28 /* imgui.h in Headers */,
 				B69F44BE22DBF66F005A0433 /* vec2.h in Headers */,
 				B6E823B122FF85130016E123 /* chams.h in Headers */,
 				B6DC594022F9054400420F28 /* stb_truetype.h in Headers */,
 				B6DC594222F9054400420F28 /* imgui_impl_sdl_gl2.h in Headers */,
 				B609B30122E025B3007EF73B /* memory.h in Headers */,
+				B6E6D67523498D47002EE4A2 /* notifications.h in Headers */,
 				B6DC594522F9054400420F28 /* stb_textedit.h in Headers */,
 				B609B2FD22E0259C007EF73B /* netvar.h in Headers */,
 				B6FB473A22DD26EF000F62BB /* renderer.h in Headers */,
 				B6DC595522F9156600420F28 /* menu.h in Headers */,
+				B6FF9C37234ACB9600CB99AB /* misc.h in Headers */,
 				B6E823A522FF0E8D0016E123 /* ragebot.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -589,6 +608,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = B6E8329822D5DB0200B40D5A;
 			productRefGroup = B6E832A222D5DB0200B40D5A /* Products */;
@@ -626,6 +646,7 @@
 				B6E823AE22FF0F0D0016E123 /* events.cpp in Sources */,
 				B6DC594122F9054400420F28 /* imgui_impl_sdl_gl2.cpp in Sources */,
 				B609B2FE22E0259C007EF73B /* netvar.cpp in Sources */,
+				B67BCF5823680D6A00CB46E3 /* skinchanger.cpp in Sources */,
 				B622BE5622E4307100A2824A /* config.cpp in Sources */,
 				B6DC595422F9156600420F28 /* menu_items.cpp in Sources */,
 				B6E8239A22FF0E620016E123 /* hitmarkers.cpp in Sources */,
@@ -636,9 +657,11 @@
 				B6DC595222F9156600420F28 /* menu.cpp in Sources */,
 				B6DC594722F9054400420F28 /* imgui.cpp in Sources */,
 				B609B30622E025CB007EF73B /* offsets.cpp in Sources */,
+				B6E6D67423498D47002EE4A2 /* notifications.cpp in Sources */,
 				B6DC592922F8FCE200420F28 /* opengl.cpp in Sources */,
 				B6DC593222F900A600420F28 /* util_sdl.cpp in Sources */,
 				B677EF312303667000F9A0CF /* autowall.cpp in Sources */,
+				B6FF9C36234ACB9600CB99AB /* misc.cpp in Sources */,
 				B6DC593E22F9054400420F28 /* imgui_demo.cpp in Sources */,
 				B6DB699922E47026001D4428 /* util.cpp in Sources */,
 				B6F948FD22FE9F18007C05F7 /* draw_model_execute.cpp in Sources */,
@@ -775,7 +798,7 @@
 					"$(inherited)",
 					/usr/local/Cellar/sdl2/2.0.9_1/lib,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -797,7 +820,7 @@
 					"$(inherited)",
 					/usr/local/Cellar/sdl2/2.0.9_1/lib,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

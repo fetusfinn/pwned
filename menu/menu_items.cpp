@@ -176,7 +176,7 @@ void menu_t::slider_i(std::string label, ImVec2 bounds, int* value, bool cancel,
     // draw->draw_box(x - 3, y + 15 - 3, w + 6, h + 6, ImColor(255, 0, 0, 255));
 }
 
-void menu_t::slider_f(std::string label, ImVec2 bounds, float* value, bool cancel, std::string suffix, int prec)
+void menu_t::slider_f(std::string label, ImVec2 bounds, float* value, bool cancel, std::string suffix, int precision)
 {
     ImVec2 offset = add_menu_item(item_slider);
     
@@ -190,26 +190,6 @@ void menu_t::slider_f(std::string label, ImVec2 bounds, float* value, bool cance
     
     if (mouse.x > (x - 3) && mouse.y > (y + 15 - 3) && mouse.x < (x + w + 6) && mouse.y < (y + h + 15 + 6) && mouse_down() && !cancel)
         *value = ((mouse.x - x) / ((float)w / (float)(bounds.y)));
-    
-    // clamp
-    if (*value > bounds.y)
-        *value = bounds.y;
-    
-    if (*value < bounds.x)
-        *value = bounds.x;
-    
-    draw->draw_string(x, y, label.c_str(), Fonts::small, col_text);
-    draw->draw_box_filled(x, y + 15, w, h, col_item);
-    draw->draw_box_filled(x, y + 15, fill_value, h, col_item_active);
-    
-    // set precision
-    std::string val_str = std::to_string(*value);
-    std::string precision = "%." + std::to_string(prec) + "f";
-    auto written = std::snprintf(&val_str[0], val_str.size(), precision.c_str(), *value);
-    val_str.resize(written);
-    val_str += suffix;
-    
-    draw->draw_string(x + fill_value + 5, y + 15 - 1, val_str.c_str(), Fonts::small, col_text);
     
     float increment_val = (bounds.y / w);
     
@@ -226,6 +206,26 @@ void menu_t::slider_f(std::string label, ImVec2 bounds, float* value, bool cance
     if(draw->in_area(x + w + 5 - 1, y + 15, 7, 7) && mouse_clicked())
         *value += increment_val;
     
+    // clamp
+    if (*value > bounds.y)
+        *value = bounds.y;
+    
+    if (*value < bounds.x)
+        *value = bounds.x;
+    
+    draw->draw_string(x, y, label.c_str(), Fonts::small, col_text);
+    draw->draw_box_filled(x, y + 15, w, h, col_item);
+    draw->draw_box_filled(x, y + 15, fill_value, h, col_item_active);
+    
+    // set precision
+    std::string val_str = std::to_string(*value);
+    std::string precision_str = "%." + std::to_string(precision) + "f";
+    auto written = std::snprintf(&val_str[0], val_str.size(), precision_str.c_str(), *value);
+    val_str.resize(written);
+    val_str += suffix;
+    
+    draw->draw_string(x + fill_value + 5, y + 15 - 1, val_str.c_str(), Fonts::small, col_text);
+    
     // draw bounds
     // draw->draw_box(x - 3, y + 15 - 3, w + 6, h + 6, ImColor(255, 0, 0, 255));
 }
@@ -234,7 +234,7 @@ bool menu_t::button(std::string label, bool* value)
 {
     ImVec2 offset = add_menu_item(item_button);
     
-    int w = 120, h = 20;
+    int w = 120, h = 18;
     int x = this->x + offset.x;
     int y = this->y + offset.y;
     

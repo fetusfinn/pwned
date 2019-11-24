@@ -22,7 +22,7 @@ enum menu_item_type_t
     item_combo          = 35,
     item_combo_multi    = item_combo,
     item_color_picker   = item_none,
-    item_button         = 20,
+    item_button         = 18,
 };
 
 class menu_t
@@ -51,6 +51,8 @@ private:
         bool backtrack  = false;
         bool chams_players = false;
         bool rage_hitboxes = false;
+        bool legit_hitboxes= false;
+        bool notifications = false;
         
         // color pickers
         bool picker_box = false;

@@ -3,6 +3,10 @@
  */
 #pragma once
 
+#define sdk_get_offset(type, table, netvar) *(type*)((uintptr_t)this + g_offsets.table.netvar);
+#define sdk_get_pointer(type, table, netvar) (type*)((uintptr_t)this + g_offsets.table.netvar);
+#define sdk_netvar(type, func, table, netvar) type& func() { static uintptr_t offset = g_netvar.get_offset(table, netvar); return *(type*)((uintptr_t)this + offset); }
+
 class netvar_manager_t
 {
 private:

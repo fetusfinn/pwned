@@ -9,7 +9,7 @@ void cheat_print(const std::string& msg, std::string prefix = "cheat", color_t c
 
 player_info_t util_get_player_info(player_t* player);
 
-bool util_is_point_visible(vec3_t point);
+bool util_is_point_visible(vec3_t point, float precision = 0.97f);
 bool util_is_player_visible(player_t* player);
 bool util_is_hitbox_visible(player_t* player, int hitbox);
 

@@ -5,6 +5,7 @@
 #include "common.h"
 #include "menu.h"
 #include "config.h"
+#include "skinchanger.h"
 
 namespace
 {
@@ -123,8 +124,8 @@ void menu_t::tab_rage()
 {
     set_side(side_left);
     checkbox("aimbot", &set.rage.aimbot);
-    slider_i("fov", {0, 180}, &set.rage.fov, false, "º");
     combo_multi("target hitboxes", {"head", "chest", "stomach", "arms", "legs"}, &set.rage.hitboxes, &opened.rage_hitboxes);
+    slider_i("fov", {0, 180}, &set.rage.fov, false, "º");
     checkbox("slient", &set.rage.silent);
     checkbox("autowall", &set.rage.autowall, opened.rage_hitboxes);
     slider_i("min damage", {0, 100}, &set.rage.min_damage, opened.rage_hitboxes, "hp");
@@ -146,11 +147,12 @@ void menu_t::tab_legit()
 {
     set_side(side_left);
     checkbox("aimbot", &set.legit.aimbot);
+    combo_multi("target hitboxes", {"head", "chest", "stomach", "arms", "legs"}, &set.legit.hitboxes, &opened.legit_hitboxes);
     slider_i("fov", {0, 90}, &set.legit.fov, false, "º");
-    slider_i("smoothing", {0, 100}, &set.legit.smooth, false, "%");    
-    checkbox("backtrack", &set.legit.backtrack);
+    slider_i("smoothing", {0, 100}, &set.legit.smooth, false, "%");
     
     set_side(side_right);
+    checkbox("backtrack", &set.legit.backtrack);
 }
 
 void menu_t::tab_visuals()
@@ -180,6 +182,7 @@ void menu_t::tab_visuals()
     checkbox("remove smoke", &set.visuals.other.remove_smoke, opened.hitmarkers);
     slider_f("flashbang effect", {0.f, 100.f}, &set.visuals.other.flash_alpha, false, "%", 0);
     checkbox("remove scope", &set.visuals.other.remove_scope);
+    checkbox("spectator list", &set.visuals.other.spectators);
 }
 
 void menu_t::tab_movement()
@@ -196,6 +199,8 @@ void menu_t::tab_misc()
     set_side(side_left);
     slider_i("override fov", {0, 60}, &set.misc.fov, false, "º");
     checkbox("remove view punch", &set.misc.remove_view_punch);
+    combo_multi("notifications", {"team check", "damages", "purchases", "console"}, &set.misc.notifications, &opened.notifications);
+    slider_f("transparent objects", {0.f, 100.f}, &set.misc.prop_alpha, opened.notifications, "%");
     
     set_side(side_right);
     combo("config", g_config.get_configs(), &set.config, &opened.config);
@@ -207,9 +212,32 @@ void menu_t::tab_misc()
 
 void menu_t::tab_skins()
 {
+    static int selected_weapon = WEAPON_AK47, last_weapon = selected_weapon;
+    skin_config_t& skin_config = set.skins.skins.at(selected_weapon);
+    bool save_weapon = false;
+    
+    
     set_side(side_left);
+    checkbox("skinchanger", &set.skins.enabled);
+    checkbox("stattrack", &set.skins.stattrack);
+    if(button("update all"))
+        g_skins.update();
+    button("update weapon", &save_weapon);
+    // list(skinchanger_t::weapons, &selected_weapon);
     
     set_side(side_right);
+    slider_f("float", {0.f, 1.f}, &skin_config.fallback_wear);
+    if(selected_weapon != last_weapon)
+    {
+        skin_config = set.skins.skins.at(selected_weapon);
+        last_weapon = selected_weapon;
+    }
+    // if(selected_weapon == WEAPON_KNIFE || selected_weapon == WEAPON_KNIFE_T)
+    //     list(skinchanger_t::knives);
+    // list(skinchanger_t::skins.at(selected_weapon), skin_config.fallback_paint_kit);
+    
+    if(save_weapon)
+        g_config.save_skin(selected_weapon, skin_config);
 }
 
 void menu_t::tab_players()

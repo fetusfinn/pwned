@@ -214,6 +214,34 @@ qangle_t calculate_angle(const vec3_t& src, const vec3_t& dst)
     return angles;
 }
 
+vec3_t calc_angle(vec3_t v1, vec3_t v2)
+{
+    vec3_t delta = v1 - v2;
+    
+    float len = delta.length();
+    
+    if(delta.z == 0.0f && len == 0.0f)
+        return vec3_t();
+    
+    if(delta.y == 0.0f && delta.x == 0.0f)
+        return vec3_t();
+    
+    constexpr float rad_pi = 57.295779513082f;
+    
+    vec3_t angles;
+    angles.x = (asinf(delta.z / delta.length()) * rad_pi);
+    
+    angles.y = (atanf(delta.y / delta.x) * rad_pi);
+    
+    angles.z = 0.0f;
+    if(delta.x >= 0.0f)
+        angles.y += 180.0f;
+    
+    angles.clamp();
+    
+    return angles;
+}
+
 /*
  *
  *
@@ -229,31 +257,43 @@ void vector_transform(vec3_t& in1, matrix3x4_t& in2, vec3_t& out)
  *
  *
  */
-vec3_t get_hitbox_position(player_t* player, int hitbox)
+vec3_t get_hitbox_position(player_t* player, int hitbox, matrix3x4_t* _matrix)
 {
     if(!player)
         return vec3_t(0, 0, 0);
     
     matrix3x4_t matrix[128];
     
-    if (!player->setup_bones(matrix, 128, 0x100, g_globals->m_cur_time))
-        return vec3_t(0, 0, 0);
+    if(_matrix)
+    {
+        for(int i = 0; i < (sizeof((_matrix)) / sizeof((_matrix)[0])); i++)
+            matrix[i] = _matrix[i];
+    }
+    else
+    {
+        if(!player->setup_bones(matrix, 128, 0x100, g_globals->m_cur_time))
+            return vec3_t(0, 0, 0);
+    }
     
     studio_hdr_t* hdr = g_model_info->get_studio_model(player->get_model());
     
     if(!hdr)
         return vec3_t(0, 0, 0);
     
-    studio_hitbox_set_t* set = hdr->get_hitbox_set(0);
+    studio_bbox_t* bbox = hdr->get_hitbox(hitbox, 0);
     
-    if(!set)
+    if(!bbox)
         return vec3_t(0, 0, 0);
+
+    // philip015's old hack
+    float mod = bbox->m_radius != -1.f ? bbox->m_radius : 0.f;
     
-    studio_bbox_t* bbox = set->get_hitbox(hitbox);
+    vec3_t max, min;
+    vector_transform(bbox->m_bbmin - mod, matrix[bbox->m_bone], min);
+    vector_transform(bbox->m_bbmax + mod, matrix[bbox->m_bone], max);
+    auto center = (min + max) / 2.f;
     
-    if (!bbox)
-        return vec3_t(0, 0, 0);
-    
+    /*
     vec3_t min, max, center;
     vec3_t bbmin = bbox->m_bbmin;
     vec3_t bbmax = bbox->m_bbmax;
@@ -272,13 +312,7 @@ vec3_t get_hitbox_position(player_t* player, int hitbox)
     matrix[bone]  = m;
     
     center = (min + max) * 0.5f;
-
-    /*
-    int pointscale = 50;
-    float ptwoz = 50 - pointscale;
-    float zval  = (ptwoz * min.z + pointscale * max.z) / 50;
-    center.z = zval;
-     */
+    */
     
     return center;
 }

@@ -61,7 +61,6 @@ public:
     int32_t m_has_max;
     float   m_max_val;
     void*   m_change_callback_fn;
-    
 };
 
 class cvar_t

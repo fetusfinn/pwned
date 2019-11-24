@@ -5,6 +5,7 @@
 /*  todo
  *
  *  move all structs and enums to their headers
+ *  maybe rename cheat classes to c_class instead of class_t
  *
  *  features
  *      offscreen
@@ -36,4 +37,3 @@ int __attribute((constructor)) entry()
     
     return 0;
 }
-

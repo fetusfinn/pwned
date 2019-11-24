@@ -4,9 +4,11 @@
  */
 #include "common.h"
 
+#include "misc.h"
 #include "ragebot.h"
 #include "visuals.h"
 #include "backtrack.h"
+#include "skinchanger.h"
 
 void frame_stage_notify_hook(void* thisptr, frame_stage_t frame_stage)
 {
@@ -30,6 +32,8 @@ void frame_stage_notify_hook(void* thisptr, frame_stage_t frame_stage)
         if(in_game)
         {
             g_visuals->remove_flash();
+            
+            g_skins.run();
         }
     }
     
@@ -56,6 +60,8 @@ void frame_stage_notify_hook(void* thisptr, frame_stage_t frame_stage)
                 // *local->get_view_angles() = fake / real
             }
             
+            g_misc->transparent_props();
+            
             g_rage->remove_recoil();
             
             if(set.misc.remove_view_punch)
@@ -68,7 +74,7 @@ void frame_stage_notify_hook(void* thisptr, frame_stage_t frame_stage)
             }
         }
         
-        g_backtrack->store();
+        g_time_warp.store();
     }
     
     if(frame_stage == FRAME_RENDER_END)

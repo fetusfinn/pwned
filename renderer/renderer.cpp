@@ -7,7 +7,7 @@
 
 renderer_t* g_render = new renderer_t();
 
-HFONT renderer_t::verdana12;
+HFONT renderer_t::verdana12, renderer_t::tahoma12;
 
 /*
  *
@@ -229,9 +229,9 @@ wstring renderer_t::string_wstring(const string& str)
  *
  *
  */
-HFONT renderer_t::create_font(string font_name, int size, int flags)
+HFONT renderer_t::create_font(string font_name, int size, int flags, int weight)
 {
     HFONT font = g_surface->create_hfont();
-    g_surface->set_font_glyph_set(font, font_name.c_str(), size, 150, 0, 0, flags);
+    g_surface->set_font_glyph_set(font, font_name.c_str(), size, weight, 0, 0, flags);
     return font;
 }

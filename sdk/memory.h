@@ -3,6 +3,8 @@
  */
 #pragma once
 
+#include <map>
+
 struct memory_module_t
 {
     off_t       length;
@@ -16,7 +18,7 @@ class memory_manager_t
 {
 private:
     
-    map<string, memory_module_t> loaded_modules;
+    std::map<string, memory_module_t> loaded_modules;
     
 private:
     

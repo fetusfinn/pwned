@@ -5,13 +5,15 @@
 
 struct item_t
 {
-    item_t(const char* display_name, const char* entity_name, const char* model, const char* killicon = nullptr) :
-           display_name(display_name), entity_name(entity_name), model(model), killicon(killicon) {}
+    item_t(const char* display_name, const char* entity_name, const char* model, const char* killicon = nullptr, const char* world_model = nullptr, const char* world_dropped_model = nullptr) :
+           display_name(display_name), entity_name(entity_name), model(model), killicon(killicon), world_model(world_model), world_dropped_model(world_dropped_model) {}
     
     const char* display_name;
     const char* entity_name;
     const char* model;
     const char* killicon;
+    const char* world_model;
+    const char* world_dropped_model;
 };
 
 struct model_t

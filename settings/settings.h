@@ -4,6 +4,7 @@
 #pragma once
 
 #include "imgui.h"
+#include "config.h"
 
 typedef std::vector<bool> multi;
 
@@ -22,6 +23,7 @@ struct settings_t
     struct
     {
         int w, h;
+        vec3_t mid;
     }screen;
     
     // feature settings
@@ -68,6 +70,9 @@ struct settings_t
         bool bhop = false;
         bool strafe = false;
         
+        multi notifications;// team check, damage, purchase
+        float prop_alpha = 0.f;
+        
         bool remove_view_punch  = false;
         bool remove_aim_punch   = false;
         
@@ -112,6 +117,7 @@ struct settings_t
         {
             multi   hitmarkers; // crosshair, sound, damage
             bool    bomb_timer  = false;
+            bool    spectators  = false;
             
             // removals
             float     flash_alpha = 0.f;
@@ -124,6 +130,13 @@ struct settings_t
             bool    sniper_crosshair = false;
         }other;
     }visuals;
+    
+    struct
+    {
+        bool enabled = false;
+        bool stattrack = false;
+        std::array<skin_config_t, WEAPON_COUNT + 1> skins;
+    }skins;
     
     struct
     {

@@ -17,7 +17,7 @@ public:
     
     bool is_player()
     {        
-        return !strcmp(get_client_class()->m_network_name, "CCSPlayer");
+        return strcmp(get_client_class()->m_network_name, "CCSPlayer") == 0;
     }
     
     bool is_immune()
@@ -54,6 +54,8 @@ public:
     {
         return sdk_get_offset(int, base_player, m_flags);
     }
+    
+    sdk_netvar(int, get_flags_raw, "DT_BasePlayer", "m_fFlags");
     
     float* get_flash_alpha()
     {
@@ -107,9 +109,17 @@ public:
     
     base_weapon_t* get_weapon();
     
-    move_type_t get_move_type()
+    sdk_netvar(base_handle_t, get_observer_target, "DT_CSPlayer", "m_hObserverTarget");
+    // sdk_netvar(vec3_t, get_angles, "DT_CSPlayer", "m_angEyeAngles");
+    
+    qangle_t* get_angles()
     {
-        return sdk_get_offset(move_type_t, base_entity, m_move_type);
+        return sdk_get_pointer(qangle_t, cs_player, m_eye_angles);
+    }
+    
+    int* get_my_weapons()
+    {
+        return sdk_get_pointer(int, base_combat_character, m_my_weapon);
     }
 };
 

@@ -19,8 +19,8 @@ void movement_t::bhop()
     
     if (jump[1] && !jump[0])
     {
-        global::cmd->m_buttons |= IN_JUMP;
         jump[1] = false;
+        global::cmd->m_buttons |= IN_JUMP;
     }
     else if (global::cmd->m_buttons & IN_JUMP)
     {

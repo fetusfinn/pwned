@@ -16,6 +16,8 @@ struct offsets_t
         uintptr_t m_origin;
         uintptr_t m_simulation_time;
         uintptr_t m_move_type;
+        uintptr_t m_model_index;
+        uintptr_t m_view_model;
     }base_entity;
     
     struct
@@ -38,11 +40,13 @@ struct offsets_t
         uintptr_t m_armor;
         uintptr_t m_has_helmet;
         uintptr_t m_immune;
+        uintptr_t m_eye_angles;
     }cs_player;
     
     struct
     {
         uintptr_t m_active_weapon;
+        uintptr_t m_my_weapon;
     }base_combat_character;
     
     struct
@@ -63,11 +67,21 @@ struct offsets_t
     struct
     {
         uintptr_t m_item_definition_index;
+        uintptr_t m_account_id;
+        uintptr_t m_item_id_high;
+        uintptr_t m_item_id_low;
+        uintptr_t m_entity_quality;
+        uintptr_t m_custom_name;
+        uintptr_t m_fallback_paint_kit;
+        uintptr_t m_fallback_seed;
+        uintptr_t m_fallback_wear;
+        uintptr_t m_fallback_stattrack;
     }base_attributable_item;
     
     struct
     {
-        
+        uintptr_t m_weapon;
+        uintptr_t m_owner;
     }base_view_model;
     
     struct

@@ -102,6 +102,18 @@ public:
     vec3_t operator/(float fl)          const;
     
     inline std::string to_string();
+    
+    vec3_t& operator+( const float& v )
+    {
+        x = x + v; y = y + v; z = z + v;
+        return *this;
+    }
+    
+    vec3_t& operator-(const float& v)
+    {
+        x = x - v; y = y - v; z = z - v;
+        return *this;
+    }
 };
 
 /*
@@ -304,6 +316,8 @@ inline float vec3_t::dot(float* other) const
 
 inline vec_t vec3_t::length(void) const
 {
+    // return std::sqrt(x * x + y * y + z * z);
+    
     float root = 0.0f;
     float sqsr = x * x + y * y + z * z;
     
@@ -335,25 +349,30 @@ inline vec_t vec3_t::length_2d(void) const
     return root;
 }
 
+inline vec_t vec3_t::length_2d_sqr(void) const
+{
+    return (x*x + y*y);
+}
+
 /*
  *  clamp
  */
 
 inline void vec3_t::clamp()
 {
-    if(this->x > 89)
-        this->x = 89;
+    if ( this->x < -89.0f )
+        this->x = -89.0f;
     
-    if(this->x < -89)
-        this->x = -89;
+    if ( this->x > 89.0f )
+        this->x = 89.0f;
     
-    while(this->y > 180)
-        this->y -= 360;
+    while ( this->y < -180.0f )
+        this->y += 360.0f;
     
-    while(this->y < -180)
-        this->y += 360;
+    while ( this->y > 180.0f )
+        this->y -= 360.0f;
     
-    this->z = 0;
+    this->z = 0.0f;
 }
 
 /*

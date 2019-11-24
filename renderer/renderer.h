@@ -11,7 +11,7 @@ private:
     
 public:
     
-    static HFONT verdana12;
+    static HFONT verdana12, tahoma12;
     
 public:
     
@@ -27,7 +27,7 @@ public:
     
     vec2_t get_text_size(HFONT font, string str);
     
-    HFONT create_font(string font_name, int size, int flags);
+    HFONT create_font(string font_name, int size, int flags, int weight = 150);
     
 };
 

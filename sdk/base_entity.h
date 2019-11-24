@@ -3,16 +3,13 @@
  */
 #pragma once
 
-#define sdk_get_offset(type, table, netvar) *(type*)((uintptr_t)this + g_offsets.table.netvar);
-#define sdk_get_pointer(type, table, netvar) (type*)((uintptr_t)this + g_offsets.table.netvar);
-
 class collidable_t
 {
 public:
     
     virtual void pad0();
-    virtual const vec3_t& obb_min() const;
-    virtual const vec3_t& obb_max() const;
+    virtual vec3_t& obb_min() const;
+    virtual vec3_t& obb_max() const;
     
 };
 
@@ -134,15 +131,48 @@ public:
         return sdk_get_pointer(collidable_t, base_entity, m_collision);
     }
     
-    vec3_t get_origin()
+    vec3_t& get_origin()
     {
         return sdk_get_offset(vec3_t, base_entity, m_origin);
     }
+    
+    sdk_netvar(vec3_t, get_origin_raw, "DT_BaseEntity", "m_vecOrigin");
     
     float get_simulation_time()
     {
         return sdk_get_offset(float, base_entity, m_simulation_time);
     }
+    
+    move_type_t get_move_type()
+    {
+        return sdk_get_offset(move_type_t, base_entity, m_move_type);
+    }
+    
+    int* get_model_index()
+    {
+        return sdk_get_pointer(int, base_entity, m_model_index);
+    }
+    
+    void* get_view_model()
+    {
+        return sdk_get_pointer(void, base_entity, m_view_model);
+    }
 };
 
 typedef base_entity_t entity_t;
+
+
+class base_view_model_t : public base_entity_t
+{
+public:
+    
+    int get_weapon()
+    {
+        return sdk_get_offset(int, base_view_model, m_weapon);
+    }
+    
+    int get_owner()
+    {
+        return sdk_get_offset(int, base_view_model, m_owner);        
+    }
+};

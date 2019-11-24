@@ -5,7 +5,8 @@
 
 namespace global
 {
-    extern bool*        send_packet;
+    extern bool         send_packet;
+    extern bool*        _send_packet;
     extern user_cmd_t*  cmd;
     extern player_t*    local;
     extern weapon_t*    weapon;

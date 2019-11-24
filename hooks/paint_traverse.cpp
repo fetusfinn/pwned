@@ -5,6 +5,10 @@
 #include "common.h"
 #include "renderer.h"
 #include "visuals.h"
+#include "notifications.h"
+#include "backtrack.h" // need for legitbot.h
+#include "legitbot.h"
+#include "skinchanger.h"
 
 void paint_traverse_hook(void* thisptr, VPANEL panel, bool repaint, bool allow_force)
 {
@@ -23,15 +27,19 @@ void paint_traverse_hook(void* thisptr, VPANEL panel, bool repaint, bool allow_f
         {
             focus_panel = panel;
             
-            renderer_t::verdana12 = g_render->create_font("Verdana Bold", 12, FONTFLAG_DROPSHADOW);
+            renderer_t::verdana12   = g_render->create_font("Verdana Bold", 12, FONTFLAG_DROPSHADOW);
+            renderer_t::tahoma12    = g_render->create_font("Tahoma", 11, FONTFLAG_DROPSHADOW, 100);
         }
     }
+    
+    init_g_item_def_index_map1();
+    init_g_item_def_index_map2();
     
     if(panel == focus_panel)
     {
         if(g_engine->is_in_game())
         {
-            if(global::send_packet)
+            if(global::_send_packet)
             {
                 // draw choked packets
                 for(int i = 0; i < 16; i++)
@@ -43,6 +51,12 @@ void paint_traverse_hook(void* thisptr, VPANEL panel, bool repaint, bool allow_f
             g_visuals->draw_other_esp();
             g_visuals->draw_hitmarkers();
             g_visuals->draw_scope();
+            g_visuals->draw_spectator_list();
+            
+            vec3_t aim_point = g_legitbot.get_aim_point(), screen;
+            
+            if(world_to_screen(aim_point, screen))
+                g_render->draw_box(screen.x, screen.y, 4, 4, color_t::blue);
         }
         else
         {

@@ -5,8 +5,9 @@
 #include "common.h"
 #include "visuals.h"
 #include "renderer.h"
-#include "ragebot.h" // g_rage->get_target();
+#include "ragebot.h"    // get_target
 #include "backtrack.h"
+#include "legitbot.h"
 
 visuals_t* g_visuals = new visuals_t;
 
@@ -384,19 +385,20 @@ void visuals_t::draw_player_esp()
                     auto weapon   = player->get_weapon();
                     if(weapon)
                     {
-                        value    = weapon->get_ammo();
-                        max      = weapon->get_weapon_info()->m_clip_size;
+                        value = weapon->get_ammo();
+                        auto weapon_info = weapon->get_weapon_info();
+                        max = (weapon_info == nullptr ? 0 : weapon_info->m_clip_size);
                     }
                     break;
             }
             
-            draw_bottom_bar(box, value, max, color_t::blue);
+            draw_bottom_bar(box, value, max, color_t(101, 183, 227, 255));
         }
         
-        std::string right_text = "";
+        std::string right_text = "";        
         
         // todo : legitbot target too
-        if(player == g_rage->get_target())
+        if(player == g_rage->get_target() || player == g_legitbot.get_target())
             right_text += "T";
         
         if(set.visuals.player.equipment)
@@ -418,7 +420,7 @@ void visuals_t::draw_player_esp()
             g_render->draw_string(box.x + box.w + 2, box.y, renderer_t::verdana12, right_text, white);
         
         if(set.visuals.player.backtrack == 1)
-            g_backtrack->draw(player);
+            g_time_warp.draw(player);
     }
 }
 
@@ -440,7 +442,9 @@ void visuals_t::draw_other_esp()
         if(!cc)
             continue;
         
-        if(cc->m_class_id == class_id_t::CPlantedC4)
+        int id = cc->m_class_id;
+        
+        if(id == CPlantedC4)
             draw_bomb_timer((planted_c4_t*)entity);
     }
 }
@@ -467,4 +471,40 @@ void visuals_t::draw_scope()
     
     g_render->draw_line(0, set.screen.h / 2, set.screen.w, set.screen.h / 2, color_t::black);
     g_render->draw_line(set.screen.w / 2, 0, set.screen.w / 2, set.screen.h, color_t::black);
+}
+
+/*
+ *
+ *
+ */
+void visuals_t::draw_spectator_list()
+{
+    if(!set.visuals.other.spectators)
+        return;
+    
+    std::vector<std::string> spectators;
+    
+    for(int i = 0; i < g_globals->m_max_clients; i++)
+    {
+        player_t* player = g_ent_list->get_player(i);
+        
+        if(!player)
+            continue;
+        
+        if(player->is_alive())
+            continue;
+        
+        if(g_ent_list->get_entity_from_handle(player->get_observer_target()) != global::local)
+            continue;
+        
+        auto info = util_get_player_info(player);
+        
+        if(!strcmp(info.name, "GOTV"))
+            continue;
+        
+        spectators.push_back(info.name);
+    }
+    
+    for(int i = 0; i < spectators.size(); i++)
+        g_render->draw_string(set.screen.w - g_render->get_text_size(renderer_t::tahoma12, spectators.at(i)).x - 10, 10 + (14 * i), renderer_t::tahoma12, spectators.at(i), color_t::white);
 }

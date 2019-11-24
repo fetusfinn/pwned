@@ -9,8 +9,6 @@
 
 rage_bot_t* g_rage = new rage_bot_t();
 
-static vec3_t screen_mid = vec3_t(0, 0, 0);
-
 /*
  *
  *  Returns the hitboxes we want to aim at
@@ -162,8 +160,8 @@ bool can_hit_player(player_t* player)
 
 void rage_bot_t::aimbot()
 {
-    if(screen_mid.is_zero())
-        screen_mid = vec3_t(set.screen.w, set.screen.h, 0);
+    if(!set.rage.aimbot)
+        return;
     
     if(!can_hit_player(m_target))
         m_target = find_target();
@@ -174,7 +172,7 @@ void rage_bot_t::aimbot()
         return;
     }
     
-    if(m_target_index < 1)
+    if(m_target_hitbox == -1)
     {
         skeep("no target hitbox");
         return;

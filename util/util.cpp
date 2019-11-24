@@ -51,7 +51,7 @@ player_info_t util_get_player_info(player_t* player)
  *
  *
  */
-bool util_is_point_visible(vec3_t point)
+bool util_is_point_visible(vec3_t point, float precision)
 {
     if(!global::local || !g_engine_trace)
         return false;
@@ -62,7 +62,7 @@ bool util_is_point_visible(vec3_t point)
     
     g_engine_trace->trace_ray(ray, 0x4600400b, &filter, &trace);
     
-    return (trace.m_fraction > 0.97f);
+    return (trace.m_fraction > precision);
 }
 
 /*

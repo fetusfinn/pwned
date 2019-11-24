@@ -135,7 +135,7 @@ struct studio_bone_t
 
 struct studio_bbox_t
 {
-    int     m_bone;
+    int     m_bone; // bone_index
     int     m_group;
     vec3_t  m_bbmin;
     vec3_t  m_bbmax;

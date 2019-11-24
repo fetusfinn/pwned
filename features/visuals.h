@@ -13,14 +13,17 @@ public:
     
     visuals_t()
     {
-        m_player_alpha.resize(64);
+        reset_player_alpha();
     }
+    
+    inline void reset_player_alpha() { m_player_alpha.clear(); m_player_alpha.resize(64); }
     
     void draw_player_esp();
     void draw_other_esp();
     
     void draw_hitmarkers();
     void draw_scope();
+    void draw_spectator_list();
     
     void remove_flash();
     void remove_smoke();

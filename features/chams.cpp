@@ -80,7 +80,7 @@ static material_t* create_material(string filename, bool flat, bool ignorez, boo
  */
 void chams_manager_t::create_materials(bool reload)
 {
-    // if we want to relaod then create again
+    // if we want to reload then recreate mats
     if(reload)
         g_mats_created = false;
     

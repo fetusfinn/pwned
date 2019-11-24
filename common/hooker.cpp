@@ -7,6 +7,7 @@
 #include "hooker.h"
 #include "event_listener.h"
 #include "chams.h"              // create_materials
+#include "skinchanger.h"        // g_item_def_index_map
 
 event_listner_t* g_listener = nullptr;
 
@@ -55,8 +56,8 @@ static void init_hooks()
     uintptr_t client_mode_ptr   = g_memory->get_pointer("client_panorama.dylib", SIG_CLIENTMODE, MSK_CLIENTMODE, 0xA) + 0x4;
     uintptr_t send_packet_ptr   = g_memory->get_procedure("engine.dylib", SIG_SENDPACKET, MSK_SENDPACKET, 0x1) + 0x2;
     
-    global::send_packet = reinterpret_cast<bool*>(send_packet_ptr);
-    g_memory->protect_addr(global::send_packet, 0x1 | 0x2 | 0x4);
+    global::_send_packet = reinterpret_cast<bool*>(send_packet_ptr);
+    g_memory->protect_addr(global::_send_packet, 0x1 | 0x2 | 0x4);
     
     uintptr_t get_local_client_ptr  = (uintptr_t)getvtable(g_engine)[12];
     
@@ -95,7 +96,7 @@ void cheat_init()
     
     g_netvar.init();
     
-    g_offsets.init();
+    g_offsets.init();        
 }
 
 /*
@@ -125,6 +126,8 @@ static void hook_functions()
     
     g_listener->add_listner("player_hurt");
     g_listener->add_listner("bullet_impact");
+    g_listener->add_listner("round_end");
+    g_listener->add_listner("item_purchase");
 }
 
 /*
@@ -136,12 +139,19 @@ static void prepare_settings()
     skeep("injected");
     
     g_engine->get_screen_size(set.screen.w, set.screen.h);
+    set.screen.mid = vec3_t(set.screen.w / 2, set.screen.h / 2, 0);
     
-    set.visuals.other.hitmarkers.resize(3);
-    set.legit.hitboxes.resize(5); // head, chest, stomach, arms, legs
-    set.rage.hitboxes.resize(5); // head, chest, stomach, arms, legs
+    set.visuals.other.hitmarkers.resize(3); // hitmarker, sound, damage
+    set.legit.hitboxes.resize(5);           // head, chest, stomach, arms, legs
+    set.rage.hitboxes.resize(5);            // head, chest, stomach, arms, legs
+    set.misc.notifications.resize(4);       //
     
     g_chams->create_materials();
+    
+    // need to init before config
+    g_skins.init();
+    
+    g_config.init();
 }
 
 /*

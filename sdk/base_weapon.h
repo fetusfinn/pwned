@@ -25,10 +25,8 @@ public:
     
     weapon_info_t* get_weapon_info()
     {
-        // todo : get the right index
-        // 516, 522
         typedef weapon_info_t*(*o_get_weapon_info)(void*);
-        return getvfunc<o_get_weapon_info>(this, 516)(this);
+        return getvfunc<o_get_weapon_info>(this, 525)(this);
     }
     
     /*

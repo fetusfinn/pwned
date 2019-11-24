@@ -187,7 +187,7 @@ public:
     virtual void        clear_bug_submission_count() = 0;
     virtual bool        does_level_contain_water() const = 0;
     virtual float       get_server_simulation_frame_time() const = 0;
-    virtual void        solid_moved(class client_entity_t* solid_ent, class collideable_t* solid_collide, const vec3_t* prev_origin, bool accurate_bbox_check) = 0;
+    virtual void        solid_moved(class client_entity_t* solid_ent, class collidable_t* solid_collide, const vec3_t* prev_origin, bool accurate_bbox_check) = 0;
     virtual void        trigger_moved(class client_entity_t* trigger_ent, bool accurate_bbox_check) = 0;
     virtual void        compute_leaves_connected(const vec3_t& origin, int count, const int* leaf_indices, bool* is_connected) = 0;
     virtual bool        is_in_commentary_mode(void) = 0;
